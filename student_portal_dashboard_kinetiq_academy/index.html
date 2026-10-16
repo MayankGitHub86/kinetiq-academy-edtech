@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<title>Student Portal Dashboard — Kinetiq Academy</title><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script>const origWarn = console.warn; console.warn = (...args) => { if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return; origWarn(...args); };</script><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-error": "#690005", "surface-container-high": "#222a3d", "on-tertiary-container": "#3e2400", "on-primary-container": "#0d0096", "inverse-primary": "#494bd6", "on-primary-fixed": "#07006c", "on-tertiary-fixed": "#2a1700", "secondary-fixed-dim": "#4edea3", "surface-dim": "#0b1326", "tertiary-container": "#ca8100", "primary-fixed": "#e1e0ff", "on-primary": "#1000a9", "background": "#0b1326", "error": "#ffb4ab", "secondary-container": "#00a572", "primary": "#c0c1ff", "outline-variant": "#464554", "surface-tint": "#c0c1ff", "tertiary-fixed-dim": "#ffb95f", "on-secondary-fixed": "#002113", "tertiary": "#ffb95f", "on-tertiary": "#472a00", "inverse-surface": "#dae2fd", "primary-fixed-dim": "#c0c1ff", "secondary": "#4edea3", "surface-container": "#171f33", "primary-container": "#8083ff", "surface-variant": "#2d3449", "secondary-fixed": "#6ffbbe", "on-secondary-container": "#00311f", "on-surface": "#dae2fd", "surface-container-low": "#131b2e", "error-container": "#93000a", "surface-container-lowest": "#060e20", "on-secondary-fixed-variant": "#005236", "surface-bright": "#31394d", "on-background": "#dae2fd", "outline": "#908fa0", "on-primary-fixed-variant": "#2f2ebe", "on-tertiary-fixed-variant": "#653e00", "surface": "#0b1326", "inverse-on-surface": "#283044", "on-secondary": "#003824", "tertiary-fixed": "#ffddb8", "surface-container-highest": "#2d3449", "on-error-container": "#ffdad6", "on-surface-variant": "#c7c4d7" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin": "2rem", "space-xs": "0.25rem", "space-lg": "1.5rem", "gutter": "1.5rem", "space-xl": "2.5rem", "gutter-mobile": "1rem", "space-md": "1rem", "space-sm": "0.5rem", "margin-mobile": "1rem" }, "fontFamily": { "headline-xl-mobile": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "headline-xl": ["Plus Jakarta Sans"], "title-md": ["Inter"], "body-lg": ["Inter"], "body-sm": ["Inter"], "headline-lg": ["Plus Jakarta Sans"], "label-md": ["Inter"], "body-md": ["Inter"], "label-xs": ["Inter"], "display-lg": ["Plus Jakarta Sans"] }, "fontSize": { "headline-xl-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "title-md": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "400" }], "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }], "label-xs": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }], "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.025em", "fontWeight": "700" }] } } } }</script></head><body class="bg-background font-body-md text-body-md text-on-surface selection:bg-primary/20 selection:text-primary"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest z-50 flex flex-col shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-space-lg flex items-center gap-space-sm"><img alt="Brand logo. - Primary color: #6366f1
+- Font: plusJakartaSans
+- Mode: dark
+- Roundness: rounded-md
+" class="h-8 w-auto object-contain" src="https://api.iconify.design/material-symbols:school-outline-rounded.svg?color=%238083ff"/><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-surface tracking-tight leading-none">Kinetiq</span><span class="font-label-xs text-label-xs text-primary uppercase tracking-wider">Academy</span></div></div><div class="px-space-md py-space-xs"><div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-secondary text-[18px]">school</span><span class="font-label-md text-label-md text-on-surface font-semibold">Student Track</span></div><span class="font-label-xs text-label-xs text-on-surface-variant bg-surface-container px-1.5 py-0.5 rounded">v2.4</span></div></div><nav class="flex-1 px-space-md py-space-sm space-y-1 overflow-y-auto" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-lg"><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-2.5 transition-all bg-primary-container text-on-primary-container font-semibold rounded-lg" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">space_dashboard</span><span class="font-body-md text-body-md">Dashboard</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="my-learning" href="#"><span class="material-symbols-outlined text-[20px]">auto_stories</span><span class="font-body-md text-body-md">My Learning</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="explore-courses" href="#"><span class="material-symbols-outlined text-[20px]">explore</span><span class="font-body-md text-body-md">Explore Courses</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="lms-player" href="#"><span class="material-symbols-outlined text-[20px]">play_circle</span><span class="font-body-md text-body-md">LMS Player</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="practice-center" href="#"><span class="material-symbols-outlined text-[20px]">terminal</span><span class="font-body-md text-body-md">Practice Center</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="ai-companion" href="#"><span class="material-symbols-outlined text-[20px]">smart_toy</span><span class="font-body-md text-body-md">AI Companion</span></a><a class="flex items-center justify-between px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="live-classes" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[20px]">sensors</span><span class="font-body-md text-body-md">Live Classes</span></div><span class="w-2 h-2 rounded-full bg-error animate-pulse"></span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="analytics" href="#"><span class="material-symbols-outlined text-[20px]">insights</span><span class="font-body-md text-body-md">Analytics</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="certificates" href="#"><span class="material-symbols-outlined text-[20px]">verified</span><span class="font-body-md text-body-md">Certificates</span></a></nav><div class="p-space-md bg-surface-container-lowest"><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-body-md text-body-md">Settings</span></a></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><span class="font-label-xs text-label-xs font-semibold px-2 py-1 rounded bg-surface-container-high text-primary">Student Portal</span><div class="hidden md:flex items-center gap-space-sm px-space-md py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant text-body-sm font-body-sm"><span class="material-symbols-outlined text-[18px]">search</span><span>Search lessons, assignments...</span><kbd class="ml-space-md text-[10px] bg-surface-container px-1.5 py-0.5 rounded text-outline">âŒ˜K</kbd></div></div><div class="flex items-center gap-space-md"><div class="hidden lg:flex items-center gap-space-xs px-2.5 py-1 rounded-full bg-surface-container-low text-error"><span class="w-2 h-2 rounded-full bg-error animate-pulse"></span><span class="font-label-xs text-label-xs font-semibold">Quantum Lab: Live</span></div><div class="hidden sm:flex items-center gap-space-sm px-2.5 py-1 rounded-full bg-surface-container-low"><div class="flex items-center gap-1 text-tertiary"><span class="material-symbols-outlined text-[16px]">local_fire_department</span><span class="font-label-md text-label-md font-semibold">14 Days</span></div><span class="text-outline-variant">|</span><div class="flex items-center gap-1 text-secondary"><span class="material-symbols-outlined text-[16px]">bolt</span><span class="font-label-md text-label-md font-semibold">2,850 XP</span></div></div><div class="hidden xl:flex items-center bg-surface-container-low p-0.5 rounded-lg font-label-xs text-label-xs"><span class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface font-semibold">Student</span><a class="px-2.5 py-1 text-on-surface-variant hover:text-on-surface transition-colors" href="#">Instructor</a><a class="px-2.5 py-1 text-on-surface-variant hover:text-on-surface transition-colors" href="#">Public Web</a></div><div class="relative flex items-center justify-center p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all cursor-pointer"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-primary"></span></div><div class="flex items-center gap-space-xs pl-space-xs"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://api.iconify.design/material-symbols:school-outline-rounded.svg?color=%238083ff"/><div class="hidden md:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-none">Elena Vance</span><span class="font-label-xs text-label-xs text-on-surface-variant leading-tight">Student ID #8812</span></div></div></div></header><main class="relative pt-16 bg-surface min-h-screen w-full px-space-lg py-space-lg"><div class="flex flex-col w-full space-y-space-xl">
+<div class="relative overflow-hidden rounded-xl bg-surface-container-high p-space-lg shadow-xl">
+<div class="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-primary-container/10 blur-3xl pointer-events-none"></div>
+<div class="absolute right-1/3 -bottom-20 h-64 w-64 rounded-full bg-secondary-container/10 blur-2xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col xl:flex-row items-start xl:items-center justify-between gap-space-lg">
+<div class="space-y-space-sm max-w-3xl">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-low text-primary font-label-xs text-label-xs tracking-wider uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+            Cohort 14 â€¢ Week 3 in Session
+          </span>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-tertiary-container/20 text-tertiary font-label-xs text-label-xs">
+<span class="material-symbols-outlined text-[14px]">local_fire_department</span>
+            7-Day Consistency Streak
+          </span>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-secondary-container/20 text-secondary font-label-xs text-label-xs">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+            1,840 XP Earned
+          </span>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-lowest text-on-surface-variant font-label-xs text-label-xs">
+<span class="material-symbols-outlined text-[14px] text-tertiary">military_tech</span>
+            Top 5% Distributed Systems
+          </span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">
+          Welcome back, Alex Turner ðŸ‘‹
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Your active sprint has 3 modules remaining before the peer-review milestone. Target velocity is on track for early completion.
+        </p>
+</div>
+<div class="flex flex-wrap sm:flex-nowrap items-center gap-space-sm w-full xl:w-auto">
+<button class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-space-md py-2.5 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-title-md text-title-md transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[20px] text-secondary">terminal</span>
+<span>Launch Cloud Sandbox</span>
+</button>
+<button class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-space-md py-2.5 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-title-md text-title-md transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[20px] text-primary">smart_toy</span>
+<span>Open AI Tutor</span>
+</button>
+<button class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-space-lg py-2.5 rounded-lg bg-primary-container hover:bg-inverse-primary text-on-primary-container hover:text-on-surface font-title-md text-title-md shadow-md transition-all">
+<span class="material-symbols-outlined text-[20px]">play_arrow</span>
+<span>Resume Lesson (14m left)</span>
+</button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-space-lg items-start">
+<div class="xl:col-span-2 space-y-space-xl min-w-0">
+<div class="rounded-xl bg-surface-container-low p-space-lg space-y-space-lg shadow-md relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">auto_stories</span>
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider font-semibold">Current Masterclass in Progress</span>
+</div>
+<span class="px-2.5 py-1 rounded bg-secondary-container/20 text-secondary font-label-xs text-label-xs font-semibold">Track Active</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-lg items-center">
+<div class="md:col-span-5 relative group overflow-hidden rounded-lg aspect-video md:aspect-[4/3] bg-surface-container-lowest shadow-inner">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A sleek hypermodern dark developer workspace showing holographic code trees and distributed system topology monitors in deep indigo and jade neon lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmay0YkFhigsp72PPFU9D52J1ZbCM9xtXhM9t6J5pqF4lVhzJ89_aTLyRDXgkA3Z1UoLS_V3SMoY_nr6aAwBgUiSYbUkIc38c-0rniPkDPDFhWHK2B_JEiYUb7brR8BEkH6NN7QexwotSda5neS5MyAP3kpZ89f8SwC-ekYf0pDed1-ro7ItkBAD1K30IKJRYpf4LdYBH7wGspuY5w54fCHBCzR2MrHsAhhIh1tUGEhTs3OFjMddxpbg"/>
+<div class="absolute inset-0 bg-surface-container-lowest/60 flex items-center justify-center transition-opacity group-hover:bg-surface-container-lowest/40">
+<button aria-label="Play Lesson Video" class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shadow-lg transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-[28px]">play_arrow</span>
+</button>
+</div>
+<div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-surface-container-lowest/90 font-label-xs text-label-xs text-on-surface">
+              Duration: 28:40
+            </div>
+</div>
+<div class="md:col-span-7 space-y-space-md">
+<div>
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">System Architecture Track</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5">
+                Fullstack Next.js 15 &amp; Distributed Systems
+              </h2>
+</div>
+<div class="space-y-1.5">
+<div class="flex justify-between items-center font-label-md text-label-md">
+<span class="text-on-surface-variant">Course Progress</span>
+<span class="text-secondary font-semibold">68% Completed</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary-container to-secondary rounded-full" style="width: 68%;"></div>
+</div>
+<p class="font-body-sm text-body-sm text-outline">18 of 26 modules verified â€¢ 4 interactive labs completed</p>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded bg-surface-container-high flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+</div>
+<div class="min-w-0">
+<span class="font-label-xs text-label-xs text-on-surface-variant block">Next Up: Module 4</span>
+<span class="font-title-md text-title-md text-on-surface truncate block">Server Components vs Client Hydration</span>
+</div>
+</div>
+<button class="px-space-md py-2 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md hover:bg-inverse-primary hover:text-on-surface transition-colors whitespace-nowrap">
+                Resume Lab
+              </button>
+</div>
+</div>
+</div>
+</div>
+<div class="rounded-xl bg-surface-container-low p-space-lg space-y-space-lg shadow-md">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Personalized Curriculum Roadmap</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Real-time mastery map dynamic to your code quality benchmarks</p>
+</div>
+<span class="font-label-xs text-label-xs text-primary bg-surface-container-high px-2.5 py-1 rounded">Semester 1</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md relative">
+<div class="rounded-lg bg-surface-container p-space-md space-y-space-sm flex flex-col justify-between shadow-sm">
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-secondary bg-secondary-container/20 px-2 py-0.5 rounded font-semibold">Completed</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">check_circle</span>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface pt-1">React 19 Core Engine</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Fiber reconciler, transitions, and concurrent rendering.</p>
+</div>
+<div class="pt-2 flex items-center justify-between font-label-xs text-label-xs text-outline">
+<span>Score: 98%</span>
+<span>12 Labs</span>
+</div>
+</div>
+<div class="rounded-lg bg-surface-container-high p-space-md space-y-space-sm flex flex-col justify-between shadow-sm relative">
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-primary bg-primary-container/20 px-2 py-0.5 rounded font-semibold">In Progress</span>
+<span class="material-symbols-outlined text-primary text-[20px]">sync</span>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface pt-1">Next.js App Router</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Streaming SSR, Server Actions, and distributed caching topologies.</p>
+</div>
+<div class="space-y-1 pt-2">
+<div class="flex justify-between font-label-xs text-label-xs text-on-surface-variant">
+<span>Pacing</span>
+<span>68%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 68%;"></div>
+</div>
+</div>
+</div>
+<div class="rounded-lg bg-surface-container p-space-md space-y-space-sm flex flex-col justify-between shadow-sm opacity-80">
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-on-surface-variant bg-surface-container-lowest px-2 py-0.5 rounded">Upcoming</span>
+<span class="material-symbols-outlined text-outline text-[20px]">lock_clock</span>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface pt-1">Vector DB &amp; RAG</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cosine similarity engines, semantic search, and graph context injection.</p>
+</div>
+<div class="pt-2 flex items-center justify-between font-label-xs text-label-xs text-outline">
+<span>Est: 14 hrs</span>
+<span>8 Labs</span>
+</div>
+</div>
+<div class="rounded-lg bg-surface-container p-space-md space-y-space-sm flex flex-col justify-between shadow-sm opacity-60">
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-tertiary bg-tertiary-container/20 px-2 py-0.5 rounded">Capstone</span>
+<span class="material-symbols-outlined text-tertiary text-[20px]">emoji_events</span>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface pt-1">Microfrontends</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Independent deployments, module federation, and zero-downtime rollouts.</p>
+</div>
+<div class="pt-2 flex items-center justify-between font-label-xs text-label-xs text-outline">
+<span>Evaluated by Panel</span>
+</div>
+</div>
+</div>
+</div>
+<div class="rounded-xl bg-surface-container-low p-space-lg space-y-space-md shadow-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<div class="flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]">smart_toy</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Interactive Socratic AI Companion</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Direct compiler-aware guidance grounded on your real-time codebase</p>
+</div>
+</div>
+<div class="flex items-center gap-2 self-start sm:self-auto px-2.5 py-1 rounded bg-surface-container font-label-xs text-label-xs text-secondary">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span>AST Live Analyzer: Active</span>
+</div>
+</div>
+<div class="space-y-space-sm">
+<div class="flex flex-wrap gap-2">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm transition-colors text-left flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">psychology</span>
+<span>"Explain why Server Actions avoid API boilerplate"</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm transition-colors text-left flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-error">bug_report</span>
+<span>"Debug memory leak in WebSocket connection pool"</span>
+</button>
+</div>
+<div class="relative rounded-lg bg-surface-container-lowest p-space-sm flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-outline text-[20px] pl-2">prompt_suggestion</span>
+<input class="w-full bg-transparent border-none text-on-surface placeholder:text-outline focus:outline-none font-body-md text-body-md" placeholder="Ask Socratic tutor about runtime edge cases, concurrency hazards, or design patterns..." type="text"/>
+<button class="px-4 py-2 rounded-lg bg-primary-container text-on-primary-container font-title-md text-title-md hover:bg-inverse-primary transition-colors flex items-center gap-1 flex-shrink-0">
+<span>Send</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-space-xl min-w-0">
+<div class="rounded-xl bg-surface-container-low p-space-lg space-y-space-md shadow-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-surface">Daily Velocity</h3>
+<span class="font-label-xs text-label-xs text-secondary bg-secondary-container/20 px-2 py-0.5 rounded font-semibold">Goal: 60m</span>
+</div>
+<div class="flex items-center justify-between gap-space-md py-space-sm">
+<div class="relative w-28 h-28 flex items-center justify-center flex-shrink-0">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<circle class="text-surface-container-high" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-secondary" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.2" stroke-dashoffset="62.8" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute flex flex-col items-center justify-center">
+<span class="font-headline-lg text-headline-lg text-on-surface font-bold leading-none">45</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">/ 60 min</span>
+</div>
+</div>
+<div class="space-y-2 flex-1 min-w-0">
+<div class="flex justify-between font-label-xs text-label-xs text-on-surface-variant">
+<span>Past 7 Days Momentum</span>
+<span class="text-secondary font-semibold">92% Met</span>
+</div>
+<div class="flex items-end justify-between h-14 pt-2 gap-1.5">
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full bg-secondary rounded-t h-10"></div>
+<span class="font-label-xs text-[10px] text-outline">M</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full bg-secondary rounded-t h-12"></div>
+<span class="font-label-xs text-[10px] text-outline">T</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full bg-secondary rounded-t h-8"></div>
+<span class="font-label-xs text-[10px] text-outline">W</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full bg-secondary rounded-t h-11"></div>
+<span class="font-label-xs text-[10px] text-outline">T</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full bg-secondary rounded-t h-14"></div>
+<span class="font-label-xs text-[10px] text-outline">F</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full bg-secondary/40 rounded-t h-6"></div>
+<span class="font-label-xs text-[10px] text-outline">S</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-full bg-primary-container rounded-t h-9"></div>
+<span class="font-label-xs text-[10px] text-primary font-bold">Today</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="rounded-xl bg-surface-container-low p-space-lg space-y-space-md shadow-md relative overflow-hidden">
+<div class="absolute -right-8 -top-8 w-28 h-28 bg-error/10 rounded-full blur-xl pointer-events-none"></div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-error animate-ping"></span>
+<span class="font-label-xs text-label-xs text-error font-semibold uppercase tracking-wider">Live Broadcast</span>
+</div>
+<span class="font-label-xs text-label-xs text-on-surface-variant bg-surface-container px-2 py-0.5 rounded">In 25 mins</span>
+</div>
+<div class="space-y-space-xs">
+<h4 class="font-title-md text-title-md text-on-surface">Advanced State Machines in React</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Live architectural design session covering XState v5 and nested parallel machines.</p>
+</div>
+<div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container">
+<img class="w-10 h-10 rounded-full object-cover flex-shrink-0" data-alt="A distinguished female computer science lecturer with short silver hair wearing modern glasses in an ambient production studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBH2_13Hid1ClNMC2OROCMC4G6Tye8IHqyl_yKkU2pxOVxvcNsxTTHSQxK6MuqAzah8d243eAjBDwkEtGI-dCzZ1g4tn7Khofi2up1rgt4pDlxM6fd7uxkccul-zyhh1jXe1t24-9j2N7sGsVp9KhU6G6vZjuBkN1obWfE_g2jI6nNyB8hgsIY-YjPGcMxKNc-mUAM1zbm13emJcS3JvKOPAtfFRZOFq1SlPQ14_EWL-9USYuhkAyROWw"/>
+<div class="min-w-0">
+<span class="font-title-md text-title-md text-on-surface block truncate">Dr. Sarah Vance</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant block">Staff Engineer &amp; Author</span>
+</div>
+</div>
+<button class="w-full py-2.5 rounded-lg bg-error text-on-error font-title-md text-title-md hover:bg-error-container hover:text-on-error-container transition-colors flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">sensors</span>
+<span>Join Classroom</span>
+</button>
+</div>
+<div class="rounded-xl bg-surface-container-low p-space-lg space-y-space-md shadow-md">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md text-on-surface">Recent Badges</h3>
+<a class="font-label-xs text-label-xs text-primary hover:underline" href="#">View All (18)</a>
+</div>
+<div class="space-y-space-sm">
+<div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container">
+<div class="w-10 h-10 rounded-lg bg-primary-container/20 text-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">sprint</span>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md text-on-surface truncate">Code Sprint Champion</span>
+<span class="font-label-xs text-label-xs text-primary font-semibold">+250 XP</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline truncate">Completed 5 async labs under 48 hours</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container">
+<div class="w-10 h-10 rounded-lg bg-tertiary-container/20 text-tertiary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">local_fire_department</span>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md text-on-surface truncate">7-Day Consistency</span>
+<span class="font-label-xs text-label-xs text-tertiary font-semibold">+150 XP</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline truncate">Active commits logged daily without fail</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm p-space-sm rounded-lg bg-surface-container">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/20 text-secondary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+</div>
+<div class="min-w-0 flex-1">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md text-on-surface truncate">TypeScript Guru</span>
+<span class="font-label-xs text-label-xs text-secondary font-semibold">100% Score</span>
+</div>
+<p class="font-body-sm text-body-sm text-outline truncate">Zero 'any' escape hatches in final diagnostic</p>
+</div>
+</div>
+</div>
+</div>
+<div class="rounded-xl bg-surface-container-low p-space-lg space-y-space-sm shadow-md">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-primary bg-primary-container/20 px-2 py-0.5 rounded font-semibold uppercase">Daily Diagnostic</span>
+<span class="font-label-xs text-label-xs text-outline">Est: 5 mins</span>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface">Today's Algorithmic Challenge</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Implement a lock-free bounded concurrent queue with atomic operations in WebAssembly.
+        </p>
+<div class="pt-2">
+<button class="w-full py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-title-md text-title-md transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">psychology_alt</span>
+<span>Test Knowledge</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div></main></div>  <script src="../shared/api.js"></script><script src="../shared/router.js"></script>
+<script>
+// --- Dashboard Live Data Integration -----------------------------------------
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!window.KinetiqAPI) return;
+
+  // Redirect to login if not authenticated
+  if (!window.KinetiqAPI.requireAuth()) return;
+
+  const user = window.KinetiqAPI.store.user.get();
+
+  // Personalize greeting
+  const greetEls = document.querySelectorAll('[data-greeting], h1, h2');
+  const firstName = user?.firstName || 'Learner';
+  document.title = `Dashboard — ${firstName} · Kinetiq Academy`;
+
+  // Try to load live dashboard data
+  try {
+    const [dashRes, enrollRes] = await Promise.all([
+      window.KinetiqAPI.user.getDashboard().catch(() => null),
+      window.KinetiqAPI.user.getEnrolledCourses().catch(() => null),
+    ]);
+
+    if (dashRes?.data) {
+      const stats = dashRes.data.stats;
+      // Update stats widgets if present
+      document.querySelectorAll('[data-stat="enrolled"]').forEach(el => { el.textContent = stats.totalEnrolledCourses ?? el.textContent; });
+      document.querySelectorAll('[data-stat="completed"]').forEach(el => { el.textContent = stats.completedCourses ?? el.textContent; });
+      document.querySelectorAll('[data-stat="hours"]').forEach(el => { el.textContent = (stats.totalHoursLearned ?? el.textContent); });
+      document.querySelectorAll('[data-stat="notifications"]').forEach(el => { el.textContent = stats.unreadNotifications ?? el.textContent; });
+    }
+
+    // Show unread notification badge
+    if (dashRes?.data?.stats?.unreadNotifications > 0) {
+      const badge = document.querySelector('[data-notification-badge]');
+      if (badge) { badge.textContent = dashRes.data.stats.unreadNotifications; badge.classList.remove('hidden'); }
+    }
+  } catch (err) {
+    console.warn('Dashboard data load:', err.message);
+  }
+
+  // Handle payment success redirect
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('payment') === 'success') {
+    window.KinetiqAPI.ui.showSuccess('Payment successful! You are now enrolled. ??');
+    window.history.replaceState({}, '', window.location.pathname);
+  }
+
+  // Connect socket for real-time notifications
+  window.KinetiqAPI.socket.connect();
+});
+</script>
+</body></html>

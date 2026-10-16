@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>Engineering Resources & Architecture Blog � Kinetiq Academy</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script>const origWarn = console.warn; console.warn = (...args) => { if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return; origWarn(...args); };</script><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-dim":"#0b1326","secondary-fixed-dim":"#4edea3","primary-container":"#8083ff","surface-container-low":"#131b2e","on-error-container":"#ffdad6","inverse-surface":"#dae2fd","surface-container":"#171f33","inverse-primary":"#494bd6","on-error":"#690005","primary-fixed":"#e1e0ff","surface-container-lowest":"#060e20","surface-variant":"#2d3449","secondary":"#4edea3","secondary-container":"#00a572","primary-fixed-dim":"#c0c1ff","error-container":"#93000a","tertiary-fixed":"#ffddb8","tertiary-container":"#ca8100","surface-tint":"#c0c1ff","on-primary-fixed":"#07006c","surface-container-highest":"#2d3449","primary":"#c0c1ff","error":"#ffb4ab","on-tertiary-container":"#3e2400","tertiary":"#ffb95f","background":"#0b1326","on-primary-fixed-variant":"#2f2ebe","secondary-fixed":"#6ffbbe","outline":"#908fa0","outline-variant":"#464554","on-primary-container":"#0d0096","on-tertiary-fixed":"#2a1700","on-tertiary":"#472a00","surface-container-high":"#222a3d","on-secondary-container":"#00311f","on-primary":"#1000a9","on-secondary-fixed":"#002113","inverse-on-surface":"#283044","on-tertiary-fixed-variant":"#653e00","surface-bright":"#31394d","on-surface":"#dae2fd","tertiary-fixed-dim":"#ffb95f","on-secondary":"#003824","on-secondary-fixed-variant":"#005236","surface":"#0b1326","on-background":"#dae2fd","on-surface-variant":"#c7c4d7"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"margin-mobile":"1rem","space-md":"1rem","space-sm":"0.5rem","space-xl":"2.5rem","margin":"2rem","gutter-mobile":"1rem","space-lg":"1.5rem","space-xs":"0.25rem","gutter":"1.5rem"},fontFamily:{"title-md":["Inter"],"body-lg":["Inter"],"headline-md":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"headline-xl":["Plus Jakarta Sans"],"label-md":["Inter"],"display-lg":["Plus Jakarta Sans"],"label-xs":["Inter"],"headline-xl-mobile":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"body-md":["Inter"],"body-sm":["Inter"]},fontSize:{"title-md":["16px",{"lineHeight":"24px","letterSpacing":"-0.005em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"26px","letterSpacing":"0em","fontWeight":"400"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"display-lg":["48px",{"lineHeight":"56px","letterSpacing":"-0.025em","fontWeight":"700"}],"label-xs":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"500"}],"headline-xl-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.015em","fontWeight":"600"}],"display-lg-mobile":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"22px","letterSpacing":"0em","fontWeight":"400"}],"body-sm":["13px",{"lineHeight":"18px","letterSpacing":"0.005em","fontWeight":"400"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-20 w-full max-w-[1440px] mx-auto px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg shrink-0"><a class="flex items-center gap-space-sm" data-path="home" href="#"><img alt="Brand logo. - Primary color: #6366f1
+- Font: plusJakartaSans
+- Mode: dark
+- Roundness: rounded-md
+" class="h-8 w-auto object-contain" src="https://api.iconify.design/material-symbols:school-outline-rounded.svg?color=%238083ff"/><span class="font-headline-md text-headline-md text-on-surface tracking-tight">Kinetiq</span></a><nav class="hidden xl:flex items-center gap-space-xs p-1 rounded-xl bg-surface-container-lowest/60" data-active-classes="text-on-surface bg-surface-container-high"><a class="px-3 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-on-surface hover:bg-surface-container transition-colors" data-path="home" href="#">Home</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-on-surface hover:bg-surface-container transition-colors" data-path="explore-courses" href="#">Explore Courses</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-on-surface hover:bg-surface-container transition-colors" data-path="course-details" href="#">Course Details</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-on-surface hover:bg-surface-container transition-colors" data-path="ai-learning" href="#">AI Learning</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-on-surface hover:bg-surface-container transition-colors" data-path="pricing" href="#">Pricing</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-on-surface hover:bg-surface-container transition-colors" data-path="about-us" href="#">About Us</a><a aria-current="page" class="px-3 py-1.5 rounded-lg font-label-md transition-colors text-on-surface bg-surface-container-high" data-path="resources-and-blog" href="#">Resources &amp; Blog</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-on-surface hover:bg-surface-container transition-colors" data-path="contact" href="#">Contact</a></nav></div><div class="flex items-center gap-space-sm shrink-0"><button class="hidden md:flex items-center gap-space-sm h-10 px-3 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors font-body-sm text-body-sm" type="button"><span class="material-symbols-outlined text-[18px]">search</span><span>Search</span><kbd class="px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-label-xs text-label-xs">⌘K</kbd></button><a class="hidden sm:inline-flex items-center justify-center h-10 px-4 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors" data-path="login" href="#">Log In</a><a class="inline-flex items-center justify-center h-10 px-4 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md hover:bg-primary hover:text-on-primary transition-colors shadow-sm" data-path="register" href="#">Get Started Free</a><img alt="Profile" class="w-8 h-8 rounded-full object-cover ml-1" src="https://api.iconify.design/material-symbols:school-outline-rounded.svg?color=%238083ff"/></div></div></header><main class="w-full pt-20 bg-surface min-h-[calc(100vh-80px)]"><div class="flex flex-col w-full">
+<!-- Dynamic Background Aura -->
+<div class="relative w-full overflow-hidden">
+<div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[850px] h-[360px] bg-primary-container/10 rounded-full blur-[130px] pointer-events-none"></div>
+<div class="absolute top-96 -left-48 w-[420px] h-[420px] bg-secondary-container/5 rounded-full blur-[140px] pointer-events-none"></div>
+<!-- Editorial Header Section -->
+<div class="max-w-[1440px] mx-auto px-margin pt-space-xl pb-space-lg relative z-10">
+<div class="flex flex-col gap-space-sm max-w-4xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high w-fit">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-xs text-label-xs tracking-wider uppercase text-secondary font-semibold">Engineering Insights &amp; Whitepapers</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface tracking-tight mt-space-xs">
+          The Kinetiq <span class="text-primary">Engineering Dispatch</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl leading-relaxed">
+          Deep-dive architectural essays, compiler deep-dives, distributed systems post-mortems, and modern frontend performance guides authored directly by staff infrastructure engineers.
+        </p>
+</div>
+<!-- Controls Matrix: Search & Live Category Badges -->
+<div class="mt-space-xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-md bg-surface-container-low p-space-md rounded-2xl shadow-sm">
+<div class="flex items-center gap-2 overflow-x-auto w-full lg:w-auto pb-1 lg:pb-0" id="filter-container">
+<button class="filter-btn px-4 py-2 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md shrink-0 shadow-sm transition-all" data-tag="all" type="button">
+            All Articles
+          </button>
+<button class="filter-btn px-4 py-2 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface hover:bg-surface-bright font-label-md text-label-md shrink-0 transition-all" data-tag="distributed" type="button">
+            Distributed Systems
+          </button>
+<button class="filter-btn px-4 py-2 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface hover:bg-surface-bright font-label-md text-label-md shrink-0 transition-all" data-tag="frontend" type="button">
+            Next.js &amp; React 19
+          </button>
+<button class="filter-btn px-4 py-2 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface hover:bg-surface-bright font-label-md text-label-md shrink-0 transition-all" data-tag="ai" type="button">
+            AI &amp; Agents
+          </button>
+<button class="filter-btn px-4 py-2 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface hover:bg-surface-bright font-label-md text-label-md shrink-0 transition-all" data-tag="architecture" type="button">
+            System Design
+          </button>
+<button class="filter-btn px-4 py-2 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface hover:bg-surface-bright font-label-md text-label-md shrink-0 transition-all" data-tag="whitepapers" type="button">
+            Whitepapers &amp; Benchmarks
+          </button>
+<button class="filter-btn px-4 py-2 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-on-surface hover:bg-surface-bright font-label-md text-label-md shrink-0 transition-all" data-tag="career" type="button">
+            Career Guides
+          </button>
+</div>
+<div class="relative w-full lg:w-80 shrink-0">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full h-10 pl-10 pr-4 rounded-lg bg-surface-container text-on-surface placeholder:text-on-surface-variant/60 font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" id="article-search" placeholder="Search articles &amp; research papers..." type="text"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 font-label-xs text-label-xs text-on-surface-variant/70 uppercase">Esc to clear</span>
+</div>
+</div>
+</div>
+<!-- Featured Anchor Essay (Split Editorial Hero) -->
+<div class="max-w-[1440px] mx-auto px-margin mb-space-xl">
+<div class="relative bg-surface-container rounded-2xl overflow-hidden shadow-xl group">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+<!-- Image Canvas with Scrim & Telemetry Overlay -->
+<div class="lg:col-span-7 relative h-72 sm:h-96 lg:h-auto min-h-[380px] overflow-hidden bg-surface-container-lowest">
+<img class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-700 ease-out" data-alt="Futuristic dark-themed server architecture monitoring room glowing with ultra violet, indigo, and deep cyan metric graphs, visualizing hyper scale WebSocket packet routing, low-latency telemetry data streams, clean isometric perspective, architectural precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDswIkP3hHJIZsKGVi4exmMEDvlctOHLUibKywx4k3z64NTbIICP0-xyov1gkfcIiOoUamLEdklavZezY2Nz8qXLLxpK5uyFqNqat5vjz4CQ9hd3b-70T2sbZVK0q9yLQmDtu4Drew07UZ-esHClvXfw0r1kjlaKKEbI4JW5OgVy8dHLTtw0FkrDzhvuWaAwYfZdq-oWvm574ltBeoRCh4F7_6E30ta9RcfFtRqaf4z05M9RODw8FwS7A"/>
+<div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-surface-container via-surface-container/40 to-transparent"></div>
+<!-- Floating Inline Architecture Telemetry Badge -->
+<div class="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 flex items-center gap-space-sm p-space-sm rounded-xl bg-surface-container-lowest/80 backdrop-blur-md">
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-secondary">Telemetry Node</span>
+<span class="font-headline-md text-headline-md text-on-surface">10,421,080 conn</span>
+</div>
+<div class="h-8 w-px bg-surface-variant mx-1"></div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant">Avg Syscall Overhead</span>
+<span class="font-headline-md text-headline-md text-primary">&lt; 0.42 μs</span>
+</div>
+</div>
+</div>
+<!-- Editorial Lead Narrative -->
+<div class="lg:col-span-5 p-space-lg sm:p-space-xl flex flex-col justify-between bg-surface-container">
+<div>
+<div class="flex items-center justify-between gap-space-sm mb-space-sm">
+<span class="px-2.5 py-1 rounded bg-primary/10 font-label-xs text-label-xs text-primary font-semibold uppercase tracking-wider">
+                  Deep Dive • Distributed Systems
+                </span>
+<span class="inline-flex items-center gap-1 font-label-xs text-label-xs text-tertiary">
+<span class="material-symbols-outlined text-[14px]">local_fire_department</span> Trending #1
+                </span>
+</div>
+<h2 class="font-headline-xl text-headline-xl text-on-surface tracking-tight mb-space-sm group-hover:text-primary transition-colors">
+<a data-path="course-details" href="#">How We Scaled Distributed Event Streams to 10M+ Concurrent WebSockets Using Rust &amp; io_uring</a>
+</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-lg leading-relaxed">
+                A thorough analysis of kernel bypass techniques, memory allocations, zero-copy buffer pools, and Linux epoll bottlenecks when scaling live classroom telemetry pipelines under peak global concurrency.
+              </p>
+</div>
+<div class="pt-space-md border-t border-transparent bg-surface-container-high/40 -mx-space-lg sm:-mx-space-xl px-space-lg sm:px-space-xl pb-space-sm rounded-b-2xl">
+<div class="flex items-center justify-between flex-wrap gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<img class="w-10 h-10 rounded-full object-cover ring-2 ring-primary/30" data-alt="Editorial portrait photo of Elena Rostova, Principal Distributed Systems Architect, dressed in dark professional tech attire, soft cinematic lighting, high-contrast dark aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgM2t-hR_duchU_NJ1_ioRi_q2I9un-6TvPCEpwOWOoWjhezOWMJGzkIegO2E0Q4Lx5EnYaM33U4akQs3zURQ8LbPPfIcKFxRoYNd3_32G_Y5UzLpRgBsq6GQKBQ4Rww2PmfhVirPN0XAlZH3MkZ7pMYMmC5Sb4l5B0xZjvXueAjs5loVsI8APj4Q_sVw3ryhq38R8xTzPHyV2ePPH7b9QeVHjJwwJtI2ekrqNO8LIbj-wmzr9tj4tkg"/>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Elena Rostova</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Oct 24, 2024 • 14 min read</span>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button aria-label="Bookmark article" class="p-2 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-primary hover:bg-surface-bright transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">bookmark</span>
+</button>
+<button aria-label="Share article" class="p-2 rounded-lg bg-surface-container-high text-on-surface-variant hover:text-primary hover:bg-surface-bright transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</button>
+<a class="ml-2 inline-flex items-center gap-1 px-3.5 py-2 rounded-lg bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary font-label-md text-label-md transition-colors shadow-sm" data-path="course-details" href="#">
+<span>Read Article</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Grid Section: Recent Technical Articles -->
+<div class="max-w-[1440px] mx-auto px-margin mb-space-xl">
+<div class="flex items-end justify-between mb-space-lg pb-space-xs">
+<div>
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-secondary">Peer-Reviewed Papers &amp; Guides</span>
+<h2 class="font-headline-xl text-headline-xl text-on-surface tracking-tight mt-1">Latest Engineering Articles</h2>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Displaying 6 of 42 articles</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter" id="articles-grid">
+<!-- Article Card 1 -->
+<article class="flex flex-col justify-between bg-surface-container rounded-2xl p-space-md sm:p-space-lg shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group" data-category="frontend">
+<div>
+<div class="relative h-48 w-full rounded-xl overflow-hidden mb-space-md bg-surface-container-lowest">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Conceptual visualization of modern React 19 concurrent hydration tree, abstract data streams with neon violet lines on a dark obsidian background, microservices interface logic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPd-e5yalOiiYHyhihB3hYYEHH1UVVLpuSDGvridibahFi4zQMLlePS1_ZGcWIN8N_GIkn-2Egf0g9aZFgNjLhlUPBOoT9pDXOLhOA40_j0FYjggt8sAzAkY8liEJYHgN6pQ0vtsYP04WuNUJuY8kj4t8MkvcXRl2l4mAYhXwd_AcvC8v8zW9omJDmlD2lyN3zSODVBkT2lJCbnVfVhTsvbeueJXykc-06pNuK97vakTZv3IKosQXhIQ"/>
+<span class="absolute top-3 left-3 px-2 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur-md font-label-xs text-label-xs text-primary font-medium uppercase tracking-wider">
+                Web Dev
+              </span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="font-label-xs text-label-xs text-on-surface-variant">8 min read</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Oct 19, 2024</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface tracking-tight group-hover:text-primary transition-colors mb-space-xs">
+<a data-path="course-details" href="#">Demystifying Next.js 15 Server Action Race Conditions &amp; Optimistic UI</a>
+</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mb-space-md">
+              Detailed breakdown of cache mutations, sub-request revalidations, stale optimistic states, and mitigating atomic rollback collision bugs.
+            </p>
+</div>
+<div class="flex items-center justify-between pt-space-sm bg-surface-container-high/30 -mx-space-md sm:-mx-space-lg px-space-md sm:px-space-lg pb-space-xs rounded-b-xl">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface font-medium">Marc Chen</span>
+</div>
+<a class="p-1.5 rounded bg-surface-container-high text-on-surface-variant group-hover:text-primary group-hover:bg-surface-bright transition-colors" data-path="course-details" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+</a>
+</div>
+</article>
+<!-- Article Card 2 -->
+<article class="flex flex-col justify-between bg-surface-container rounded-2xl p-space-md sm:p-space-lg shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group" data-category="ai">
+<div>
+<div class="relative h-48 w-full rounded-xl overflow-hidden mb-space-md bg-surface-container-lowest">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Digital neural node map with multi-agent orchestration pathways, cyclical state evaluation in glowing emerald and cyan lines, hyper-detailed tech graph visual." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMYyf9trj_KkYY_1fkQdwC_At9XGglQaG3woF_7bkP2fEXmYulBpz7m_1p7hf-_pfA_akbgk63iXnv1UkksbCwCiAvV2is1KwQ83_VDIKI_-U6GDrjMBUREDIg64FvzjTTfnpeUj65x7HUzHJYSYZMySTu-MXcs1o53E1xr_781jBmjnCUPZta7VwFveicOMtBDI1gkQ8Qq9cKYrQ1RWLPHric5Ctp4LoWrAjOQ3Mcv-3SfN9PErMTOw"/>
+<span class="absolute top-3 left-3 px-2 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur-md font-label-xs text-label-xs text-secondary font-medium uppercase tracking-wider">
+                AI &amp; ML
+              </span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="font-label-xs text-label-xs text-on-surface-variant">12 min read</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Oct 16, 2024</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface tracking-tight group-hover:text-primary transition-colors mb-space-xs">
+<a data-path="course-details" href="#">Evaluating Autonomous Multi-Agent Workflows: Beyond Benchmarks with LangGraph</a>
+</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mb-space-md">
+              Frameworks for measuring hallucination drift, deterministic fallback cycles, token budget decay, and cyclical state memory retention.
+            </p>
+</div>
+<div class="flex items-center justify-between pt-space-sm bg-surface-container-high/30 -mx-space-md sm:-mx-space-lg px-space-md sm:px-space-lg pb-space-xs rounded-b-xl">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface font-medium">Siddharth Varma</span>
+</div>
+<a class="p-1.5 rounded bg-surface-container-high text-on-surface-variant group-hover:text-primary group-hover:bg-surface-bright transition-colors" data-path="course-details" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+</a>
+</div>
+</article>
+<!-- Article Card 3 -->
+<article class="flex flex-col justify-between bg-surface-container rounded-2xl p-space-md sm:p-space-lg shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group" data-category="architecture">
+<div>
+<div class="relative h-48 w-full rounded-xl overflow-hidden mb-space-md bg-surface-container-lowest">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Technical schematic diagram of isolated container runtimes and micro-frontends exchanging shared memory, dark blue slate background with electric indigo circuit traces." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcUbWafQ-8PINeV3dFNLUAo7AJ-1pDWaGkR9JwGbxs_-SAoT2E5CXdfAFUbXjFyTsYUhXSme4N64GKUeRS2uf9y3yeUSJ4NlrAX_WTvGhkT3Marf6aQD1JyvVkBBpIMIjweHsH2VzrrQbXIW6P22A3-pCH5o5frm92ycfXgoe47XAMQtx7c0zKpkjrkSYM20WGMipGi_KUtAL1DeAiPVGdtm00UTtP2TbXiwRsZercZDWtgIVvyqDuWw"/>
+<span class="absolute top-3 left-3 px-2 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur-md font-label-xs text-label-xs text-tertiary font-medium uppercase tracking-wider">
+                Architecture
+              </span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="font-label-xs text-label-xs text-on-surface-variant">10 min read</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Oct 11, 2024</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface tracking-tight group-hover:text-primary transition-colors mb-space-xs">
+<a data-path="course-details" href="#">The Architecture of Modern Cloud Micro-Frontends with Module Federation</a>
+</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mb-space-md">
+              Handling remote runtime dependencies, version skew anomalies, isolated CSS encapsulation, and edge CDN cache propagation.
+            </p>
+</div>
+<div class="flex items-center justify-between pt-space-sm bg-surface-container-high/30 -mx-space-md sm:-mx-space-lg px-space-md sm:px-space-lg pb-space-xs rounded-b-xl">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface font-medium">Ariadne Vance</span>
+</div>
+<a class="p-1.5 rounded bg-surface-container-high text-on-surface-variant group-hover:text-primary group-hover:bg-surface-bright transition-colors" data-path="course-details" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+</a>
+</div>
+</article>
+<!-- Article Card 4 -->
+<article class="flex flex-col justify-between bg-surface-container rounded-2xl p-space-md sm:p-space-lg shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group" data-category="distributed">
+<div>
+<div class="relative h-48 w-full rounded-xl overflow-hidden mb-space-md bg-surface-container-lowest">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Linux kernel system level visualization, eBPF bytecode hooks intercepting network socket packets in real time, dark technological aesthetic with deep violet highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCds9Y4iMHyLANug7X7edVVhzuUUyqXJpljyap_gF1n53IwJwdsvdto4SpbWPxiGGf7jDrlWCt9cwnaVcn4FeDHJD4RhtADSR9V9FbreiwrkB8dk2N5Tf0jXGPBJbbEwzxSbFUgLeBavWvMfIxF7JUjp7nhXtXe8GkvVWSy-XwgoEf6LDuIexPIJ4SbQRGaDHIgNWL8ELtW09FQtblMB5hnZycXNadsDFNrssrFkUIeC0zHVhwkcGnkig"/>
+<span class="absolute top-3 left-3 px-2 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur-md font-label-xs text-label-xs text-secondary font-medium uppercase tracking-wider">
+                DevOps &amp; Infra
+              </span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="font-label-xs text-label-xs text-on-surface-variant">15 min read</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Oct 04, 2024</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface tracking-tight group-hover:text-primary transition-colors mb-space-xs">
+<a data-path="course-details" href="#">Why eBPF Is Replacing Traditional Sidecars in Kubernetes Observability</a>
+</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mb-space-md">
+              Cutting memory footprint by 40% while capturing zero-overhead L7 payload metrics directly at the kernel transport tier.
+            </p>
+</div>
+<div class="flex items-center justify-between pt-space-sm bg-surface-container-high/30 -mx-space-md sm:-mx-space-lg px-space-md sm:px-space-lg pb-space-xs rounded-b-xl">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface font-medium">Liam O'Connor</span>
+</div>
+<a class="p-1.5 rounded bg-surface-container-high text-on-surface-variant group-hover:text-primary group-hover:bg-surface-bright transition-colors" data-path="course-details" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+</a>
+</div>
+</article>
+<!-- Article Card 5 -->
+<article class="flex flex-col justify-between bg-surface-container rounded-2xl p-space-md sm:p-space-lg shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group" data-category="career">
+<div>
+<div class="relative h-48 w-full rounded-xl overflow-hidden mb-space-md bg-surface-container-lowest">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Strategic technology leadership planning board with multi-year roadmap vectors, dark mode design mockups, ambient desktop studio lighting, elegant minimalism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbPjg524YFDEZxqVFQ73d6x3yAYD2oDzyEVuUA2jKZ3B0SOnQeUxXCFuR1fYq8800RQvVE5C9R7GJHioAd3wKGAamxG5w9rqIuqAYnBght2Gb4nTNROdg8gYv58kbi-w_d4lCt85u6in_2N7sLBq7gGgjLmYuEzk1iomUUjZ7Aivye2B2Ogos81fMLJPfHWmvrw4EFx7SK5mHZd22BsR0apcGfH5WKFsSPTklFsimRD-R8xLoTyGEv9w"/>
+<span class="absolute top-3 left-3 px-2 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur-md font-label-xs text-label-xs text-primary font-medium uppercase tracking-wider">
+                Career Strategy
+              </span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="font-label-xs text-label-xs text-on-surface-variant">9 min read</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Sep 28, 2024</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface tracking-tight group-hover:text-primary transition-colors mb-space-xs">
+<a data-path="course-details" href="#">Breaking the Staff Engineer Ceiling: The Technical Strategy Playbook</a>
+</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mb-space-md">
+              Navigating ambiguous architectural mandates, influencing executive engineering OKRs, and structuring cross-team RFC roadmaps.
+            </p>
+</div>
+<div class="flex items-center justify-between pt-space-sm bg-surface-container-high/30 -mx-space-md sm:-mx-space-lg px-space-md sm:px-space-lg pb-space-xs rounded-b-xl">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface font-medium">David Miller</span>
+</div>
+<a class="p-1.5 rounded bg-surface-container-high text-on-surface-variant group-hover:text-primary group-hover:bg-surface-bright transition-colors" data-path="course-details" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+</a>
+</div>
+</article>
+<!-- Article Card 6 -->
+<article class="flex flex-col justify-between bg-surface-container rounded-2xl p-space-md sm:p-space-lg shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group" data-category="distributed">
+<div>
+<div class="relative h-48 w-full rounded-xl overflow-hidden mb-space-md bg-surface-container-lowest">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="High-dimensional geometric vector space cluster visualization with dense nearest neighbor connections, obsidian black backdrop, electric blue and amber node rays." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOH2A0TT_giq1-Wn9Hv83YkmDmFI6i-4x5TN4azkuewofD7YLMCwkUJSvWmimVfOGIJMyk6GIh3r11Fb1WjTDW72ovjSes6H-jTlKz6DO6FFrFgO-u1f4ts2_HUeoecRWiIo5T1fRI6_EybrYJ2EPYzfPZm6nSHR-RTpRz9oHYgtyjCVZyUcsBzopXKXtO6DAInS72XUed0hlWsfDWzXndXKfCaq-OnXtmjvF_w2PywmfMDndtXwYQlg"/>
+<span class="absolute top-3 left-3 px-2 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur-md font-label-xs text-label-xs text-tertiary font-medium uppercase tracking-wider">
+                Data Systems
+              </span>
+</div>
+<div class="flex items-center gap-2 mb-2">
+<span class="font-label-xs text-label-xs text-on-surface-variant">11 min read</span>
+<span class="w-1 h-1 rounded-full bg-outline"></span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Sep 22, 2024</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface tracking-tight group-hover:text-primary transition-colors mb-space-xs">
+<a data-path="course-details" href="#">Vector Database Indexing at Scale: HNSW vs IVFFlat Deep Dive</a>
+</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mb-space-md">
+              Empirical recall benchmarks, index build memory overhead, and disk-backed quantization strategies across 500M 1536-dimensional embeddings.
+            </p>
+</div>
+<div class="flex items-center justify-between pt-space-sm bg-surface-container-high/30 -mx-space-md sm:-mx-space-lg px-space-md sm:px-space-lg pb-space-xs rounded-b-xl">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface font-medium">Elena Rostova</span>
+</div>
+<a class="p-1.5 rounded bg-surface-container-high text-on-surface-variant group-hover:text-primary group-hover:bg-surface-bright transition-colors" data-path="course-details" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_outward</span>
+</a>
+</div>
+</article>
+</div>
+</div>
+<!-- Benchmark & Interactive Data Graphic Split -->
+<div class="max-w-[1440px] mx-auto px-margin mb-space-xl">
+<div class="bg-surface-container-low rounded-2xl p-space-lg sm:p-space-xl shadow-lg">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+<div class="lg:col-span-5 space-y-space-sm">
+<span class="font-label-xs text-label-xs text-secondary uppercase tracking-wider font-semibold">Continuous Telemetry Benchmark</span>
+<h3 class="font-headline-lg text-headline-lg text-on-surface">Sub-Millisecond Tail Latency (p99)</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Live telemetry aggregated from Kinetiq's distributed runtime engines over 120 global edge points of presence running synchronous code sandbox executions.
+            </p>
+<div class="pt-space-xs flex items-center gap-space-lg">
+<div>
+<div class="font-headline-xl text-headline-xl text-secondary font-bold">99.98%</div>
+<div class="font-label-xs text-label-xs text-on-surface-variant uppercase">SLA Adherence</div>
+</div>
+<div>
+<div class="font-headline-xl text-headline-xl text-primary font-bold">1.28 ms</div>
+<div class="font-label-xs text-label-xs text-on-surface-variant uppercase">P99 Edge Response</div>
+</div>
+<div>
+<div class="font-headline-xl text-headline-xl text-tertiary font-bold">64.2k</div>
+<div class="font-label-xs text-label-xs text-on-surface-variant uppercase">RPS per Node</div>
+</div>
+</div>
+</div>
+<!-- Inline SVG Visual Telemetry Sparkline -->
+<div class="lg:col-span-7 bg-surface-container-lowest p-space-md sm:p-space-lg rounded-xl shadow-inner">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-title-md text-title-md text-on-surface">Global Packet Ingress / Kernel Overhead</span>
+</div>
+<span class="font-label-xs text-label-xs px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-mono">io_uring vs epoll</span>
+</div>
+<div class="h-44 w-full flex items-end">
+<svg class="w-full h-full text-secondary" fill="none" preserveaspectratio="none" viewbox="0 0 500 150">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#4edea3" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#4edea3" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,130 Q40,110 80,125 T160,85 T240,65 T320,40 T400,20 T480,15 L500,10 L500,150 L0,150 Z" fill="url(#chartGradient)"></path>
+<path d="M0,130 Q40,110 80,125 T160,85 T240,65 T320,40 T400,20 T480,15 L500,10" stroke="currentColor" stroke-linecap="round" stroke-width="2.5"></path>
+<!-- Baseline comparison line -->
+<path d="M0,140 Q60,135 120,130 T240,125 T360,115 T480,110 L500,105" opacity="0.6" stroke="#908fa0" stroke-dasharray="4 4" stroke-width="1.5"></path>
+</svg>
+</div>
+<div class="flex items-center justify-between pt-3 text-on-surface-variant font-label-xs text-label-xs font-mono">
+<span>T-60m</span>
+<span>T-45m</span>
+<span>T-30m</span>
+<span>T-15m</span>
+<span class="text-secondary font-semibold">Live Realtime</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Downloadable Engineering Whitepaper Feature -->
+<div class="max-w-[1440px] mx-auto px-margin mb-space-xl">
+<div class="relative bg-gradient-to-br from-surface-container-high via-surface-container to-surface-container-low rounded-3xl p-space-lg sm:p-space-xl overflow-hidden shadow-2xl">
+<div class="absolute right-0 top-0 -mr-16 -mt-16 w-96 h-96 bg-primary-container/15 rounded-full blur-3xl pointer-events-none"></div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center relative z-10">
+<div class="lg:col-span-8 space-y-space-md">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-lowest">
+<span class="material-symbols-outlined text-secondary text-[16px]">verified</span>
+<span class="font-label-xs text-label-xs tracking-wider uppercase text-on-surface font-semibold">Annual Research Report (68 Pages)</span>
+</div>
+<h2 class="font-headline-xl text-headline-xl sm:font-display-lg sm:text-display-lg text-on-surface tracking-tight leading-tight">
+              The 2025 State of AI Engineering: Architecture Patterns, Compute Costs, &amp; Production Anti-Patterns
+            </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+              Survey data from 850+ infrastructure teams. Learn why 64% of agent projects fail in production, how to eliminate KV-cache latency bottlenecks, and the exact ROI metrics of on-prem vLLM inference clusters.
+            </p>
+<!-- Metadata highlights -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-space-sm pt-space-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">picture_as_pdf</span>
+<span class="font-body-sm text-body-sm text-on-surface">PDF &amp; Raw CSV Data</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">schedule</span>
+<span class="font-body-sm text-body-sm text-on-surface">Published Nov 2024</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">download</span>
+<span class="font-body-sm text-body-sm text-on-surface">14,200+ Downloads</span>
+</div>
+</div>
+</div>
+<!-- Instant Download Form Module -->
+<div class="lg:col-span-4 bg-surface-container-lowest p-space-lg rounded-2xl shadow-xl flex flex-col justify-between">
+<div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-1">Download Free Report</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+                Direct PDF delivery + access to our reproducible Jupyter benchmark notebooks.
+              </p>
+<form class="space-y-space-sm" id="whitepaper-form" onsubmit="event.preventDefault(); handleWhitepaperDownload();">
+<div>
+<label class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant block mb-1" for="work-email-wp">Corporate Email</label>
+<input class="w-full h-11 px-3.5 rounded-lg bg-surface-container text-on-surface placeholder:text-on-surface-variant/50 font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary shadow-sm" id="work-email-wp" placeholder="alex@company.com" required="" type="email"/>
+</div>
+<div>
+<label class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant block mb-1" for="role-select">Primary Role</label>
+<select class="w-full h-11 px-3 rounded-lg bg-surface-container text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary shadow-sm" id="role-select">
+<option>Staff / Principal Software Architect</option>
+<option>VP / Director of Engineering</option>
+<option>AI / Machine Learning Engineer</option>
+<option>Infrastructure / DevOps Lead</option>
+<option>Engineering Student / Researcher</option>
+</select>
+</div>
+<button class="w-full h-11 mt-2 rounded-lg bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary font-label-md text-label-md font-semibold transition-colors flex items-center justify-center gap-2 shadow-md" id="wp-submit-btn" type="submit">
+<span class="material-symbols-outlined text-[18px]">sim_card_download</span>
+<span>Instant PDF Access</span>
+</button>
+</form>
+<div class="hidden p-3 rounded-lg bg-surface-container text-secondary font-body-sm text-body-sm mt-3 items-center gap-2" id="wp-success-message">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span>Sent! Check your inbox for the download bundle.</span>
+</div>
+</div>
+<span class="font-label-xs text-label-xs text-on-surface-variant/60 mt-space-md block text-center">
+              Strictly technical. No sales spam. SOC2 Compliant.
+            </span>
+</div>
+</div>
+</div>
+</div>
+<!-- High-Impact Newsletter Component -->
+<div class="max-w-[1440px] mx-auto px-margin mb-space-xl">
+<div class="relative bg-surface-container-high rounded-2xl p-space-lg sm:p-space-xl overflow-hidden">
+<div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-lg">
+<div class="max-w-xl space-y-space-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">terminal</span>
+<span class="font-label-xs text-label-xs uppercase tracking-widest text-primary font-semibold">Weekly Architectural Digest</span>
+</div>
+<h3 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">Stay Ahead of Technological Paradigm Shifts</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Get weekly architecture deep dives delivered straight to your inbox. No marketing fluff, no sponsored listicles, only production code, kernel trace logs, and systems designs.
+            </p>
+</div>
+<div class="w-full lg:w-auto lg:min-w-[420px]">
+<form class="flex flex-col sm:flex-row items-center gap-space-xs" id="newsletter-form" onsubmit="event.preventDefault(); handleNewsletterSubscribe();">
+<input class="w-full h-12 px-4 rounded-lg bg-surface-container text-on-surface placeholder:text-on-surface-variant/60 font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" id="newsletter-email" placeholder="Enter your work email address..." required="" type="email"/>
+<button class="w-full sm:w-auto h-12 px-6 rounded-lg bg-primary-container text-on-primary-container hover:bg-primary hover:text-on-primary font-label-md text-label-md font-semibold shrink-0 transition-colors shadow-sm" id="newsletter-btn" type="submit">
+                Join 38,000+ Engineers
+              </button>
+</form>
+<div class="hidden font-body-sm text-body-sm text-secondary mt-2 flex items-center gap-1.5" id="newsletter-success">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span>You're on the dispatch list. First dispatch arrives Tuesday.</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Category Pill Filter Interactions
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const articles = document.querySelectorAll('#articles-grid article');
+  const searchInput = document.getElementById('article-search');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => {
+        b.classList.remove('bg-primary-container', 'text-on-primary-container');
+        b.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+      });
+      btn.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+      btn.classList.add('bg-primary-container', 'text-on-primary-container');
+
+      const tag = btn.getAttribute('data-tag');
+      articles.forEach(art => {
+        if (tag === 'all' || art.getAttribute('data-category') === tag) {
+          art.style.display = 'flex';
+        } else {
+          art.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Client search behavior
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      articles.forEach(art => {
+        const text = art.textContent.toLowerCase();
+        art.style.display = text.includes(query) ? 'flex' : 'none';
+      });
+    });
+
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        searchInput.value = '';
+        articles.forEach(art => art.style.display = 'flex');
+      }
+    });
+  }
+
+  // Micro-interaction: Whitepaper Download Form
+  function handleWhitepaperDownload() {
+    const btn = document.getElementById('wp-submit-btn');
+    const msg = document.getElementById('wp-success-message');
+    const form = document.getElementById('whitepaper-form');
+    if (btn && msg) {
+      btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[18px]">sync</span> Generating Link...';
+      btn.disabled = true;
+      setTimeout(() => {
+        form.classList.add('opacity-50', 'pointer-events-none');
+        msg.classList.remove('hidden');
+        msg.classList.add('flex');
+        btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span> Dispatched';
+      }, 700);
+    }
+  }
+
+  // Micro-interaction: Newsletter Subscription
+  function handleNewsletterSubscribe() {
+    const btn = document.getElementById('newsletter-btn');
+    const input = document.getElementById('newsletter-email');
+    const msg = document.getElementById('newsletter-success');
+    if (btn && msg && input) {
+      btn.disabled = true;
+      btn.textContent = 'Joining...';
+      setTimeout(() => {
+        btn.textContent = 'Subscribed';
+        msg.classList.remove('hidden');
+        input.value = '';
+      }, 500);
+    }
+  }
+</script></main><footer class="w-full bg-surface-container-lowest text-on-surface-variant"><div class="max-w-[1440px] mx-auto px-margin pt-space-xl pb-space-lg"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-gutter mb-space-xl"><div class="lg:col-span-2 flex flex-col justify-between gap-space-md"><div class="space-y-space-sm"><div class="flex items-center gap-space-sm"><img alt="Brand logo. - Primary color: #6366f1
+- Font: plusJakartaSans
+- Mode: dark
+- Roundness: rounded-md
+" class="h-7 w-auto object-contain" src="https://api.iconify.design/material-symbols:school-outline-rounded.svg?color=%238083ff"/><span class="font-headline-md text-headline-md text-on-surface tracking-tight">Kinetiq Academy</span></div><p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm">High-performance technical education engineered for modern software architects, research teams, and engineering leaders.</p></div><div class="space-y-space-sm"><span class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant">Stay ahead of technological shifts</span><div class="flex items-center gap-space-xs max-w-sm"><input class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface placeholder:text-on-surface-variant/60 font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Enter your work email" type="email"/><button class="h-10 px-4 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-bright font-label-md text-label-md shrink-0 transition-colors" type="button">Subscribe</button></div></div></div><div class="flex flex-col gap-space-sm"><span class="font-label-md text-label-md uppercase tracking-wider text-on-surface">Platform</span><ul class="space-y-space-xs font-body-sm text-body-sm"><li class="hover:text-on-surface transition-colors"><a data-path="explore-courses" href="#">Curriculum Catalog</a></li><li class="hover:text-on-surface transition-colors"><a data-path="ai-learning" href="#">Adaptive AI Engine</a></li><li class="hover:text-on-surface transition-colors"><a data-path="pricing" href="#">Team Subscriptions</a></li><li class="hover:text-on-surface transition-colors"><a data-path="home" href="#">Interactive Sandboxes</a></li><li class="hover:text-on-surface transition-colors"><a data-path="home" href="#">Skill Benchmarks</a></li></ul></div><div class="flex flex-col gap-space-sm"><span class="font-label-md text-label-md uppercase tracking-wider text-on-surface">Curriculum</span><ul class="space-y-space-xs font-body-sm text-body-sm"><li class="hover:text-on-surface transition-colors"><a data-path="course-details" href="#">Distributed Systems</a></li><li class="hover:text-on-surface transition-colors"><a data-path="course-details" href="#">LLM Infra Architecture</a></li><li class="hover:text-on-surface transition-colors"><a data-path="course-details" href="#">Kernel &amp; Rust Systems</a></li><li class="hover:text-on-surface transition-colors"><a data-path="course-details" href="#">High-Throughput APIs</a></li><li class="hover:text-on-surface transition-colors"><a data-path="course-details" href="#">Security Engineering</a></li></ul></div><div class="flex flex-col gap-space-sm"><span class="font-label-md text-label-md uppercase tracking-wider text-on-surface">Technologies</span><ul class="space-y-space-xs font-body-sm text-body-sm"><li class="hover:text-on-surface transition-colors"><a data-path="ai-learning" href="#">Autonomous Tutoring</a></li><li class="hover:text-on-surface transition-colors"><a data-path="ai-learning" href="#">Neural Code Review</a></li><li class="hover:text-on-surface transition-colors"><a data-path="ai-learning" href="#">Live Telemetry Labs</a></li><li class="hover:text-on-surface transition-colors"><a data-path="ai-learning" href="#">Synthetic Datasets</a></li><li class="hover:text-on-surface transition-colors"><a data-path="resources-and-blog" href="#">Research Whitepapers</a></li></ul></div><div class="flex flex-col gap-space-sm"><span class="font-label-md text-label-md uppercase tracking-wider text-on-surface">Legal &amp; Trust</span><ul class="space-y-space-xs font-body-sm text-body-sm"><li class="hover:text-on-surface transition-colors"><a data-path="about-us" href="#">SOC2 Type II Compliance</a></li><li class="hover:text-on-surface transition-colors"><a data-path="contact" href="#">Privacy Directive</a></li><li class="hover:text-on-surface transition-colors"><a data-path="contact" href="#">Terms of Service</a></li><li class="hover:text-on-surface transition-colors"><a data-path="contact" href="#">Security Disclosures</a></li><li class="hover:text-on-surface transition-colors"><a data-path="about-us" href="#">Student Protection</a></li></ul></div></div><div class="pt-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-md bg-surface-container-lowest"><div class="flex items-center gap-space-sm"><div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-surface-container-low font-label-xs text-label-xs text-secondary"><span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>All systems operational</div><span class="font-body-sm text-body-sm text-on-surface-variant/80">Global Cloud Latency: 18ms</span></div><p class="font-body-sm text-body-sm text-on-surface-variant/80">© 2025 Kinetiq Academy Inc. All rights reserved.</p></div></div></footer>  <script src="../shared/api.js"></script><script src="../shared/router.js"></script>
+</body></html>

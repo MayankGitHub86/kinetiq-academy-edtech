@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<title>LMS Classroom Player � Kinetiq Academy</title><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Plus+Jakarta+Sans:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script>const origWarn = console.warn; console.warn = (...args) => { if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return; origWarn(...args); };</script><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"error-container":"#93000a","outline-variant":"#464554","tertiary-fixed":"#ffddb8","on-primary":"#1000a9","inverse-surface":"#dae2fd","on-tertiary-fixed-variant":"#653e00","background":"#0b1326","surface-dim":"#0b1326","on-tertiary-fixed":"#2a1700","primary-container":"#8083ff","on-secondary-container":"#00311f","surface-container":"#171f33","tertiary":"#ffb95f","on-tertiary":"#472a00","on-surface-variant":"#c7c4d7","on-secondary-fixed-variant":"#005236","on-error":"#690005","surface-bright":"#31394d","tertiary-container":"#ca8100","secondary-container":"#00a572","surface-container-high":"#222a3d","on-primary-container":"#0d0096","on-tertiary-container":"#3e2400","primary-fixed":"#e1e0ff","surface-variant":"#2d3449","on-secondary":"#003824","error":"#ffb4ab","surface-container-lowest":"#060e20","surface-container-low":"#131b2e","surface-container-highest":"#2d3449","secondary":"#4edea3","on-background":"#dae2fd","inverse-primary":"#494bd6","on-error-container":"#ffdad6","on-primary-fixed":"#07006c","on-secondary-fixed":"#002113","on-surface":"#dae2fd","inverse-on-surface":"#283044","tertiary-fixed-dim":"#ffb95f","surface":"#0b1326","primary-fixed-dim":"#c0c1ff","secondary-fixed":"#6ffbbe","primary":"#c0c1ff","secondary-fixed-dim":"#4edea3","on-primary-fixed-variant":"#2f2ebe","outline":"#908fa0","surface-tint":"#c0c1ff"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"space-lg":"1.5rem","space-xl":"2.5rem","gutter-mobile":"1rem","margin-mobile":"1rem","space-xs":"0.25rem","margin":"2rem","gutter":"1.5rem","space-md":"1rem","space-sm":"0.5rem"},fontFamily:{"body-md":["Inter"],"display-lg":["Plus Jakarta Sans"],"body-sm":["Inter"],"headline-lg":["Plus Jakarta Sans"],"title-md":["Inter"],"label-xs":["Inter"],"display-lg-mobile":["Plus Jakarta Sans"],"headline-xl-mobile":["Plus Jakarta Sans"],"body-lg":["Inter"],"headline-xl":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"label-md":["Inter"]},fontSize:{"body-md":["14px",{"lineHeight":"22px","letterSpacing":"0em","fontWeight":"400"}],"display-lg":["48px",{"lineHeight":"56px","letterSpacing":"-0.025em","fontWeight":"700"}],"body-sm":["13px",{"lineHeight":"18px","letterSpacing":"0.005em","fontWeight":"400"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"title-md":["16px",{"lineHeight":"24px","letterSpacing":"-0.005em","fontWeight":"600"}],"label-xs":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"500"}],"display-lg-mobile":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-xl-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.015em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"26px","letterSpacing":"0em","fontWeight":"400"}],"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low border-r border-outline-variant/30 z-50 flex flex-col justify-between overflow-y-auto"><div class="flex flex-col"><div class="h-16 px-space-md flex items-center gap-space-sm border-b border-outline-variant/30"><img alt="Kinetiq Learn Logo" class="h-8 w-auto object-contain" src="https://api.iconify.design/material-symbols:school-outline-rounded.svg?color=%238083ff"/><span class="font-headline-md text-headline-md font-bold text-on-surface">Kinetiq</span><span class="px-2 py-0.5 rounded bg-surface-container font-label-xs text-label-xs text-primary border border-outline-variant/40">Studio</span></div><div class="px-space-md py-space-sm"><div class="p-1 bg-surface-container rounded-lg flex items-center justify-between font-label-md text-label-md"><a class="flex-1 text-center py-1.5 rounded text-on-surface hover:text-primary transition-colors" data-path="dashboard" href="#">Learner</a><a class="flex-1 text-center py-1.5 rounded text-on-surface-variant hover:text-on-surface transition-colors" data-path="admin-dashboard" href="#">Instructor</a></div></div><div class="px-space-md py-space-xs"><span class="font-label-xs text-label-xs font-semibold text-outline uppercase tracking-wider px-2">Learning Workspace</span><nav class="mt-1 space-y-1" data-active-classes="bg-surface-container-high text-primary font-semibold rounded-lg"><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-body-md text-body-md">Dashboard</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="my-learning" href="#"><span class="material-symbols-outlined text-[20px]">auto_stories</span><span class="font-body-md text-body-md">My Learning</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="courses-explorer" href="#"><span class="material-symbols-outlined text-[20px]">explore</span><span class="font-body-md text-body-md">Courses Explorer</span></a><a aria-current="page" class="flex items-center gap-3 px-3 py-2 transition-all bg-surface-container-high text-primary font-semibold rounded-lg" data-path="course-lms-player" href="#"><span class="material-symbols-outlined text-[20px]">play_circle</span><span class="font-body-md text-body-md">LMS Player</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="practice-center" href="#"><span class="material-symbols-outlined text-[20px]">terminal</span><span class="font-body-md text-body-md">Practice Center</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="ai-instructor-companion" href="#"><span class="material-symbols-outlined text-[20px]">smart_toy</span><span class="font-body-md text-body-md">AI Companion</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="live-classes" href="#"><span class="material-symbols-outlined text-[20px]">videocam</span><span class="font-body-md text-body-md">Live Classes</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="analytics" href="#"><span class="material-symbols-outlined text-[20px]">insights</span><span class="font-body-md text-body-md">Analytics</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="certificates" href="#"><span class="material-symbols-outlined text-[20px]">verified</span><span class="font-body-md text-body-md">Certificates</span></a></nav></div><div class="px-space-md py-space-xs mt-space-sm border-t border-outline-variant/30"><span class="font-label-xs text-label-xs font-semibold text-outline uppercase tracking-wider px-2">Instructor Studio</span><nav class="mt-1 space-y-1" data-active-classes="bg-surface-container-high text-primary font-semibold rounded-lg"><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="admin-dashboard" href="#"><span class="material-symbols-outlined text-[20px]">dashboard_customize</span><span class="font-body-md text-body-md">Admin Dashboard</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="course-management" href="#"><span class="material-symbols-outlined text-[20px]">layers</span><span class="font-body-md text-body-md">Course Management</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="curriculum-builder" href="#"><span class="material-symbols-outlined text-[20px]">account_tree</span><span class="font-body-md text-body-md">Curriculum Builder</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="lesson-cms" href="#"><span class="material-symbols-outlined text-[20px]">edit_note</span><span class="font-body-md text-body-md">Lesson CMS</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="live-class-admin" href="#"><span class="material-symbols-outlined text-[20px]">podium</span><span class="font-body-md text-body-md">Live Admin</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="ai-class-generator" href="#"><span class="material-symbols-outlined text-[20px]">psychology</span><span class="font-body-md text-body-md">AI Generator</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="quiz-builder" href="#"><span class="material-symbols-outlined text-[20px]">fact_check</span><span class="font-body-md text-body-md">Quiz Builder</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="student-management" href="#"><span class="material-symbols-outlined text-[20px]">group</span><span class="font-body-md text-body-md">Students</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="platform-analytics" href="#"><span class="material-symbols-outlined text-[20px]">bar_chart</span><span class="font-body-md text-body-md">Cohort Metrics</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="admin-settings" href="#"><span class="material-symbols-outlined text-[20px]">tune</span><span class="font-body-md text-body-md">Portal Settings</span></a></nav></div></div><div class="p-space-md border-t border-outline-variant/30 space-y-space-xs"><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-body-md text-body-md">Preferences</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="home" href="#"><span class="material-symbols-outlined text-[20px]">logout</span><span class="font-body-md text-body-md">Exit to Web</span></a></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/85 backdrop-blur-xl border-b border-outline-variant/30 z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><button class="flex items-center gap-space-sm px-3.5 py-1.5 rounded-lg bg-surface-container-low border border-outline-variant/40 text-on-surface-variant hover:text-on-surface hover:border-outline transition-all w-72" type="button"><span class="material-symbols-outlined text-[18px]">search</span><span class="font-body-sm text-body-sm text-outline">Quick search or command...</span><kbd class="ml-auto px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-xs text-label-xs border border-outline-variant/30">⌘K</kbd></button><div class="hidden lg:flex items-center gap-2 px-2.5 py-1 rounded-full bg-secondary-container/20 border border-secondary-container text-secondary font-label-xs text-label-xs font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>Live Stream in 25m</div></div><div class="flex items-center gap-space-md"><nav class="hidden xl:flex items-center gap-space-sm" data-active-classes="text-primary font-semibold"><a class="px-2.5 py-1 text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm transition-colors" data-path="dashboard" href="#">Student App</a><a class="px-2.5 py-1 text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm transition-colors" data-path="admin-dashboard" href="#">Admin App</a><a class="px-2.5 py-1 text-on-surface-variant hover:text-on-surface font-body-sm text-body-sm transition-colors" data-path="home" href="#">Public Web</a></nav><div class="h-6 w-px bg-outline-variant/30"></div><a class="relative p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" data-path="notifications" href="#" title="Notifications"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 bg-error-container text-on-error-container text-[10px] font-bold rounded-full flex items-center justify-center border border-surface">3</span></a><div class="flex items-center gap-space-sm pl-space-xs"><div class="hidden md:flex flex-col text-right"><span class="font-title-md text-title-md font-semibold text-on-surface leading-tight">Elena Rostova</span><span class="font-label-xs text-label-xs text-outline">Lead Architect • Pro</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary/40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUWsYno0KHLjxiTQXwXLXI7t_VRuAMAvG9xknIS1s2sXbvtBbF-sqaycHS5AahTCC292u7X3HelgZmpeTEVnJXCLn-XW8XNfNwDJKIoWqeuoUZlAU2oSr_hYFNqbg1leEw40N7SgHyi0U0i6T-TnsL9r8nkIZghWDmWqvWxDt_MVjZ0Qf6HsSxfvbz4w5sM8Sz9qO8uTBTJv5li7gat0RfHQLmCsxt-uMXeKnv9SAMIlsuFyaxVahRig"/><div class="relative group"><button class="p-1 text-on-surface-variant hover:text-on-surface" type="button"><span class="material-symbols-outlined text-[18px]">expand_more</span></button><div class="absolute right-0 mt-2 w-48 py-2 bg-surface-container-high rounded-xl border border-outline-variant/40 shadow-xl opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all"><a class="block px-4 py-2 text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-sm text-body-sm" data-path="dashboard" href="#">Learner Mode</a><a class="block px-4 py-2 text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-sm text-body-sm" data-path="admin-dashboard" href="#">Admin / Instructor Mode</a><div class="my-1 border-t border-outline-variant/20"></div><a class="block px-4 py-2 text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-body-sm text-body-sm" data-path="settings" href="#">Preferences</a><a class="block px-4 py-2 text-error hover:bg-surface-container font-body-sm text-body-sm" data-path="login" href="#">Sign out</a></div></div></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Dynamic Atmospheric Glow -->
+<div class="relative w-full overflow-hidden">
+<div class="absolute -top-32 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-48 right-10 w-80 h-80 bg-secondary/5 rounded-full blur-3xl pointer-events-none"></div>
+<!-- 1. Top Bar: Lesson Navigation & Context -->
+<div class="w-full bg-surface-container-low px-space-lg py-space-sm shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-space-sm">
+<div class="flex flex-col min-w-0">
+<!-- Breadcrumbs with Subtle Sliders -->
+<nav class="flex items-center gap-1.5 font-label-xs text-label-xs text-on-surface-variant flex-wrap">
+<a class="hover:text-primary transition-colors" href="#">Courses</a>
+<span class="text-outline">/</span>
+<a class="hover:text-primary transition-colors" href="#">Fullstack Next.js & Systems</a>
+<span class="text-outline">/</span>
+<span class="text-outline">Module 3: App Router</span>
+<span class="text-outline">/</span>
+<span id="course-breadcrumb-title" class="text-on-surface font-semibold truncate">Lesson 4: Server Components vs Client Components</span>
+</nav>
+<div class="flex items-center gap-space-md mt-1">
+<h1 id="current-lesson-title" class="font-headline-md text-headline-md font-bold text-on-surface tracking-tight">Server Components vs Client Components</h1><p id="current-lesson-desc" class="text-xs text-on-surface-variant mt-0.5"></p>
+<span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary font-label-xs text-label-xs font-semibold">
+            HD 1080p
+          </span>
+</div>
+</div>
+<!-- Course Global Metric & Utilities -->
+<div class="flex items-center gap-space-md flex-shrink-0">
+<!-- Progress Counter -->
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-2">
+<span class="font-label-xs text-label-xs text-on-surface-variant">Lesson 14 of 28</span>
+<span class="font-label-xs text-label-xs font-bold text-secondary">50% Complete</span>
+</div>
+<div class="w-36 h-1.5 bg-surface-container-highest rounded-full overflow-hidden mt-1">
+<div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full" style="width: 50%"></div>
+</div>
+</div>
+<div class="h-8 w-px bg-surface-container-highest"></div>
+<!-- Autoplay Toggle -->
+<label class="flex items-center gap-2 cursor-pointer select-none">
+<span class="font-label-xs text-label-xs text-on-surface-variant font-medium">Autoplay</span>
+<div class="relative">
+<input checked="" class="sr-only peer" id="autoplayToggle" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-container-highest rounded-full peer peer-checked:bg-secondary-container transition-colors"></div>
+<div class="absolute left-0.5 top-0.5 w-4 h-4 bg-on-secondary rounded-full transition-transform peer-checked:translate-x-4"></div>
+</div>
+</label>
+<!-- Bookmark Button -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-tertiary transition-all" id="bookmarkBtn">
+<span class="material-symbols-outlined text-[18px]">bookmark</span>
+<span class="font-label-xs text-label-xs font-semibold">Save</span>
+</button>
+</div>
+</div>
+<!-- Central Interactive Workspace (Video Stage & Right Sidebar) -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-0 w-full min-h-[calc(100vh-10rem)]">
+<!-- Left / Center Main Stage (Col 1 to 8 or 9) -->
+<div class="xl:col-span-8 2xl:col-span-9 flex flex-col p-space-md lg:p-space-lg space-y-space-md min-w-0">
+<!-- Video Player Frame -->
+<div class="relative w-full aspect-video rounded-xl bg-surface-container-lowest overflow-hidden shadow-xl select-none" id="video-player-wrapper">
+<video id="main-video-player" class="w-full h-full object-contain bg-black" playsinline controls controlsList="nodownload">
+  <track kind="subtitles" srclang="en" label="English" default>
+</video>
+<div id="no-video-placeholder" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-surface-container-lowest text-center p-6 z-10">
+  <span class="material-symbols-outlined text-4xl text-primary mb-2">article</span>
+  <p class="text-sm font-bold text-on-surface">Interactive Reading Lesson</p>
+  <p class="text-xs text-on-surface-variant max-w-sm mt-1">This module is focused on deep architectural concepts and code examples below.</p>
+</div>
+<!-- Watermark -->
+<div class="absolute top-4 right-4 flex items-center gap-2 px-2.5 py-1 rounded bg-surface-container-lowest/80 backdrop-blur-md pointer-events-none">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-xs text-label-xs font-bold uppercase tracking-wider text-on-surface">Kinetiq Pro Engine</span>
+</div>
+<!-- Video Play State Indicator in Center (Overlay) -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:opacity-100 transition-opacity">
+<div class="w-16 h-16 rounded-full bg-primary/90 text-on-primary flex items-center justify-center shadow-xl transform group-hover:scale-105 transition-all">
+<span class="material-symbols-outlined text-[36px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<!-- Subtle Gradient Vignette for Scrubber -->
+<div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/70 to-transparent pointer-events-none"></div>
+<!-- Custom Player Controls Bar -->
+<div class="absolute inset-x-0 bottom-0 p-space-md flex flex-col gap-2 z-20">
+<!-- Timeline Scrubber with Chapters -->
+<div class="relative w-full h-3 flex items-center cursor-pointer group/scrub">
+<!-- Background Bar -->
+<div class="w-full h-1.5 bg-surface-container-highest/80 rounded-full overflow-hidden relative">
+<!-- Buffer Bar -->
+<div class="absolute top-0 bottom-0 left-0 bg-outline/40 w-3/4 rounded-full"></div>
+<!-- Play Progress Bar (60%) -->
+<div class="absolute top-0 bottom-0 left-0 bg-primary w-[60%] rounded-full shadow-[0_0_8px_rgba(192,193,255,0.7)]"></div>
+</div>
+<!-- Interactive Chapter Markers -->
+<div class="absolute left-[15%] w-1 h-3 bg-surface rounded-full pointer-events-none" title="Intro: The Hydration Cost"></div>
+<div class="absolute left-[40%] w-1 h-3 bg-surface rounded-full pointer-events-none" title="Architecture Shift"></div>
+<div class="absolute left-[65%] w-1 h-3 bg-surface rounded-full pointer-events-none" title="The 'use client' Directive"></div>
+<div class="absolute left-[85%] w-1 h-3 bg-surface rounded-full pointer-events-none" title="Benchmarking Bundle Sizes"></div>
+<!-- Scrubber Thumb -->
+<div class="absolute left-[60%] -translate-x-1/2 w-3.5 h-3.5 bg-primary-fixed rounded-full shadow-md transform scale-0 group-hover/scrub:scale-100 transition-transform"></div>
+</div>
+<!-- Lower Controls Strip -->
+<div class="flex items-center justify-between font-label-md text-label-md text-on-surface pt-1">
+<div class="flex items-center gap-space-sm">
+<!-- Play/Pause -->
+<button class="p-1 rounded hover:bg-surface-container text-on-surface hover:text-primary transition-colors" title="Play / Pause">
+<span class="material-symbols-outlined text-[24px]">pause</span>
+</button>
+<!-- Skip 10s -->
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Rewind 10s">
+<span class="material-symbols-outlined text-[20px]">replay_10</span>
+</button>
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Forward 10s">
+<span class="material-symbols-outlined text-[20px]">forward_10</span>
+</button>
+<!-- Audio Controller -->
+<div class="flex items-center gap-1 group/vol ml-2">
+<button class="p-1 text-on-surface-variant hover:text-on-surface">
+<span class="material-symbols-outlined text-[20px]">volume_up</span>
+</button>
+<div class="w-16 h-1.5 bg-surface-container-highest rounded-full overflow-hidden cursor-pointer">
+<div class="bg-on-surface w-4/5 h-full rounded-full"></div>
+</div>
+</div>
+<!-- Timestamps -->
+<div class="font-body-sm text-body-sm text-on-surface-variant ml-3 tabular-nums">
+<span class="text-on-surface font-semibold">14:32</span> / 24:18
+                </div>
+</div>
+<!-- Right Tools -->
+<div class="flex items-center gap-space-sm">
+<!-- Caption Pill -->
+<button class="px-2 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-primary font-label-xs text-label-xs font-bold transition-colors">
+                  CC • EN
+                </button>
+<!-- Speed Selector -->
+<div class="relative">
+<button class="px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-xs text-label-xs font-semibold flex items-center gap-1" id="speedMenuBtn">
+                    1.25x <span class="material-symbols-outlined text-[14px]">expand_less</span>
+</button>
+</div>
+<!-- Quality Indicator -->
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs font-mono">1080p60</span>
+<!-- Fullscreen -->
+<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Toggle Fullscreen">
+<span class="material-symbols-outlined text-[20px]">fullscreen</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Workspace Tabs System -->
+<div class="bg-surface-container-low rounded-xl shadow-sm overflow-hidden flex flex-col flex-1">
+<!-- Tab Headers -->
+<div class="flex items-center border-b border-surface-container px-space-md bg-surface-container-low/70 overflow-x-auto">
+<button class="workspace-tab active-tab flex items-center gap-2 py-3.5 px-4 font-title-md text-title-md font-semibold text-primary border-b-2 border-primary transition-all" id="btn-tab-overview" onclick="switchTab('tab-overview')">
+<span class="material-symbols-outlined text-[18px]">article</span>
+              Overview & Concepts
+            </button>
+<button class="workspace-tab flex items-center gap-2 py-3.5 px-4 font-title-md text-title-md font-medium text-on-surface-variant hover:text-on-surface border-b-2 border-transparent transition-all" id="btn-tab-tutor" onclick="switchTab('tab-tutor')">
+<span class="material-symbols-outlined text-[18px]">smart_toy</span>
+              AI Tutor Companion
+              <span class="w-2 h-2 rounded-full bg-secondary"></span>
+</button>
+<button class="workspace-tab flex items-center gap-2 py-3.5 px-4 font-title-md text-title-md font-medium text-on-surface-variant hover:text-on-surface border-b-2 border-transparent transition-all" id="btn-tab-resources" onclick="switchTab('tab-resources')">
+<span class="material-symbols-outlined text-[18px]">folder_zip</span>
+              Resources & Files (4)
+            </button>
+<button class="workspace-tab flex items-center gap-2 py-3.5 px-4 font-title-md text-title-md font-medium text-on-surface-variant hover:text-on-surface border-b-2 border-transparent transition-all" id="btn-tab-discussion" onclick="switchTab('tab-discussion')">
+<span class="material-symbols-outlined text-[18px]">forum</span>
+              Q&A Discussion (38)
+            </button>
+<button class="workspace-tab flex items-center gap-2 py-3.5 px-4 font-title-md text-title-md font-medium text-on-surface-variant hover:text-on-surface border-b-2 border-transparent transition-all" id="btn-tab-transcript" onclick="switchTab('tab-transcript')">
+<span class="material-symbols-outlined text-[18px]">subtitles</span>
+              Transcript
+            </button>
+<button class="workspace-tab flex items-center gap-2 py-3.5 px-4 font-title-md text-title-md font-medium text-on-surface-variant hover:text-on-surface border-b-2 border-transparent transition-all" id="btn-tab-chapters" onclick="switchTab('tab-chapters')">
+  <span class="material-symbols-outlined text-[18px]">format_list_bulleted</span>
+  Video Chapters
+</button>
+<button class="workspace-tab flex items-center gap-2 py-3.5 px-4 font-title-md text-title-md font-medium text-on-surface-variant hover:text-on-surface border-b-2 border-transparent transition-all" id="btn-tab-notes" onclick="switchTab('tab-notes')">
+  <span class="material-symbols-outlined text-[18px]">sticky_note_2</span>
+  Notes & Bookmarks
+</button>
+</div>
+<!-- Tab Content Panes -->
+<div class="p-space-lg text-on-surface min-h-[320px]">
+<!-- PANE 1: Overview & Key Concepts -->
+<div class="tab-pane flex flex-col space-y-space-lg" id="tab-overview"><div id="lesson-markdown-body" class="p-4 bg-surface-container rounded-xl text-sm leading-relaxed text-on-surface whitespace-pre-wrap font-sans"></div>
+<!-- Learning Objectives Checklist -->
+<div class="bg-surface-container rounded-xl p-space-md space-y-space-sm shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary font-bold">Key Objectives in this Lesson</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">2 of 3 Completed</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm pt-1">
+<div class="flex items-start gap-2.5 p-2 rounded bg-surface-container-high">
+<span class="material-symbols-outlined text-secondary text-[20px]">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface leading-tight">Master server-side component execution phases & serialization.</span>
+</div>
+<div class="flex items-start gap-2.5 p-2 rounded bg-surface-container-high">
+<span class="material-symbols-outlined text-secondary text-[20px]">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface leading-tight">Determine client boundaries with the <code>"use client"</code> pragma.</span>
+</div>
+<div class="flex items-start gap-2.5 p-2 rounded bg-surface-container-high">
+<span class="material-symbols-outlined text-outline text-[20px]">radio_button_unchecked</span>
+<span class="font-body-sm text-body-sm text-on-surface leading-tight">Avoid bundle bloating through composable tree slot composition.</span>
+</div>
+</div>
+</div>
+<!-- Markdown & Architecture Visual Section -->
+<div class="space-y-space-md max-w-4xl">
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-surface">The Mental Model Shift</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                  In React 19 and Next.js App Router, components default to <strong>React Server Components (RSC)</strong>. Unlike traditional Server-Side Rendering (SSR) where the entire page generates HTML and hydrates all JavaScript into the DOM, RSC code <span class="text-secondary font-semibold">never bundles to client machines</span>.
+                </p>
+<!-- Architecture Visual Element (Interactive SVG Infographic) -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest shadow-md space-y-3">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-on-surface">Execution Pipeline Topology</span>
+<span class="font-label-xs text-label-xs text-secondary bg-secondary-container/20 px-2 py-0.5 rounded">RSC Wire Format vs Hydration Tree</span>
+</div>
+<svg class="w-full h-auto text-on-surface" fill="none" viewbox="0 0 760 170">
+<!-- RSC Boundary Node -->
+<rect class="fill-surface-container-high" height="120" rx="8" width="220" x="20" y="25"></rect>
+<text class="fill-primary font-headline-md text-[14px] font-bold" x="40" y="55">Node.js / Edge Runtime</text>
+<text class="fill-on-surface-variant text-[12px]" x="40" y="80">Direct DB queries (Prisma/Kysely)</text>
+<text class="fill-on-surface-variant text-[12px]" x="40" y="100">Zero bytes added to JS Bundle</text>
+<text class="fill-secondary text-[11px] font-mono" x="40" y="125">renders -> JSON stream</text>
+<!-- Stream Pipe -->
+<path class="text-primary" d="M240 85 L320 85" stroke="currentColor" stroke-dasharray="4 4" stroke-width="2"></path>
+<polygon class="fill-primary" points="320,80 330,85 320,90"></polygon>
+<text class="fill-outline text-[10px] font-mono" x="246" y="75">RSC Payload</text>
+<!-- Boundary Gate -->
+<rect class="fill-surface-variant" height="80" rx="6" width="100" x="330" y="45"></rect>
+<text class="fill-tertiary font-bold text-[12px]" x="345" y="75">"use client"</text>
+<text class="fill-on-surface-variant text-[10px]" x="345" y="98">Serialization</text>
+<text class="fill-on-surface-variant text-[10px]" x="345" y="112">Checkpoint</text>
+<!-- Browser DOM Node -->
+<path class="text-secondary" d="M430 85 L500 85" stroke="currentColor" stroke-width="2"></path>
+<polygon class="fill-secondary" points="500,80 510,85 500,90"></polygon>
+<rect class="fill-surface-container-high" height="120" rx="8" width="230" x="510" y="25"></rect>
+<text class="fill-secondary font-headline-md text-[14px] font-bold" x="530" y="55">Browser Client DOM</text>
+<text class="fill-on-surface-variant text-[12px]" x="530" y="80">Interactive state: useState, useEffect</text>
+<text class="fill-on-surface-variant text-[12px]" x="530" y="100">Event listeners (onClick, onScroll)</text>
+<text class="fill-primary text-[11px] font-mono" x="530" y="125">hydrated interactive DOM</text>
+</svg>
+</div>
+<!-- Formatted Code Snippet Block -->
+<div class="rounded-xl overflow-hidden bg-surface-container-lowest shadow-md">
+<div class="flex items-center justify-between px-space-md py-2 bg-surface-container-high">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-error-container"></span>
+<span class="w-3 h-3 rounded-full bg-tertiary-container"></span>
+<span class="w-3 h-3 rounded-full bg-secondary-container"></span>
+<span class="font-label-xs text-label-xs font-mono text-on-surface-variant ml-2">app/dashboard/analytics/page.tsx</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface flex items-center gap-1 font-label-xs text-label-xs" onclick="navigator.clipboard.writeText('// Copied code');">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+                      Copy
+                    </button>
+</div>
+<div class="p-space-md font-mono text-body-sm overflow-x-auto text-on-surface leading-6">
+<pre><code><span class="text-outline">// 1. Server Component by default: Direct database or secure API call</span>
+<span class="text-primary font-bold">import</span> { db } <span class="text-primary font-bold">from</span> <span class="text-secondary">'@/lib/database'</span>;
+<span class="text-primary font-bold">import</span> { MetricsInteractiveChart } <span class="text-primary font-bold">from</span> <span class="text-secondary">'./MetricsChart'</span>;
+
+<span class="text-primary font-bold">export default async function</span> <span class="text-tertiary">AnalyticsPage</span>() {
+  <span class="text-outline">// Executes exclusively on the server at request time</span>
+  <span class="text-primary font-bold">const</span> records = <span class="text-primary font-bold">await</span> db.cohorts.findMany({ take: <span class="text-tertiary">100</span> });
+
+  <span class="text-primary font-bold">return</span> (
+    <<span class="text-primary">main</span> <span class="text-secondary">className</span>=<span class="text-secondary">"p-8 space-y-4"</span>>
+      <<span class="text-primary">h1</span> <span class="text-secondary">className</span>=<span class="text-secondary">"text-2xl font-bold"</span>>Cohort Velocity</<span class="text-primary">h1</span>>
+      
+      <span class="text-outline">{/* Client boundary seamlessly rendered with serialized server data */}</span>
+      <<span class="text-tertiary">MetricsInteractiveChart</span> <span class="text-secondary">initialData</span>={records} />
+    </<span class="text-primary">main</span>>
+  );
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<!-- PANE 2: AI Tutor Companion -->
+<div class="tab-pane hidden flex-col space-y-space-md" id="tab-tutor">
+<div class="flex items-center justify-between pb-space-sm border-b border-surface-container">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-secondary-container text-on-secondary flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[18px]">psychology</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md font-bold text-on-surface">Kinetiq Neural Tutor</h3>
+<p class="font-label-xs text-label-xs text-on-surface-variant">Active context: Module 3 • Next.js 14.2 • React 19</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+  <button id="btn-explain-moment" type="button" class="px-3 py-1 rounded-lg bg-primary/20 hover:bg-primary/30 text-primary font-bold text-xs flex items-center gap-1 transition-colors border border-primary/30">
+    <span class="material-symbols-outlined text-[16px]">psychology</span>
+    Explain Current Moment
+  </button>
+  <span class="px-2 py-0.5 rounded bg-secondary/10 text-secondary font-label-xs text-label-xs">Active Tutor</span>
+</div>
+</div>
+<!-- Quick Prompts Chips -->
+<div class="flex items-center gap-2 flex-wrap">
+<span class="font-label-xs text-label-xs text-outline font-semibold">Recommended:</span>
+<button class="px-3 py-1 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-xs text-label-xs transition-colors">
+                  Why can't Server Components use useState?
+                </button>
+<button class="px-3 py-1 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-xs text-label-xs transition-colors">
+                  Explain line 12 serialization boundary
+                </button>
+<button class="px-3 py-1 rounded-full bg-surface-container hover:bg-surface-container-high text-primary font-label-xs text-label-xs transition-colors">
+                  Generate 3-question quiz on this lesson
+                </button>
+</div>
+<!-- Dialogue Feed -->
+<div id="ai-tutor-messages" class="space-y-3 max-h-[460px] overflow-y-auto p-3 bg-surface-container-lowest rounded-xl border border-outline-variant/30 text-xs">
+  <div class="flex items-start gap-3 p-3.5 rounded-xl bg-surface-container border border-outline-variant/30 text-xs text-on-surface">
+    <span class="material-symbols-outlined text-secondary text-[20px]">smart_toy</span>
+    <div>
+      <span class="font-bold text-secondary">Kinetiq Neural Tutor Active</span>
+      <p class="text-on-surface-variant mt-0.5">I am connected to the current course and lesson curriculum. Ask me to explain concepts, clarify code lines, or give practical production examples.</p>
+    </div>
+  </div>
+</div>
+<!-- Prompt Input Bar -->
+<form id="ai-tutor-form" class="relative pt-2 flex items-center gap-2">
+  <input id="ai-tutor-input" class="w-full bg-surface-container rounded-xl pl-4 pr-12 py-3 text-body-sm text-on-surface placeholder-outline focus:outline-none focus:bg-surface-container-high transition-colors" placeholder="Ask anything about this timestamp or code block..." type="text"/>
+  <button type="submit" class="absolute right-2.5 top-5 p-1.5 rounded-lg bg-primary text-on-primary hover:bg-primary/80 transition-colors">
+    <span class="material-symbols-outlined text-[18px]">send</span>
+  </button>
+</form>
+</div>
+<!-- PANE 3: Resources & Downloads -->
+<div class="tab-pane hidden flex-col space-y-space-md" id="tab-resources">
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface">Lesson Attachments & Artifacts</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Resource 1 -->
+<div class="p-space-md rounded-xl bg-surface-container flex items-center justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-error-container text-on-error flex items-center justify-center">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md font-semibold text-on-surface">RSC vs SSR Cheatsheet (v2)</h4>
+<p class="font-label-xs text-label-xs text-on-surface-variant">PDF Document • 2.4 MB</p>
+</div>
+</div>
+<a class="p-2 rounded bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</a>
+</div>
+<!-- Resource 2 -->
+<div class="p-space-md rounded-xl bg-surface-container flex items-center justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-secondary-container text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined">code</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md font-semibold text-on-surface">Starter Repository (GitHub)</h4>
+<p class="font-label-xs text-label-xs text-on-surface-variant">Branch: 03-rsc-boundaries</p>
+</div>
+</div>
+<a class="p-2 rounded bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">open_in_new</span>
+</a>
+</div>
+<!-- Resource 3 -->
+<div class="p-space-md rounded-xl bg-surface-container flex items-center justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-tertiary-container text-on-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined">slideshow</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md font-semibold text-on-surface">Lecture Slide Deck (Keynote)</h4>
+<p class="font-label-xs text-label-xs text-on-surface-variant">Deck • 42 Slides • 14 MB</p>
+</div>
+</div>
+<a class="p-2 rounded bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</a>
+</div>
+<!-- Resource 4 -->
+<div class="p-space-md rounded-xl bg-surface-container flex items-center justify-between hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md font-semibold text-on-surface">Sandbox Playground Dockerfile</h4>
+<p class="font-label-xs text-label-xs text-on-surface-variant">Container config • 12 KB</p>
+</div>
+</div>
+<a class="p-2 rounded bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</a>
+</div>
+</div>
+</div>
+<!-- PANE 4: Discussion & Q&A -->
+<div class="tab-pane hidden flex-col space-y-space-md" id="tab-discussion">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-headline-md text-headline-md font-bold text-on-surface">Questions & Discussion</h3>
+<p class="font-label-xs text-label-xs text-on-surface-variant">38 inquiries answered by instructors & peers</p>
+</div>
+<button class="px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:bg-primary-fixed transition-colors">
+                  Ask a Question
+                </button>
+</div>
+<!-- Comment 1: Instructor Verified -->
+<div class="p-space-md rounded-xl bg-surface-container space-y-space-sm">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<img class="w-9 h-9 rounded-full object-cover" data-alt="Close up portrait photograph of senior cloud software engineer instructor speaking at tech conference under warm moody studio light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn5kcYBpNUmMKPb7i7CUobPE-aVKDaXu5-bPr9Rov95HmYdpKzeaP1st8p8nzM9v42O5ECDUlcau1rLZgijdxghVlYUEnQYpEKb_nBgkp0o2KYRyuXjQBg8a1_UQniFOac5cesroiP-CuaAV2UpOLu3i3c_xsl_jgweBwneXskaiAymQMqEXjiX8q-_z2vxlERX0nylILmOfme8zP9jzbS1aLxBFQJZ5ynWsrwOa9u_ca_Xm8UY8yvTA"/>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-title-md text-title-md font-bold text-on-surface">Alex Thorne</span>
+<span class="px-1.5 py-0.5 rounded bg-secondary/15 text-secondary font-label-xs text-label-xs font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]">verified</span> Instructor
+                        </span>
+</div>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Posted 2 hours ago • pinned solution</span>
+</div>
+</div>
+<!-- Upvote pill -->
+<button class="flex items-center gap-1.5 px-3 py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-secondary font-label-xs text-label-xs font-bold transition-colors">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+                    47
+                  </button>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+                  Remember that cookies() and headers() function invocations opt the route into dynamic rendering automatically. You do NOT need <code class="text-tertiary">"use client"</code> to read session tokens!
+                </p>
+</div>
+<!-- Comment 2 -->
+<div class="p-space-md rounded-xl bg-surface-container space-y-space-sm ml-4">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-surface-container-highest text-on-surface font-semibold flex items-center justify-center text-sm">
+                      MK
+                    </div>
+<div>
+<span class="font-title-md text-title-md font-bold text-on-surface">Marcus K.</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant block">Posted 5 hours ago</span>
+</div>
+</div>
+<button class="flex items-center gap-1.5 px-3 py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface-variant font-label-xs text-label-xs transition-colors">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+                    8
+                  </button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                  That cleared up my error with headers() failing inside the layout component. Thanks Alex!
+                </p>
+</div>
+</div>
+<!-- PANE 5: Transcript -->
+<div class="tab-pane hidden flex-col space-y-3" id="tab-transcript">
+<div class="flex items-center justify-between pb-2 border-b border-surface-container">
+<span class="font-title-md text-title-md font-bold text-on-surface">Audio Transcript • English (Auto-Generated & Curated)</span>
+<button class="text-primary hover:underline font-label-xs text-label-xs">Download .VTT</button>
+</div>
+<div id="transcript-list-container" class="space-y-2 max-h-96 overflow-y-auto pr-2"></div></div></div>
+</div>
+</div>
+</div>
+<!-- 3. Right Curriculum Sidebar: Structured Syllabus (Col 9 to 12) -->
+<aside class="xl:col-span-4 2xl:col-span-3 bg-surface-container-lowest p-space-md flex flex-col space-y-space-md border-l border-surface-container shadow-md overflow-y-auto">
+<!-- Sidebar Header -->
+<div class="flex items-center justify-between">
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">Curriculum Flow</h2>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Module 3 of 6 • 14/28 Completed</span>
+</div>
+<button class="p-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface" title="Collapse All">
+<span class="material-symbols-outlined text-[20px]">unfold_less</span>
+</button>
+</div>
+<div id="curriculum-sections-container" class="space-y-3 pt-2"></div>
+<!-- Module Accordion 1 (Completed) -->
+<div class="rounded-xl bg-surface-container-low overflow-hidden shadow-sm">
+<div class="p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-container transition-colors" onclick="toggleModule('mod1-content')">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-secondary text-[20px]">check_circle</span>
+<div>
+<h3 class="font-title-md text-title-md font-semibold text-on-surface">Module 1: Core Fundamentals</h3>
+<span class="font-label-xs text-label-xs text-on-surface-variant">3/3 Lessons • 1h 24m</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">expand_more</span>
+</div>
+<div class="hidden px-space-md pb-space-sm space-y-1 bg-surface-container-lowest/50" id="mod1-content">
+<div class="flex items-center justify-between py-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-2 line-through text-outline"><span class="material-symbols-outlined text-[16px]">play_circle</span> 1. Next.js 14 Philosophy</span>
+<span class="font-label-xs text-label-xs font-mono">18:20</span>
+</div>
+<div class="flex items-center justify-between py-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-2 line-through text-outline"><span class="material-symbols-outlined text-[16px]">terminal</span> 2. Dev Environment Rig</span>
+<span class="font-label-xs text-label-xs font-mono">22:05</span>
+</div>
+<div class="flex items-center justify-between py-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-2 line-through text-outline"><span class="material-symbols-outlined text-[16px]">quiz</span> 3. Module Assessment</span>
+<span class="font-label-xs text-label-xs font-mono">10 Qs</span>
+</div>
+</div>
+</div>
+<!-- Module Accordion 2 (Completed) -->
+<div class="rounded-xl bg-surface-container-low overflow-hidden shadow-sm">
+<div class="p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-container transition-colors" onclick="toggleModule('mod2-content')">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-secondary text-[20px]">check_circle</span>
+<div>
+<h3 class="font-title-md text-title-md font-semibold text-on-surface">Module 2: Server Rendering</h3>
+<span class="font-label-xs text-label-xs text-on-surface-variant">4/4 Lessons • 2h 10m</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">expand_more</span>
+</div>
+<div class="hidden px-space-md pb-space-sm space-y-1 bg-surface-container-lowest/50" id="mod2-content">
+<div class="flex items-center justify-between py-2 text-on-surface-variant font-body-sm text-body-sm line-through text-outline">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">play_circle</span> 1. Static vs Dynamic SSR</span>
+<span class="font-label-xs text-label-xs font-mono">31:10</span>
+</div>
+</div>
+</div>
+<!-- Module Accordion 3 (ACTIVE MODULE) -->
+<div class="rounded-xl bg-surface-container overflow-hidden shadow-md">
+<div class="p-3.5 flex items-center justify-between cursor-pointer bg-surface-container-high/80" onclick="toggleModule('mod3-content')">
+<div class="flex items-center gap-2.5">
+<span class="w-5 h-5 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-xs">3</span>
+<div>
+<h3 class="font-title-md text-title-md font-bold text-on-surface">Module 3: App Router Architecture</h3>
+<span class="font-label-xs text-label-xs text-primary font-medium">In Progress • Lesson 4 of 6</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary text-[20px]">expand_less</span>
+</div>
+<div class="p-2 space-y-1 bg-surface-container" id="mod3-content">
+<!-- Completed lesson in active module -->
+<a class="flex items-center justify-between p-2.5 rounded-lg hover:bg-surface-container-high transition-colors group" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">1. Nested Layouts & Templates</span>
+</div>
+<span class="font-label-xs text-label-xs font-mono text-outline">19:45</span>
+</a>
+<!-- Completed lesson in active module -->
+<a class="flex items-center justify-between p-2.5 rounded-lg hover:bg-surface-container-high transition-colors group" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">2. Parallel & Intercepting Routes</span>
+</div>
+<span class="font-label-xs text-label-xs font-mono text-outline">28:12</span>
+</a>
+<!-- Completed lesson in active module -->
+<a class="flex items-center justify-between p-2.5 rounded-lg hover:bg-surface-container-high transition-colors group" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">3. Streaming with Suspense Boundaries</span>
+</div>
+<span class="font-label-xs text-label-xs font-mono text-outline">22:04</span>
+</a>
+<!-- CURRENT ACTIVE LESSON -->
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-highest shadow-sm">
+<div class="flex items-center gap-3 min-w-0">
+<span class="material-symbols-outlined text-primary text-[20px] animate-pulse">play_circle</span>
+<div class="truncate">
+<span class="font-body-sm text-body-sm font-bold text-primary block truncate">4. Server vs Client Components</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Playing now • 14:32</span>
+</div>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-primary/20 text-primary font-label-xs text-label-xs font-semibold uppercase">Current</span>
+</div>
+<!-- Locked lesson -->
+<div class="flex items-center justify-between p-2.5 rounded-lg text-outline select-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+<span class="font-body-sm text-body-sm">5. Cache-Control & Data Cache ISR</span>
+</div>
+<span class="font-label-xs text-label-xs font-mono">34:10</span>
+</div>
+<!-- Locked Quiz -->
+<div class="flex items-center justify-between p-2.5 rounded-lg text-outline select-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+<span class="font-body-sm text-body-sm">6. Module 3 Architecture Exam</span>
+</div>
+<span class="font-label-xs text-label-xs font-mono">15 Qs</span>
+</div>
+</div>
+</div>
+<!-- Instructor Bio Snippet Card in Sidebar -->
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-sm mt-auto space-y-2">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Portrait photography of tech course instructor Elena Rostova with ambient purple studio lighting in minimalist tech office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6zSMRgmk2w2zoFinmdXkvdT3uHhqQlDe3BzrZ7d8bgLy2-l7zM7EG_lz5oQyRGFNA3na8IaLlWXM5HcXjXtQg27k-YH_XQrVW92dtDpEEdNjGaoIBx4yQPeMQtgbMgbd4iMWBqXsJ15lDr7aQgv8hu1EuHT0Lg0S7caO9TiTkajvVEnkMBL8lPF0OmY55PTtQHB_d-OUrl7wjGw32ZjkyStgV3lTesAyDNWYHG41YIEdrm9hDYIT5Eg"/>
+<div>
+<h4 class="font-title-md text-title-md font-bold text-on-surface">Elena Rostova</h4>
+<p class="font-label-xs text-label-xs text-secondary">Author • Principal Architect</p>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Have questions regarding Next.js 14 hydration mismatches? Tag me in the Q&A tab above!
+          </p>
+</div>
+</aside>
+</div>
+<!-- 4. Bottom Sticky Navigation Action Bar -->
+<div class="sticky bottom-0 inset-x-0 z-30 bg-surface-container-high/95 backdrop-blur-xl px-space-lg py-space-sm shadow-xl flex items-center justify-between">
+<!-- Previous Action -->
+<a class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-highest text-on-surface font-title-md text-title-md font-semibold transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+<span>Previous: <span class="font-normal text-on-surface-variant hidden sm:inline">Streaming with Suspense</span></span>
+</a>
+<!-- Quick Status Text for Keyboards -->
+<div class="hidden md:flex items-center gap-3 text-on-surface-variant font-label-xs text-label-xs">
+<span class="flex items-center gap-1">Press <kbd class="px-1.5 py-0.5 bg-surface-container rounded font-mono">Space</kbd> to Pause</span>
+<span>•</span>
+<span class="flex items-center gap-1">Press <kbd class="px-1.5 py-0.5 bg-surface-container rounded font-mono">M</kbd> to Mute</span>
+</div>
+<!-- Mark as Complete & Next Primary Action -->
+<div class="flex items-center gap-space-sm">
+<button class="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-on-primary font-title-md text-title-md font-bold hover:bg-primary-fixed shadow-md transition-all" id="completeBtn">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span>Mark Complete & Next</span>
+<kbd class="hidden sm:inline-block ml-1 px-1.5 py-0.5 rounded bg-on-primary/20 text-on-primary text-[10px] font-mono">Shift + N</kbd>
+</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Tab Switching Micro-interaction
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-pane').forEach(el => {
+      el.classList.add('hidden');
+    });
+    const target = document.getElementById(tabId);
+    if (target) {
+      target.classList.remove('hidden');
+    }
+
+    document.querySelectorAll('.workspace-tab').forEach(btn => {
+      btn.classList.remove('text-primary', 'border-primary', 'font-semibold');
+      btn.classList.add('text-on-surface-variant', 'border-transparent', 'font-medium');
+    });
+
+    const activeBtn = document.getElementById('btn-' + tabId);
+    if (activeBtn) {
+      activeBtn.classList.remove('text-on-surface-variant', 'border-transparent', 'font-medium');
+      activeBtn.classList.add('text-primary', 'border-primary', 'font-semibold');
+    }
+  }
+
+  // Accordion Toggle Micro-interaction
+  function toggleModule(contentId) {
+    const el = document.getElementById(contentId);
+    if (el) {
+      el.classList.toggle('hidden');
+    }
+  }
+
+  // Interactive Save / Bookmark Toggle
+  const bookmarkBtn = document.getElementById('bookmarkBtn');
+  if (bookmarkBtn) {
+    bookmarkBtn.addEventListener('click', function() {
+      const icon = this.querySelector('.material-symbols-outlined');
+      const isFilled = icon.style.fontVariationSettings?.includes("'FILL' 1");
+      if (isFilled) {
+        icon.style.fontVariationSettings = "'FILL' 0";
+        this.classList.remove('text-tertiary');
+      } else {
+        icon.style.fontVariationSettings = "'FILL' 1";
+        this.classList.add('text-tertiary');
+      }
+    });
+  }
+
+  // Mark complete instant toast / micro state
+  const completeBtn = document.getElementById('completeBtn');
+  if (completeBtn) {
+    completeBtn.addEventListener('click', function() {
+      const originalText = this.innerHTML;
+      this.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">sync</span> Advancing to Lesson 5...';
+      setTimeout(() => {
+        this.innerHTML = '<span class="material-symbols-outlined text-[20px]">check</span> Completed!';
+        this.classList.remove('bg-primary');
+        this.classList.add('bg-secondary-container', 'text-on-secondary-container');
+      }, 700);
+    });
+  }
+</script></main></div>  <script src="../shared/api.js"></script><script src="../shared/router.js"></script><script src="player.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  if (!window.KinetiqAPI) return;
+
+  const user = window.KinetiqAPI.store.user.get();
+  const params = new URLSearchParams(window.location.search);
+  const courseId = params.get('course') || params.get('courseId');
+  const lessonId = params.get('lesson') || params.get('lessonId');
+
+  // Track lesson open
+  if (courseId && lessonId) {
+    window.KinetiqAPI.ai.trackEvent('lesson_opened', { courseId, lessonId }, null).catch(() => {});
+  }
+
+  // Progress update on video progress simulation (30 sec intervals)
+  let progressInterval;
+  let watchedSeconds = 0;
+
+  const videos = document.querySelectorAll('video');
+  if (videos.length > 0 && courseId && lessonId) {
+    videos[0].addEventListener('play', () => {
+      progressInterval = setInterval(async () => {
+        watchedSeconds += 30;
+        try {
+          await window.KinetiqAPI.courses.updateProgress(courseId, lessonId, {
+            watchedSeconds,
+            playbackPosition: Math.floor(videos[0].currentTime || 0),
+          });
+        } catch {}
+      }, 30000);
+    });
+    videos[0].addEventListener('pause', () => clearInterval(progressInterval));
+    videos[0].addEventListener('ended', async () => {
+      clearInterval(progressInterval);
+      try {
+        const res = await window.KinetiqAPI.courses.updateProgress(courseId, lessonId, { isCompleted: true });
+        if (res?.data?.progressPercent >= 100) {
+          window.KinetiqAPI.ui.showSuccess('?? Course complete! Certificate being prepared...');
+        } else {
+          window.KinetiqAPI.ui.showSuccess(`Progress: ${Math.round(res?.data?.progressPercent || 0)}%`);
+        }
+      } catch {}
+    });
+  }
+
+  // Mark lesson complete button
+  document.querySelectorAll('[data-action="complete-lesson"], button').forEach(btn => {
+    if (btn.textContent.includes('Mark Complete') || btn.textContent.includes('Complete Lesson')) {
+      btn.addEventListener('click', async () => {
+        if (!courseId || !lessonId) return;
+        try {
+          const res = await window.KinetiqAPI.courses.updateProgress(courseId, lessonId, { isCompleted: true });
+          window.KinetiqAPI.ui.showSuccess('Lesson marked as complete! ?');
+        } catch (err) {
+          window.KinetiqAPI.ui.showError(err.message);
+        }
+      });
+    }
+  });
+});
+</script>
+</body></html>

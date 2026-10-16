@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>Next.js 15 & Distributed Systems Masterclass � Kinetiq Academy</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script>const origWarn = console.warn; console.warn = (...args) => { if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return; origWarn(...args); };</script><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-dim":"#0b1326","secondary-fixed-dim":"#4edea3","primary-container":"#8083ff","surface-container-low":"#131b2e","on-error-container":"#ffdad6","inverse-surface":"#dae2fd","surface-container":"#171f33","inverse-primary":"#494bd6","on-error":"#690005","primary-fixed":"#e1e0ff","surface-container-lowest":"#060e20","surface-variant":"#2d3449","secondary":"#4edea3","secondary-container":"#00a572","primary-fixed-dim":"#c0c1ff","error-container":"#93000a","tertiary-fixed":"#ffddb8","tertiary-container":"#ca8100","surface-tint":"#c0c1ff","on-primary-fixed":"#07006c","surface-container-highest":"#2d3449","primary":"#c0c1ff","error":"#ffb4ab","on-tertiary-container":"#3e2400","tertiary":"#ffb95f","background":"#0b1326","on-primary-fixed-variant":"#2f2ebe","secondary-fixed":"#6ffbbe","outline":"#908fa0","outline-variant":"#464554","on-primary-container":"#0d0096","on-tertiary-fixed":"#2a1700","on-tertiary":"#472a00","surface-container-high":"#222a3d","on-secondary-container":"#00311f","on-primary":"#1000a9","on-secondary-fixed":"#002113","inverse-on-surface":"#283044","on-tertiary-fixed-variant":"#653e00","surface-bright":"#31394d","on-surface":"#dae2fd","tertiary-fixed-dim":"#ffb95f","on-secondary":"#003824","on-secondary-fixed-variant":"#005236","surface":"#0b1326","on-background":"#dae2fd","on-surface-variant":"#c7c4d7"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"margin-mobile":"1rem","space-md":"1rem","space-sm":"0.5rem","space-xl":"2.5rem","margin":"2rem","gutter-mobile":"1rem","space-lg":"1.5rem","space-xs":"0.25rem","gutter":"1.5rem"},fontFamily:{"title-md":["Inter"],"body-lg":["Inter"],"headline-md":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"headline-xl":["Plus Jakarta Sans"],"label-md":["Inter"],"display-lg":["Plus Jakarta Sans"],"label-xs":["Inter"],"headline-xl-mobile":["Plus Jakarta Sans"],"display-lg-mobile":["Plus Jakarta Sans"],"body-md":["Inter"],"body-sm":["Inter"]},fontSize:{"title-md":["16px",{"lineHeight":"24px","letterSpacing":"-0.005em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"26px","letterSpacing":"0em","fontWeight":"400"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"display-lg":["48px",{"lineHeight":"56px","letterSpacing":"-0.025em","fontWeight":"700"}],"label-xs":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"500"}],"headline-xl-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.015em","fontWeight":"600"}],"display-lg-mobile":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"22px","letterSpacing":"0em","fontWeight":"400"}],"body-sm":["13px",{"lineHeight":"18px","letterSpacing":"0.005em","fontWeight":"400"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-20 w-full max-w-[1440px] mx-auto px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg shrink-0"><a class="flex items-center gap-space-sm" data-path="home" href="#"><img alt="Brand logo. - Primary color: #6366f1
+- Font: plusJakartaSans
+- Mode: dark
+- Roundness: rounded-md
+" class="h-8 w-auto object-contain" src="https://api.iconify.design/material-symbols:school-outline-rounded.svg?color=%238083ff"/><span class="font-headline-md text-headline-md text-on-surface tracking-tight">Kinetiq</span></a><nav class="hidden xl:flex items-center gap-space-xs p-1 rounded-xl bg-surface-container-lowest/60" data-active-classes="text-on-surface bg-surface-container-high"><a class="px-3 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-on-surface hover:bg-surface-container transition-colors" data-path="home" href="#">Home</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-on-surface hover:bg-surface-container transition-colors" data-path="explore-courses" href="#">Explore Courses</a><a aria-current="page" class="px-3 py-1.5 rounded-lg font-label-md transition-colors text-on-surface bg-surface-container-high" data-path="course-details" href="#">Course Details</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-on-surface hover:bg-surface-container transition-colors" data-path="ai-learning" href="#">AI Learning</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-on-surface hover:bg-surface-container transition-colors" data-path="pricing" href="#">Pricing</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-on-surface hover:bg-surface-container transition-colors" data-path="about-us" href="#">About Us</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-on-surface hover:bg-surface-container transition-colors" data-path="resources-and-blog" href="#">Resources &amp; Blog</a><a class="px-3 py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:text-on-surface hover:bg-surface-container transition-colors" data-path="contact" href="#">Contact</a></nav></div><div class="flex items-center gap-space-sm shrink-0"><button class="hidden md:flex items-center gap-space-sm h-10 px-3 rounded-lg bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors font-body-sm text-body-sm" type="button"><span class="material-symbols-outlined text-[18px]">search</span><span>Search</span><kbd class="px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-label-xs text-label-xs">⌘K</kbd></button><a class="hidden sm:inline-flex items-center justify-center h-10 px-4 rounded-lg text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors" data-path="login" href="#">Log In</a><a class="inline-flex items-center justify-center h-10 px-4 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md hover:bg-primary hover:text-on-primary transition-colors shadow-sm" data-path="register" href="#">Get Started Free</a><img alt="Profile" class="w-8 h-8 rounded-full object-cover ml-1" src="https://api.iconify.design/material-symbols:school-outline-rounded.svg?color=%238083ff"/></div></div></header><main class="w-full pt-20 bg-surface min-h-[calc(100vh-80px)]"><div class="flex flex-col w-full">
+<!-- Subtle ambient decorative glow behind hero -->
+<div class="relative w-full overflow-hidden bg-surface-container-lowest">
+<div class="absolute -top-40 left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[140px] pointer-events-none"></div>
+<div class="absolute top-20 right-10 w-[450px] h-[450px] bg-secondary/5 rounded-full blur-[120px] pointer-events-none"></div>
+<div class="max-w-[1440px] mx-auto px-margin pt-space-lg pb-space-xl">
+<!-- Breadcrumb Navigation -->
+<nav aria-label="Breadcrumb" class="flex items-center gap-space-xs mb-space-md text-on-surface-variant font-label-md text-label-md">
+<a class="hover:text-primary transition-colors" data-path="home" href="#">Home</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<a class="hover:text-primary transition-colors" data-path="explore-courses" href="#">Courses</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<a class="hover:text-primary transition-colors" data-path="explore-courses" href="#">Web Development</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-on-surface truncate max-w-xs md:max-w-md">Next.js 15 &amp; Distributed Systems</span>
+</nav>
+<!-- Grid layout: Left 2/3 Content & Right 1/3 Floating Enrollment Card -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Left Hero Details (8 cols) -->
+<div class="lg:col-span-7 xl:col-span-8 flex flex-col gap-space-md">
+<!-- Badges Cluster -->
+<div class="flex flex-wrap items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary-container/30 text-tertiary font-label-xs text-label-xs uppercase tracking-wider font-semibold">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+              Bestseller
+            </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-container/20 text-primary-fixed-dim font-label-xs text-label-xs">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+              Updated for Next.js 15 &amp; React 19
+            </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container/20 text-secondary font-label-xs text-label-xs">
+<span class="material-symbols-outlined text-[14px]">terminal</span>
+              Hands-on Coding Sandboxes
+            </span>
+</div>
+<!-- Main Title & Hook -->
+<h1 class="font-headline-xl text-headline-xl lg:font-display-lg lg:text-display-lg text-on-surface tracking-tight leading-tight">
+            Complete Next.js 15, React 19 &amp; Distributed Systems Architecture
+          </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl leading-relaxed">
+            Master the next generation of full-stack engineering. Build high-concurrency micro-frontends, implement Server Actions, optimize cache control at scale, and deploy containerized streaming architectures with real-world edge telemetry.
+          </p>
+<!-- Key Metrics Strip -->
+<div class="flex flex-wrap items-center gap-y-3 gap-x-6 pt-space-xs text-on-surface-variant font-body-sm text-body-sm">
+<!-- Rating -->
+<div class="flex items-center gap-1.5">
+<div class="flex items-center text-tertiary">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star_half</span>
+</div>
+<span class="font-title-md text-title-md text-on-surface">4.98</span>
+<span class="text-on-surface-variant/80">(3,240 ratings)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-secondary">group</span>
+<span class="text-on-surface font-semibold">14,290</span>
+<span>enrolled engineers</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">published_with_changes</span>
+<span>Updated October 2024</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-outline">translate</span>
+<span>English <span class="text-on-surface-variant/70">(EN, DE, ES, JA captions)</span></span>
+</div>
+<div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-xs text-label-xs">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+              Staff-level certification included
+            </div>
+</div>
+<!-- Quick Value Highlight Bar -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-gutter mt-space-sm p-space-md rounded-xl bg-surface-container/60 shadow-sm">
+<div class="flex flex-col">
+<span class="text-on-surface-variant font-label-xs text-label-xs uppercase tracking-wider">Curriculum Depth</span>
+<span class="font-headline-md text-headline-md text-on-surface">38.5 Hours</span>
+<span class="text-on-surface-variant font-body-sm text-body-sm">48 Modules &amp; Labs</span>
+</div>
+<div class="flex flex-col">
+<span class="text-on-surface-variant font-label-xs text-label-xs uppercase tracking-wider">Live Cloud Labs</span>
+<span class="font-headline-md text-headline-md text-secondary">24 Sandboxes</span>
+<span class="text-on-surface-variant font-body-sm text-body-sm">Ephemeral V8 Isolates</span>
+</div>
+<div class="flex flex-col">
+<span class="text-on-surface-variant font-label-xs text-label-xs uppercase tracking-wider">AI Co-Pilot</span>
+<span class="font-headline-md text-headline-md text-primary">Zero Latency</span>
+<span class="text-on-surface-variant font-body-sm text-body-sm">Architecture Review</span>
+</div>
+<div class="flex flex-col">
+<span class="text-on-surface-variant font-label-xs text-label-xs uppercase tracking-wider">Target Level</span>
+<span class="font-headline-md text-headline-md text-tertiary">Senior / Staff</span>
+<span class="text-on-surface-variant font-body-sm text-body-sm">Enterprise Scale</span>
+</div>
+</div>
+</div>
+<!-- Right Floating Sticky Enrollment Card (4-5 cols) -->
+<div class="lg:col-span-5 xl:col-span-4 w-full">
+<div class="lg:sticky lg:top-24 rounded-2xl bg-surface-container p-space-md shadow-xl flex flex-col gap-space-md">
+<!-- Video Preview Thumbnail with Trigger Modal Mock -->
+<div class="relative w-full aspect-video rounded-xl overflow-hidden bg-surface-container-high group cursor-pointer shadow-md">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Modern dark developer workspace showing code editor with Next.js distributed architecture schematics and server terminal on ultra-wide monitor, illuminated by soft indigo and emerald ambient lights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmgo_6wBoIsclwDbHzVqxr6JgAPYa6E_nKduaCjFbSrCxn7m7jAJeqTQprO14Rkr7fMm-XrSSQkH-rV2sMP4AbVCSTEZeeg3EklwH5DMapUMsyYZ5Rz9SjkuyuJhm9fYwSO-0n0qU3ApAzJfU9HaBI8oYsn7h4_XBtnYOGaK0W7kvoNgVBUgXpTnfHoG1krsXtJcPAA_5o0sl-ZwJU-1dyV_nZobvohunp7W5OStudjEnKErNd4yOc9Q"/>
+<div class="absolute inset-0 bg-surface-container-lowest/60 group-hover:bg-surface-container-lowest/40 transition-colors flex items-center justify-center">
+<div class="w-14 h-14 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[32px] ml-1" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-on-surface font-label-xs text-label-xs bg-surface-container-lowest/80 backdrop-blur-md px-3 py-1.5 rounded-lg">
+<span class="flex items-center gap-1 font-semibold text-primary">
+<span class="material-symbols-outlined text-[14px]">lock_open</span> Preview 4 Free Lessons
+                </span>
+<span class="text-on-surface-variant">18m 45s</span>
+</div>
+</div>
+<!-- Pricing Model Switcher -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<div class="flex items-baseline justify-between">
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg-mobile text-display-lg-mobile text-on-surface font-bold tracking-tight">$149</span>
+<span class="text-on-surface-variant line-through font-body-sm text-body-sm">$299</span>
+<span class="px-2 py-0.5 rounded bg-secondary-container/30 text-secondary font-label-xs text-label-xs font-semibold">50% OFF</span>
+</div>
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Lifetime access</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+                Or included with <span class="text-primary font-semibold">Kinetiq Pro ($29/mo)</span>
+</p>
+</div>
+<!-- Primary CTAs -->
+<div class="flex flex-col gap-space-xs">
+<button class="w-full h-12 rounded-xl bg-primary-container text-on-primary-container font-title-md text-title-md flex items-center justify-center gap-2 hover:bg-primary hover:text-on-primary transition-all shadow-md active:scale-[0.99]" type="button">
+<span>Enroll Now in Cohort</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<button class="w-full h-11 rounded-xl bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-bright transition-colors flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-[18px]">play_circle</span>
+<span>Start 7-Day Free Preview</span>
+</button>
+</div>
+<p class="text-center font-label-xs text-label-xs text-on-surface-variant/80">
+              30-day no-questions-asked refund policy • Self-paced or live cohorts
+            </p>
+<!-- Course Feature Highlights List -->
+<div class="pt-space-sm space-y- space-y-3 bg-surface-container-low/70 p-space-md rounded-xl">
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface block mb-2">This Masterclass Includes:</span>
+<div class="flex items-center gap-space-sm text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-primary shrink-0">smart_display</span>
+<span><strong class="text-on-surface">38.5 hours</strong> on-demand HD video lectures</span>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-secondary shrink-0">code_blocks</span>
+<span><strong class="text-on-surface">24 interactive</strong> cloud coding sandboxes</span>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-tertiary shrink-0">architecture</span>
+<span><strong class="text-on-surface">12 proctored</strong> distributed architecture quizzes</span>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-primary shrink-0">psychology</span>
+<span><strong class="text-on-surface">Direct 1-on-1</strong> AI Tutor instant debug assistant</span>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-secondary shrink-0">workspace_premium</span>
+<span>Verified cryptographically signed certificate</span>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant shrink-0">forum</span>
+<span>Lifetime private engineering Discord community</span>
+</div>
+</div>
+<!-- Team Purchase Callout -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-lowest">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">corporate_fare</span>
+<span class="font-body-sm text-body-sm text-on-surface">Upskilling a team?</span>
+</div>
+<a class="font-label-xs text-label-xs text-primary hover:underline font-semibold" data-path="pricing" href="#">Get Team Access</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Body Content (Left 2/3 Alignment) -->
+<div class="max-w-[1440px] mx-auto px-margin py-space-xl w-full">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Primary Study Blueprint & Content (8 cols) -->
+<div class="lg:col-span-7 xl:col-span-8 flex flex-col gap-space-xl">
+<!-- SECTION 1: WHAT YOU WILL MASTER (6 Pillars Bento) -->
+<section class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-secondary font-semibold">Competency Framework</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">What You Will Master</h2>
+</div>
+<span class="hidden sm:inline-block font-label-xs text-label-xs text-on-surface-variant bg-surface-container px-3 py-1 rounded-full">
+              6 Core Engineering Pillars
+            </span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter">
+<!-- Pillar 1 -->
+<div class="p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors shadow-sm flex flex-col gap-2">
+<div class="w-9 h-9 rounded-lg bg-primary-container/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">layers</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface">Server Components Execution Model</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                Deconstruct the Next.js App Router fiber runtime. Stream asynchronous UI chunks, serialize React Server Components over HTTP streams, and eliminate unnecessary bundle bloat.
+              </p>
+</div>
+<!-- Pillar 2 -->
+<div class="p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors shadow-sm flex flex-col gap-2">
+<div class="w-9 h-9 rounded-lg bg-secondary-container/20 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">memory</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface">Redis Edge Caching &amp; Tag Invalidation</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                Design multi-tiered caching strategies with Redis Upstash and Cloudflare Workers. Execute surgical tag-based on-demand revalidation at sub-millisecond latencies.
+              </p>
+</div>
+<!-- Pillar 3 -->
+<div class="p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors shadow-sm flex flex-col gap-2">
+<div class="w-9 h-9 rounded-lg bg-tertiary-container/20 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">smart_toy</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface">Production RAG &amp; AI Integration</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                Connect Next.js to pgvector and Pinecone. Implement speculative decoding, token streaming handlers via Server-Sent Events (SSE), and autonomous multi-agent function calling.
+              </p>
+</div>
+<!-- Pillar 4 -->
+<div class="p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors shadow-sm flex flex-col gap-2">
+<div class="w-9 h-9 rounded-lg bg-primary-container/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">network_node</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface">Distributed State &amp; OpenTelemetry Tracing</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                Standardize contextual spans across microservices. Wire distributed trace propagation using OpenTelemetry (OTel), Jaeger, and SigNoz to isolate bottlenecks instantaneously.
+              </p>
+</div>
+<!-- Pillar 5 -->
+<div class="p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors shadow-sm flex flex-col gap-2">
+<div class="w-9 h-9 rounded-lg bg-secondary-container/20 text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">cloud_sync</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface">Multi-Zone Micro-Frontend Topologies</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                Architect zero-downtime federated Next.js applications using rewrite proxies, autonomous sub-path routing, shared state channels, and independent team deployment pipelines.
+              </p>
+</div>
+<!-- Pillar 6 -->
+<div class="p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-colors shadow-sm flex flex-col gap-2">
+<div class="w-9 h-9 rounded-lg bg-tertiary-container/20 text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">security</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface">Zero-Trust Edge Auth &amp; Session Resilience</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                Implement stateless JWT rotation, ironclad CSRF/XSS mitigations, encrypted session cookies, and Edge middleware guards capable of handling millions of malicious requests.
+              </p>
+</div>
+</div>
+</section>
+<!-- SECTION 2: INTERACTIVE SYLLABUS ACCORDION -->
+<section class="flex flex-col gap-space-md" id="syllabus">
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-xs">
+<div>
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-primary font-semibold">Course Curriculum</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Structured Syllabus</h2>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant font-body-sm text-body-sm">
+<span>6 Modules</span>
+<span>•</span>
+<span>48 Lessons</span>
+<span>•</span>
+<span>38h 40m Total Duration</span>
+</div>
+</div>
+<!-- Accordion Container with Microinteraction Support -->
+<div class="flex flex-col gap-3" id="course-accordion">
+<!-- Module 1: Expanded by default -->
+<div class="rounded-xl bg-surface-container overflow-hidden shadow-sm transition-all" data-module="1">
+<button class="w-full p-space-md flex items-center justify-between text-left hover:bg-surface-container-high transition-colors module-trigger" type="button">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="w-7 h-7 rounded-full bg-primary/20 text-primary flex items-center justify-center font-label-md text-label-md shrink-0">01</span>
+<div class="truncate">
+<h3 class="font-title-md text-title-md text-on-surface truncate">Foundations of React 19 &amp; Server Architecture</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">5 lessons • 3h 20m</p>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0 ml-2">
+<span class="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-container/20 text-secondary font-label-xs text-label-xs">
+                    Free Previews
+                  </span>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant transition-transform duration-300 chevron-icon rotate-180">expand_more</span>
+</div>
+</button>
+<div class="p-space-md pt-0 flex flex-col gap-2 module-content">
+<div class="p-3 rounded-lg bg-surface-container-lowest/80 flex items-center justify-between hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<span class="material-symbols-outlined text-[18px] text-secondary">play_circle</span>
+<span class="font-body-md text-body-md text-on-surface truncate">1.1 React 19 Compiler Deep Dive: Memoization Eradication</span>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<span class="font-label-xs text-label-xs text-on-surface-variant">24:10</span>
+<button class="px-2 py-0.5 rounded bg-primary/10 text-primary font-label-xs text-label-xs hover:bg-primary/20" type="button">Preview</button>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-lowest/80 flex items-center justify-between hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<span class="material-symbols-outlined text-[18px] text-secondary">play_circle</span>
+<span class="font-body-md text-body-md text-on-surface truncate">1.2 Server Actions, useActionState &amp; Optimistic Mutations</span>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<span class="font-label-xs text-label-xs text-on-surface-variant">38:15</span>
+<button class="px-2 py-0.5 rounded bg-primary/10 text-primary font-label-xs text-label-xs hover:bg-primary/20" type="button">Preview</button>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-lowest/80 flex items-center justify-between hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<span class="material-symbols-outlined text-[18px] text-secondary">code_blocks</span>
+<span class="font-body-md text-body-md text-on-surface truncate">1.3 Sandbox Lab: Building an Async Streaming RSC Pipeline</span>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<span class="font-label-xs text-label-xs text-on-surface-variant">45:00</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs">Interactive</span>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-lowest/80 flex items-center justify-between hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">lock</span>
+<span class="font-body-md text-body-md text-on-surface-variant truncate">1.4 Microtask Queues and RSC Serialization Protocol</span>
+</div>
+<span class="font-label-xs text-label-xs text-on-surface-variant shrink-0">42:10</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-lowest/80 flex items-center justify-between hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3 min-w-0">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">quiz</span>
+<span class="font-body-md text-body-md text-on-surface-variant truncate">1.5 Architecture Assessment: Server vs Client Boundary Design</span>
+</div>
+<span class="font-label-xs text-label-xs text-on-surface-variant shrink-0">50:00</span>
+</div>
+</div>
+</div>
+<!-- Module 2 -->
+<div class="rounded-xl bg-surface-container overflow-hidden shadow-sm transition-all" data-module="2">
+<button class="w-full p-space-md flex items-center justify-between text-left hover:bg-surface-container-high transition-colors module-trigger" type="button">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="w-7 h-7 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-label-md text-label-md shrink-0">02</span>
+<div class="truncate">
+<h3 class="font-title-md text-title-md text-on-surface truncate">High-Performance Data Fetching &amp; Cache Invalidation</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">6 lessons • 4h 15m</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant transition-transform duration-300 chevron-icon">expand_more</span>
+</button>
+<div class="p-space-md pt-0 flex-col gap-2 module-content hidden">
+<div class="p-3 rounded-lg bg-surface-container-lowest/80 flex items-center justify-between">
+<div class="flex items-center gap-3 min-w-0">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">lock</span>
+<span class="font-body-md text-body-md text-on-surface truncate">2.1 The 4-Tier Next.js 15 Cache Hierarchy Unmasked</span>
+</div>
+<span class="font-label-xs text-label-xs text-on-surface-variant">35:00</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-lowest/80 flex items-center justify-between">
+<div class="flex items-center gap-3 min-w-0">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">lock</span>
+<span class="font-body-md text-body-md text-on-surface truncate">2.2 Granular revalidateTag &amp; Webhook Propagation</span>
+</div>
+<span class="font-label-xs text-label-xs text-on-surface-variant">42:15</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-lowest/80 flex items-center justify-between">
+<div class="flex items-center gap-3 min-w-0">
+<span class="material-symbols-outlined text-[18px] text-secondary">code_blocks</span>
+<span class="font-body-md text-body-md text-on-surface truncate">2.3 Sandbox: Multi-Region Upstash Cache Synchronization</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs">Interactive</span>
+</div>
+</div>
+</div>
+<!-- Module 3 -->
+<div class="rounded-xl bg-surface-container overflow-hidden shadow-sm transition-all" data-module="3">
+<button class="w-full p-space-md flex items-center justify-between text-left hover:bg-surface-container-high transition-colors module-trigger" type="button">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="w-7 h-7 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-label-md text-label-md shrink-0">03</span>
+<div class="truncate">
+<h3 class="font-title-md text-title-md text-on-surface truncate">Distributed State &amp; Micro-Frontends</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">8 lessons • 6h 30m</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant transition-transform duration-300 chevron-icon">expand_more</span>
+</button>
+<div class="p-space-md pt-0 flex-col gap-2 module-content hidden">
+<div class="p-3 rounded-lg bg-surface-container-lowest/80 flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-surface">3.1 Zero-Coupling Next.js Multi-Zones Setup with NGINX</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">54:00</span>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-lowest/80 flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-surface">3.2 Real-time Cross-Zone Sync with BroadcastChannel &amp; WebSockets</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">48:10</span>
+</div>
+</div>
+</div>
+<!-- Module 4 -->
+<div class="rounded-xl bg-surface-container overflow-hidden shadow-sm transition-all" data-module="4">
+<button class="w-full p-space-md flex items-center justify-between text-left hover:bg-surface-container-high transition-colors module-trigger" type="button">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="w-7 h-7 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-label-md text-label-md shrink-0">04</span>
+<div class="truncate">
+<h3 class="font-title-md text-title-md text-on-surface truncate">Edge Middleware, Auth &amp; Session Security</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">5 lessons • 3h 50m</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant transition-transform duration-300 chevron-icon">expand_more</span>
+</button>
+<div class="p-space-md pt-0 flex-col gap-2 module-content hidden">
+<div class="p-3 rounded-lg bg-surface-container-lowest/80 flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-surface">4.1 Cryptographic Edge Verification via Web Crypto API</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">38:00</span>
+</div>
+</div>
+</div>
+<!-- Module 5 -->
+<div class="rounded-xl bg-surface-container overflow-hidden shadow-sm transition-all" data-module="5">
+<button class="w-full p-space-md flex items-center justify-between text-left hover:bg-surface-container-high transition-colors module-trigger" type="button">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="w-7 h-7 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center font-label-md text-label-md shrink-0">05</span>
+<div class="truncate">
+<h3 class="font-title-md text-title-md text-on-surface truncate">Autonomous AI Agent Integration &amp; RAG</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">7 lessons • 5h 45m</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant transition-transform duration-300 chevron-icon">expand_more</span>
+</button>
+<div class="p-space-md pt-0 flex-col gap-2 module-content hidden">
+<div class="p-3 rounded-lg bg-surface-container-lowest/80 flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-surface">5.1 Building High-Throughput Streaming RAG using AI SDK 3.3</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">47:20</span>
+</div>
+</div>
+</div>
+<!-- Module 6: Capstone -->
+<div class="rounded-xl bg-surface-container overflow-hidden shadow-sm transition-all" data-module="6">
+<button class="w-full p-space-md flex items-center justify-between text-left hover:bg-surface-container-high transition-colors module-trigger" type="button">
+<div class="flex items-center gap-space-sm min-w-0">
+<span class="w-7 h-7 rounded-full bg-tertiary-container/30 text-tertiary flex items-center justify-center font-label-md text-label-md shrink-0">06</span>
+<div class="truncate">
+<h3 class="font-title-md text-title-md text-on-surface truncate">Capstone: Deploying a Multi-Tenant Scaled SaaS Platform</h3>
+<p class="font-body-sm text-body-sm text-tertiary">Real-world Staff Project • 12h 00m</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant transition-transform duration-300 chevron-icon">expand_more</span>
+</button>
+<div class="p-space-md pt-0 flex-col gap-2 module-content hidden">
+<div class="p-3 rounded-lg bg-surface-container-lowest/80 flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-surface">6.1 Architecture Blueprint: Kubernetes, Edge Routers &amp; Tenant Isolation</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">60:00</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: INSTRUCTOR PROFILE CARD -->
+<section class="flex flex-col gap-space-md">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-secondary font-semibold">Leadership &amp; Pedagogy</span>
+<div class="p-space-lg rounded-2xl bg-surface-container shadow-md flex flex-col md:flex-row gap-space-lg items-start">
+<!-- Avatar & Quick Stats -->
+<div class="flex flex-col items-center text-center shrink-0 w-full md:w-48">
+<div class="relative w-28 h-28 rounded-2xl overflow-hidden shadow-lg mb-3">
+<img class="w-full h-full object-cover" data-alt="Editorial portrait of Elena Rostova, a prominent female software architect in technical tech conference lighting, confident smile, clean aesthetic, dark high-tech background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWUZFuf8VFkE2V7q1gf46nvQpLlgPe0D52WuvnEIs65DwI-UOWz-98_YDJB3EPsp4sCpETBFcwIVaY-qRkD0105kJywvRQqoJdFTBKB-Zo-zYAd6Rjm8G0Se-2qPWnqIeX4cmxQXgCpdqwFfBDnSBh0acpXyBnRl_aon5_dTbijUcWyH6eHA6xTnaXVeelwlmW-SJ2WSh_Ui1k3RNyrMJiOBJaGaAcVGXt513DDCRJEmbrpw-8nUwbJQ"/>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface">Elena Rostova</h3>
+<span class="font-body-sm text-body-sm text-primary font-medium">Principal Architect</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant mb-3">Ex-Staff Lead @ Global Cloud</span>
+<div class="w-full grid grid-cols-2 gap-2 pt-2 border-t-0 bg-surface-container-low rounded-lg p-2 text-left">
+<div>
+<span class="font-label-xs text-label-xs text-on-surface-variant block">Students</span>
+<span class="font-title-md text-title-md text-on-surface">48,210</span>
+</div>
+<div>
+<span class="font-label-xs text-label-xs text-on-surface-variant block">Rating</span>
+<span class="font-title-md text-title-md text-secondary flex items-center gap-0.5">
+                    4.96 <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</span>
+</div>
+</div>
+</div>
+<!-- Instructor Bio -->
+<div class="flex flex-col gap-space-sm flex-1">
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs">
+                  14+ Years in Distributed Systems
+                </span>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-container/20 text-secondary font-label-xs text-label-xs">
+                  Node.js / React Contributor
+                </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+                Elena has led architectural infrastructure overhauls for Fortune 50 platforms handling in excess of 120,000 requests per second. She specializes in edge computing topologies, async concurrency primitives, and modern React runtime optimization.
+              </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                Prior to authoring masterclasses at Kinetiq, Elena designed streaming distributed data layer caches and mentored hundreds of senior engineers into Staff and Principal roles across Silicon Valley and European tech hubs.
+              </p>
+<div class="flex items-center gap-space-md pt-2">
+<a class="inline-flex items-center gap-1.5 font-label-md text-label-md text-primary hover:underline" href="#">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+<span>View GitHub Blueprints</span>
+</a>
+<a class="inline-flex items-center gap-1.5 font-label-md text-label-md text-on-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined text-[16px]">feed</span>
+<span>Read 14 Published Research Papers</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 4: VERIFIED STUDENT REVIEWS & RATING BREAKDOWN -->
+<section class="flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-xs">
+<div>
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-secondary font-semibold">Social Proof</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Verified Student Reviews</h2>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">3,240 Independent Submissions</span>
+</div>
+<!-- Rating Breakdown Bento -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter p-space-lg rounded-2xl bg-surface-container shadow-sm items-center">
+<!-- Left Score (4 cols) -->
+<div class="md:col-span-4 flex flex-col items-center justify-center text-center p-space-md bg-surface-container-low rounded-xl">
+<span class="font-display-lg text-display-lg text-on-surface font-extrabold leading-none">4.98</span>
+<div class="flex items-center text-tertiary my-2">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase tracking-wider">Top 0.1% Academy Benchmark</span>
+</div>
+<!-- Right Distribution Bars (8 cols) -->
+<div class="md:col-span-8 flex flex-col gap-2.5">
+<!-- 5 Star -->
+<div class="flex items-center gap-3 font-body-sm text-body-sm">
+<span class="w-12 text-on-surface-variant shrink-0">5 stars</span>
+<div class="flex-1 h-2.5 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 92%"></div>
+</div>
+<span class="w-10 text-right text-on-surface font-semibold shrink-0">92%</span>
+</div>
+<!-- 4 Star -->
+<div class="flex items-center gap-3 font-body-sm text-body-sm">
+<span class="w-12 text-on-surface-variant shrink-0">4 stars</span>
+<div class="flex-1 h-2.5 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 6%"></div>
+</div>
+<span class="w-10 text-right text-on-surface font-semibold shrink-0">6%</span>
+</div>
+<!-- 3 Star -->
+<div class="flex items-center gap-3 font-body-sm text-body-sm">
+<span class="w-12 text-on-surface-variant shrink-0">3 stars</span>
+<div class="flex-1 h-2.5 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-outline rounded-full" style="width: 1.5%"></div>
+</div>
+<span class="w-10 text-right text-on-surface font-semibold shrink-0">1.5%</span>
+</div>
+<!-- 2 Star -->
+<div class="flex items-center gap-3 font-body-sm text-body-sm">
+<span class="w-12 text-on-surface-variant shrink-0">2 stars</span>
+<div class="flex-1 h-2.5 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-outline rounded-full" style="width: 0.3%"></div>
+</div>
+<span class="w-10 text-right text-on-surface font-semibold shrink-0">&lt;1%</span>
+</div>
+<!-- 1 Star -->
+<div class="flex items-center gap-3 font-body-sm text-body-sm">
+<span class="w-12 text-on-surface-variant shrink-0">1 star</span>
+<div class="flex-1 h-2.5 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-outline rounded-full" style="width: 0.2%"></div>
+</div>
+<span class="w-10 text-right text-on-surface font-semibold shrink-0">&lt;1%</span>
+</div>
+</div>
+</div>
+<!-- Testimonial Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mt-space-sm">
+<!-- Card 1 -->
+<div class="p-space-md rounded-xl bg-surface-container shadow-sm flex flex-col justify-between gap-space-sm">
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-label-xs text-label-xs text-on-surface-variant">3 days ago</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+                  “The section on edge cache tagging with Upstash and multi-zone deployment rewrites saved our engineering department months of trial and error. Elena breaks down complex RSC execution graphs better than anyone else in tech.”
+                </p>
+</div>
+<div class="flex items-center gap-3 pt-2">
+<img class="w-10 h-10 rounded-full object-cover shrink-0" data-alt="Close-up headshot of Marcus Vance, a senior cloud infrastructure engineer with glasses, looking professional, studio lighting on subtle blue background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDP7lZJW8DnUhCtXMOnAJaVbH9KLmnaXM_2DjUyjWlsIlMaeuEDf4o7HHpSMZs2iOcAy35MGZjb-ixdqKaK_eqivgpFnvsLhWBLKm9kT8TQZzr6U9kbDKl_d-34egP8OMb5XlqCmd0A2zXh3IFFljM2XwnDX1GbVHcrF8le_eINZM8EMOC8r7qGesLy0UlmCHUcJxNnWXQDM-hoXvVQLrTZlLV3qvTEr3zpppeBDl38Q58CzV2erxfdmQ"/>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface leading-snug">Marcus Vance</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Lead Architect @ Veloce Labs • Verified Buyer</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="p-space-md rounded-xl bg-surface-container shadow-sm flex flex-col justify-between gap-space-sm">
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-label-xs text-label-xs text-on-surface-variant">2 weeks ago</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+                  “Having the built-in AI Tutor ready whenever my OpenTelemetry spans desynchronized in the interactive sandboxes was mind-blowing. It did not give me answers; it pointed me straight to trace bottlenecks.”
+                </p>
+</div>
+<div class="flex items-center gap-3 pt-2">
+<img class="w-10 h-10 rounded-full object-cover shrink-0" data-alt="Portrait of Sarah Lin, a software engineer in an engineering laboratory, smart casual attire, dark technical backdrop with soft green neon highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqD6RPq4Us1S0ZNngRVE8A5iAJRaAWtw2A2yP7vDpIkErCNjuG0q_sjn3HeTjRDja2PdRL3ybMNUTx49g_8CSUbHQdXdf7P_uR2m_ZDGOR1dMLcRA5tf93t_3GQ5AM1gRgQ1_V4zCz95rmdPlu6gvsmVIWjzzf76vPTrVbvem1b74JfYiHNO_YCnOALg6_0MVFB0TFB6D8Z8l-aYjGj6EOnpxh-TUmdMGMy9NX615TP5W40D8QM-FbFw"/>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface leading-snug">Sarah Lin</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Senior Staff Engineer @ Datapulse • Verified Buyer</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 5: FREQUENTLY ASKED QUESTIONS -->
+<section class="flex flex-col gap-space-md">
+<div class="flex flex-col gap-1">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-primary font-semibold">Clarifications</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Frequently Asked Questions</h2>
+</div>
+<div class="flex flex-col gap-3" id="faq-accordion">
+<div class="rounded-xl bg-surface-container overflow-hidden shadow-sm">
+<button class="w-full p-space-md flex items-center justify-between text-left hover:bg-surface-container-high transition-colors faq-trigger" type="button">
+<span class="font-title-md text-title-md text-on-surface">What are the architectural prerequisites for this course?</span>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant transition-transform duration-200">expand_more</span>
+</button>
+<div class="p-space-md pt-0 text-on-surface-variant font-body-sm text-body-sm leading-relaxed faq-content hidden">
+                You should have a solid working foundation of modern TypeScript, intermediate React concepts (hooks, state flow), and fundamental knowledge of HTTP and REST/GraphQL APIs. Experience with Docker or cloud providers is beneficial but not strictly mandatory, as containerization fundamentals are covered in the capstone.
+              </div>
+</div>
+<div class="rounded-xl bg-surface-container overflow-hidden shadow-sm">
+<button class="w-full p-space-md flex items-center justify-between text-left hover:bg-surface-container-high transition-colors faq-trigger" type="button">
+<span class="font-title-md text-title-md text-on-surface">How does the 30-day money-back guarantee operate?</span>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant transition-transform duration-200">expand_more</span>
+</button>
+<div class="p-space-md pt-0 text-on-surface-variant font-body-sm text-body-sm leading-relaxed faq-content hidden">
+                If the course does not meet your technical standards or upskilling requirements, you can request an automated one-click refund inside your account dashboard within 30 days of purchase, provided less than 60% of proctored quizzes have been formally certified.
+              </div>
+</div>
+<div class="rounded-xl bg-surface-container overflow-hidden shadow-sm">
+<button class="w-full p-space-md flex items-center justify-between text-left hover:bg-surface-container-high transition-colors faq-trigger" type="button">
+<span class="font-title-md text-title-md text-on-surface">Do I need a high-spec development machine for the sandboxes?</span>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant transition-transform duration-200">expand_more</span>
+</button>
+<div class="p-space-md pt-0 text-on-surface-variant font-body-sm text-body-sm leading-relaxed faq-content hidden">
+                No. All 24 coding sandboxes are provisioned on Kinetiq Cloud's ephemeral micro-VM cluster. You can run multi-tenant Next.js clusters, Redis instances, and Vector databases right from any modern web browser without draining your local laptop battery.
+              </div>
+</div>
+<div class="rounded-xl bg-surface-container overflow-hidden shadow-sm">
+<button class="w-full p-space-md flex items-center justify-between text-left hover:bg-surface-container-high transition-colors faq-trigger" type="button">
+<span class="font-title-md text-title-md text-on-surface">Are there monthly usage caps on the integrated AI Tutor?</span>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant transition-transform duration-200">expand_more</span>
+</button>
+<div class="p-space-md pt-0 text-on-surface-variant font-body-sm text-body-sm leading-relaxed faq-content hidden">
+                Enrolled students receive unlimited conversational debugging queries for code authored inside this course's curriculum sandboxes. For personalized external repository architecture reviews, an active Kinetiq Pro plan applies.
+              </div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column Spacer for Desktop Sticky Balance -->
+<div class="hidden lg:block lg:col-span-5 xl:col-span-4">
+<!-- Kept clear to let the fixed enrollment card visually breathe without overlapping lower sections -->
+<div class="p-space-md rounded-2xl bg-surface-container-low/40 flex flex-col gap-space-sm mt-space-xl">
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+<span class="font-title-md text-title-md text-on-surface">Enterprise Grade Guarantee</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+            All code samples are audited every Tuesday against Canary and Stable releases of Next.js, Node.js LTS, and React 19 canary releases to guarantee zero bit-rot.
+          </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Client Interaction Script for Accordions -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Course Syllabus Accordion Toggle
+      const syllabusTriggers = document.querySelectorAll('.module-trigger');
+      syllabusTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+          const parent = trigger.closest('[data-module]');
+          const content = parent.querySelector('.module-content');
+          const chevron = trigger.querySelector('.chevron-icon');
+          
+          if (content.classList.contains('hidden')) {
+            content.classList.remove('hidden');
+            content.classList.add('flex');
+            chevron.classList.add('rotate-180');
+          } else {
+            content.classList.add('hidden');
+            content.classList.remove('flex');
+            chevron.classList.remove('rotate-180');
+          }
+        });
+      });
+
+      // FAQ Accordion Toggle
+      const faqTriggers = document.querySelectorAll('.faq-trigger');
+      faqTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+          const content = trigger.nextElementSibling;
+          const chevron = trigger.querySelector('.material-symbols-outlined');
+          
+          if (content.classList.contains('hidden')) {
+            content.classList.remove('hidden');
+            chevron.classList.add('rotate-180');
+          } else {
+            content.classList.add('hidden');
+            chevron.classList.remove('rotate-180');
+          }
+        });
+      });
+    });
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest text-on-surface-variant"><div class="max-w-[1440px] mx-auto px-margin pt-space-xl pb-space-lg"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-gutter mb-space-xl"><div class="lg:col-span-2 flex flex-col justify-between gap-space-md"><div class="space-y-space-sm"><div class="flex items-center gap-space-sm"><img alt="Brand logo. - Primary color: #6366f1
+- Font: plusJakartaSans
+- Mode: dark
+- Roundness: rounded-md
+" class="h-7 w-auto object-contain" src="https://api.iconify.design/material-symbols:school-outline-rounded.svg?color=%238083ff"/><span class="font-headline-md text-headline-md text-on-surface tracking-tight">Kinetiq Academy</span></div><p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm">High-performance technical education engineered for modern software architects, research teams, and engineering leaders.</p></div><div class="space-y-space-sm"><span class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant">Stay ahead of technological shifts</span><div class="flex items-center gap-space-xs max-w-sm"><input class="w-full h-10 px-3 rounded-lg bg-surface-container-low text-on-surface placeholder:text-on-surface-variant/60 font-body-sm text-body-sm focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Enter your work email" type="email"/><button class="h-10 px-4 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-bright font-label-md text-label-md shrink-0 transition-colors" type="button">Subscribe</button></div></div></div><div class="flex flex-col gap-space-sm"><span class="font-label-md text-label-md uppercase tracking-wider text-on-surface">Platform</span><ul class="space-y-space-xs font-body-sm text-body-sm"><li class="hover:text-on-surface transition-colors"><a data-path="explore-courses" href="#">Curriculum Catalog</a></li><li class="hover:text-on-surface transition-colors"><a data-path="ai-learning" href="#">Adaptive AI Engine</a></li><li class="hover:text-on-surface transition-colors"><a data-path="pricing" href="#">Team Subscriptions</a></li><li class="hover:text-on-surface transition-colors"><a data-path="home" href="#">Interactive Sandboxes</a></li><li class="hover:text-on-surface transition-colors"><a data-path="home" href="#">Skill Benchmarks</a></li></ul></div><div class="flex flex-col gap-space-sm"><span class="font-label-md text-label-md uppercase tracking-wider text-on-surface">Curriculum</span><ul class="space-y-space-xs font-body-sm text-body-sm"><li class="hover:text-on-surface transition-colors"><a data-path="course-details" href="#">Distributed Systems</a></li><li class="hover:text-on-surface transition-colors"><a data-path="course-details" href="#">LLM Infra Architecture</a></li><li class="hover:text-on-surface transition-colors"><a data-path="course-details" href="#">Kernel &amp; Rust Systems</a></li><li class="hover:text-on-surface transition-colors"><a data-path="course-details" href="#">High-Throughput APIs</a></li><li class="hover:text-on-surface transition-colors"><a data-path="course-details" href="#">Security Engineering</a></li></ul></div><div class="flex flex-col gap-space-sm"><span class="font-label-md text-label-md uppercase tracking-wider text-on-surface">Technologies</span><ul class="space-y-space-xs font-body-sm text-body-sm"><li class="hover:text-on-surface transition-colors"><a data-path="ai-learning" href="#">Autonomous Tutoring</a></li><li class="hover:text-on-surface transition-colors"><a data-path="ai-learning" href="#">Neural Code Review</a></li><li class="hover:text-on-surface transition-colors"><a data-path="ai-learning" href="#">Live Telemetry Labs</a></li><li class="hover:text-on-surface transition-colors"><a data-path="ai-learning" href="#">Synthetic Datasets</a></li><li class="hover:text-on-surface transition-colors"><a data-path="resources-and-blog" href="#">Research Whitepapers</a></li></ul></div><div class="flex flex-col gap-space-sm"><span class="font-label-md text-label-md uppercase tracking-wider text-on-surface">Legal &amp; Trust</span><ul class="space-y-space-xs font-body-sm text-body-sm"><li class="hover:text-on-surface transition-colors"><a data-path="about-us" href="#">SOC2 Type II Compliance</a></li><li class="hover:text-on-surface transition-colors"><a data-path="contact" href="#">Privacy Directive</a></li><li class="hover:text-on-surface transition-colors"><a data-path="contact" href="#">Terms of Service</a></li><li class="hover:text-on-surface transition-colors"><a data-path="contact" href="#">Security Disclosures</a></li><li class="hover:text-on-surface transition-colors"><a data-path="about-us" href="#">Student Protection</a></li></ul></div></div><div class="pt-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-md bg-surface-container-lowest"><div class="flex items-center gap-space-sm"><div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-surface-container-low font-label-xs text-label-xs text-secondary"><span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>All systems operational</div><span class="font-body-sm text-body-sm text-on-surface-variant/80">Global Cloud Latency: 18ms</span></div><p class="font-body-sm text-body-sm text-on-surface-variant/80">© 2025 Kinetiq Academy Inc. All rights reserved.</p></div></div></footer>  <script src="../shared/api.js"></script><script src="../shared/router.js"></script>
+</body></html>

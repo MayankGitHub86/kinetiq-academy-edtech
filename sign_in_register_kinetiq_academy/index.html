@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<title>Sign In & Register — Kinetiq Academy</title><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_blank" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script>const origWarn = console.warn; console.warn = (...args) => { if (typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) return; origWarn(...args); };</script><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-error": "#690005", "surface-container-high": "#222a3d", "on-tertiary-container": "#3e2400", "on-primary-container": "#0d0096", "inverse-primary": "#494bd6", "on-primary-fixed": "#07006c", "on-tertiary-fixed": "#2a1700", "secondary-fixed-dim": "#4edea3", "surface-dim": "#0b1326", "tertiary-container": "#ca8100", "primary-fixed": "#e1e0ff", "on-primary": "#1000a9", "background": "#0b1326", "error": "#ffb4ab", "secondary-container": "#00a572", "primary": "#c0c1ff", "outline-variant": "#464554", "surface-tint": "#c0c1ff", "tertiary-fixed-dim": "#ffb95f", "on-secondary-fixed": "#002113", "tertiary": "#ffb95f", "on-tertiary": "#472a00", "inverse-surface": "#dae2fd", "primary-fixed-dim": "#c0c1ff", "secondary": "#4edea3", "surface-container": "#171f33", "primary-container": "#8083ff", "surface-variant": "#2d3449", "secondary-fixed": "#6ffbbe", "on-secondary-container": "#00311f", "on-surface": "#dae2fd", "surface-container-low": "#131b2e", "error-container": "#93000a", "surface-container-lowest": "#060e20", "on-secondary-fixed-variant": "#005236", "surface-bright": "#31394d", "on-background": "#dae2fd", "outline": "#908fa0", "on-primary-fixed-variant": "#2f2ebe", "on-tertiary-fixed-variant": "#653e00", "surface": "#0b1326", "inverse-on-surface": "#283044", "on-secondary": "#003824", "tertiary-fixed": "#ffddb8", "surface-container-highest": "#2d3449", "on-error-container": "#ffdad6", "on-surface-variant": "#c7c4d7" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin": "2rem", "space-xs": "0.25rem", "space-lg": "1.5rem", "gutter": "1.5rem", "space-xl": "2.5rem", "gutter-mobile": "1rem", "space-md": "1rem", "space-sm": "0.5rem", "margin-mobile": "1rem" }, "fontFamily": { "headline-xl-mobile": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "headline-xl": ["Plus Jakarta Sans"], "title-md": ["Inter"], "body-lg": ["Inter"], "body-sm": ["Inter"], "headline-lg": ["Plus Jakarta Sans"], "label-md": ["Inter"], "body-md": ["Inter"], "label-xs": ["Inter"], "display-lg": ["Plus Jakarta Sans"] }, "fontSize": { "headline-xl-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "title-md": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "26px", "letterSpacing": "0em", "fontWeight": "400" }], "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0.005em", "fontWeight": "400" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "22px", "letterSpacing": "0em", "fontWeight": "400" }], "label-xs": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "500" }], "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.025em", "fontWeight": "700" }] } } } }</script></head><body class="bg-background font-body-md text-body-md text-on-surface min-h-screen flex flex-col justify-between selection:bg-primary/20 selection:text-primary"><header class="w-full pt-8 pb-4 flex justify-center items-center"><div class="flex items-center gap-space-sm px-gutter"><img alt="Brand logo. - Primary color: #6366f1
+- Font: plusJakartaSans
+- Mode: dark
+- Roundness: rounded-md
+" class="h-8 w-auto object-contain" src="https://api.iconify.design/material-symbols:school-outline-rounded.svg?color=%238083ff"/><span class="font-headline-md text-headline-md text-on-surface tracking-tight">Kinetiq <span class="text-primary font-light">Academy</span></span></div></header><main class="w-full flex-1 flex flex-col items-center justify-center px-gutter-mobile md:px-gutter py-space-md"><div class="flex flex-col w-full items-center justify-center relative">
+<div class="absolute -top-32 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+<div class="absolute -bottom-24 w-80 h-80 bg-secondary/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+
+<!-- Main Auth Card -->
+<div class="w-full max-w-xl bg-surface-container-low rounded-xl shadow-xl p-space-md sm:p-space-xl relative overflow-hidden">
+<!-- Accent subtle glow header edge -->
+<div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-secondary to-tertiary"></div>
+<!-- Card Brand & Hero Meta -->
+<div class="flex flex-col items-center text-center mb-space-lg">
+<div class="inline-flex items-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-highest text-primary font-label-xs text-label-xs mb-space-sm">
+<span class="material-symbols-outlined text-[14px]">account_tree</span>
+<span>Architectural Learning Platform</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg sm:font-headline-xl sm:text-headline-xl text-on-surface tracking-tight" id="auth-main-heading">
+        Welcome Back
+      </h1>
+<p class="text-on-surface-variant font-body-sm text-body-sm mt-1" id="auth-sub-heading">
+        Continue your learning journey.
+      </p>
+</div>
+<!-- Mode Tabs: Sign In / Create Account -->
+<div class="flex p-1 bg-surface-container-lowest rounded-lg mb-space-lg">
+<button class="flex-1 py-2 rounded-md font-title-md text-title-md transition-all text-center bg-surface-container-high text-on-surface shadow-sm" id="tab-signin" onclick="setAuthTab('signin')" type="button">
+        Sign In
+      </button>
+<button class="flex-1 py-2 rounded-md font-title-md text-title-md transition-all text-center text-on-surface-variant hover:text-on-surface" id="tab-signup" onclick="setAuthTab('signup')" type="button">
+        Create Account
+      </button>
+</div>
+<!-- Role Selection (Student / Admin) -->
+<div class="flex items-center justify-center gap-4 mb-space-lg">
+  <label class="flex items-center gap-2 cursor-pointer">
+    <input type="radio" name="role" value="student" checked onchange="currentRole='student'" class="accent-primary" />
+    <span class="font-title-md text-title-md text-on-surface">Student</span>
+  </label>
+  <label class="flex items-center gap-2 cursor-pointer">
+    <input type="radio" name="role" value="admin" onchange="currentRole='admin'" class="accent-primary" />
+    <span class="font-title-md text-title-md text-on-surface">Instructor / Admin</span>
+  </label>
+</div>
+<!-- Active Form -->
+<form class="flex flex-col gap-space-md" id="auth-form" onsubmit="handleFormSubmit(event)">
+<!-- Extra field for sign up mode -->
+<div class="hidden flex-col gap-1.5" id="signup-name-container">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface" for="full-name">Full Name</label>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Legal or Git handle</span>
+</div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[18px] pointer-events-none">badge</span>
+<input class="w-full h-10 pl-10 pr-3 bg-surface-container-lowest text-on-surface placeholder:text-outline-variant rounded font-body-md text-body-md outline-none focus:bg-surface-container-high transition-colors" id="full-name" placeholder="Alex Mercer" type="text"/>
+</div>
+</div>
+<!-- Email Field -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface" for="work-email">Email</label>
+</div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[18px] pointer-events-none">alternate_email</span>
+<input class="w-full h-10 pl-10 pr-24 bg-surface-container-lowest text-on-surface placeholder:text-outline-variant rounded font-body-md text-body-md outline-none focus:bg-surface-container-high transition-colors" id="work-email" oninput="validateEmailField(this.value)" placeholder="name@company.com" required="" type="email" value=""/>
+<div class="absolute right-2.5 flex items-center gap-1 text-secondary font-label-xs text-label-xs hidden" id="email-validation-pill">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+<span>Verified</span>
+</div>
+</div>
+<p class="hidden text-error font-label-xs text-label-xs mt-0.5" id="email-error-msg">Please provide a valid email address.</p>
+</div>
+<!-- Password Field -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface" for="password">Password</label>
+<a class="font-label-xs text-label-xs text-primary hover:underline" href="#" id="forgot-password-link">Forgot password?</a>
+</div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[18px] pointer-events-none">lock</span>
+<input class="w-full h-10 pl-10 pr-10 bg-surface-container-lowest text-on-surface placeholder:text-outline-variant rounded font-body-md text-body-md outline-none focus:bg-surface-container-high transition-colors" id="password" oninput="handlePasswordChange(this.value)" placeholder="••••••••••••••••" required="" type="password" value=""/>
+<button aria-label="Toggle password visibility" class="absolute right-3 text-on-surface-variant hover:text-on-surface transition-colors" onclick="togglePasswordVisibility()" type="button">
+<span class="material-symbols-outlined text-[18px]" id="password-eye-icon">visibility</span>
+</button>
+</div>
+<!-- Password Strength Meter (Only shown / enhanced for sign up) -->
+<div class="hidden flex-col gap-1.5 mt-1 bg-surface-container-lowest p-2.5 rounded" id="password-meter-panel">
+<div class="flex items-center justify-between font-label-xs text-label-xs">
+<span class="text-on-surface-variant">Entropy: <strong class="text-secondary font-semibold">86 bits</strong></span>
+<span class="text-secondary font-semibold">Great</span>
+</div>
+<div class="w-full h-1.5 bg-surface-variant rounded-full overflow-hidden flex gap-1">
+<div class="h-full w-1/4 bg-secondary rounded-full"></div>
+<div class="h-full w-1/4 bg-secondary rounded-full"></div>
+<div class="h-full w-1/4 bg-secondary rounded-full"></div>
+<div class="h-full w-1/4 bg-secondary/60 rounded-full"></div>
+</div>
+<p class="font-label-xs text-label-xs text-on-surface-variant">Contains uppercase, symbols, numbers, and 14+ characters.</p>
+</div>
+</div>
+<!-- Remember machine & Session Preferences (Sign In Mode) -->
+<div class="flex items-center justify-between pt-1" id="signin-controls">
+<label class="flex items-center gap-space-xs cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded bg-surface-container-lowest accent-primary focus:outline-none" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Remember this machine for 30 days</span>
+</label>
+<span class="hidden sm:flex items-center gap-1 font-label-xs text-label-xs text-outline">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+<span>Fast Token Auth</span>
+</span>
+</div>
+<!-- Terms & Policies (Sign Up Mode) -->
+<div class="hidden items-start gap-space-xs pt-1" id="signup-terms">
+<input class="mt-1 w-4 h-4 rounded bg-surface-container-lowest accent-primary focus:outline-none" id="terms-agree" type="checkbox"/>
+<label class="font-body-sm text-body-sm text-on-surface-variant" for="terms-agree">
+          I agree to the <a class="text-primary hover:underline" href="#">Terms of Service</a>, <a class="text-primary hover:underline" href="#">Acceptable Use Policy</a>, and consent to academic performance telemetry.
+        </label>
+</div>
+<!-- Primary Submit CTA -->
+<button class="w-full mt-2 h-11 bg-primary text-on-primary font-title-md text-title-md rounded flex items-center justify-center gap-space-sm hover:opacity-95 active:scale-[0.99] transition-all shadow-md group" id="submit-cta-btn" type="submit">
+<span id="cta-label">Login</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+<kbd class="hidden sm:inline-block px-1.5 py-0.5 rounded bg-on-primary/15 text-on-primary font-label-xs text-label-xs">â†µ Enter</kbd>
+</button>
+</form>
+<!-- No SSO block anymore -->
+<!-- Security & Compliance Assurance Badges -->
+<div class="mt-space-md pt-space-sm bg-surface-container-lowest/60 -mx-space-md sm:-mx-space-xl -mb-space-md sm:-mb-space-xl px-space-md sm:px-space-xl py-space-sm flex flex-wrap items-center justify-center gap-y-2 gap-x-space-md text-on-surface-variant font-label-xs text-label-xs">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-secondary text-[14px]">verified_user</span>
+<span>SOC2 Type II Certified</span>
+</div>
+<span class="text-outline-variant">â€¢</span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-[14px]">enhanced_encryption</span>
+<span>256-bit E2E Encrypted</span>
+</div>
+<span class="text-outline-variant">â€¢</span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-tertiary text-[14px]">hub</span>
+<span>SSO &amp; SAML 2.0 Ready</span>
+</div>
+</div>
+</div>
+<!-- Engineering Architecture Canvas Callout Preview -->
+<div class="w-full max-w-xl mt-space-lg grid grid-cols-1 sm:grid-cols-2 gap-space-sm text-left">
+<div class="bg-surface-container-low p-space-sm rounded-lg flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded bg-primary-container/20 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<div class="min-w-0">
+<p class="font-title-md text-title-md text-on-surface truncate" id="sandbox-preview-title">Systems Architecture Lab</p>
+<p class="font-label-xs text-label-xs text-on-surface-variant truncate" id="sandbox-preview-meta">Module 07 Â· Consensus in Raft</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded-lg flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded bg-secondary-container/20 text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">insights</span>
+</div>
+<div class="min-w-0">
+<p class="font-title-md text-title-md text-on-surface truncate">Telemetry Stream</p>
+<p class="font-label-xs text-label-xs text-secondary truncate">Cluster Health: 99.98%</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[18px]">chevron_right</span>
+</div>
+</div>
+</div>
+<script>
+  let currentRole = 'student';
+  let currentTab = 'signin';
+
+  function setAuthTab(tab) {
+    currentTab = tab;
+    const signinTab = document.getElementById('tab-signin');
+    const signupTab = document.getElementById('tab-signup');
+    const nameContainer = document.getElementById('signup-name-container');
+    const fullNameInput = document.getElementById('full-name');
+    const passwordMeter = document.getElementById('password-meter-panel');
+    const signinControls = document.getElementById('signin-controls');
+    const signupTerms = document.getElementById('signup-terms');
+    const termsAgree = document.getElementById('terms-agree');
+    const ctaLabel = document.getElementById('cta-label');
+    const mainHeading = document.getElementById('auth-main-heading');
+    const subHeading = document.getElementById('auth-sub-heading');
+    const forgotLink = document.getElementById('forgot-password-link');
+
+    if (tab === 'signin') {
+      signinTab.className = 'flex-1 py-2 rounded-md font-title-md text-title-md transition-all text-center bg-surface-container-high text-on-surface shadow-sm';
+      signupTab.className = 'flex-1 py-2 rounded-md font-title-md text-title-md transition-all text-center text-on-surface-variant hover:text-on-surface';
+
+      nameContainer.classList.add('hidden');
+      nameContainer.classList.remove('flex');
+      if (fullNameInput) fullNameInput.required = false;
+
+      passwordMeter.classList.add('hidden');
+      passwordMeter.classList.remove('flex');
+      signinControls.classList.remove('hidden');
+      signinControls.classList.add('flex');
+      signupTerms.classList.add('hidden');
+      signupTerms.classList.remove('flex');
+      if (termsAgree) termsAgree.required = false;
+
+      forgotLink.classList.remove('hidden');
+
+      ctaLabel.textContent = 'Login';
+      mainHeading.textContent = 'Welcome Back';
+      subHeading.textContent = 'Continue your learning journey.';
+    } else {
+      signupTab.className = 'flex-1 py-2 rounded-md font-title-md text-title-md transition-all text-center bg-surface-container-high text-on-surface shadow-sm';
+      signinTab.className = 'flex-1 py-2 rounded-md font-title-md text-title-md transition-all text-center text-on-surface-variant hover:text-on-surface';
+
+      nameContainer.classList.remove('hidden');
+      nameContainer.classList.add('flex');
+      if (fullNameInput) fullNameInput.required = true;
+
+      passwordMeter.classList.remove('hidden');
+      passwordMeter.classList.add('flex');
+      signinControls.classList.add('hidden');
+      signinControls.classList.remove('flex');
+      signupTerms.classList.remove('hidden');
+      signupTerms.classList.add('flex');
+      if (termsAgree) termsAgree.required = true;
+
+      forgotLink.classList.add('hidden');
+
+      ctaLabel.textContent = 'Create Account';
+      mainHeading.textContent = 'Create an Account';
+      subHeading.textContent = 'Join the best technical learning platform.';
+    }
+  }
+
+  function togglePasswordVisibility() {
+    const pwd = document.getElementById('password');
+    const icon = document.getElementById('password-eye-icon');
+    if (pwd.type === 'password') {
+      pwd.type = 'text';
+      icon.textContent = 'visibility_off';
+    } else {
+      pwd.type = 'password';
+      icon.textContent = 'visibility';
+    }
+  }
+
+  function validateEmailField(val) {
+    const pill = document.getElementById('email-validation-pill');
+    const errorMsg = document.getElementById('email-error-msg');
+    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+    
+    if (isValid) {
+      pill.classList.remove('hidden');
+      pill.classList.add('flex');
+      errorMsg.classList.add('hidden');
+    } else {
+      pill.classList.add('hidden');
+      pill.classList.remove('flex');
+      if (val.length > 0) {
+        errorMsg.classList.remove('hidden');
+      } else {
+        errorMsg.classList.add('hidden');
+      }
+    }
+  }
+
+  function handlePasswordChange(val) {
+    const meter = document.getElementById('password-meter-panel');
+    if (currentTab === 'signup') {
+      meter.classList.remove('hidden');
+      meter.classList.add('flex');
+    }
+  }
+
+  async function handleFormSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-cta-btn');
+    const ctaLabel = document.getElementById('cta-label');
+    const originalText = ctaLabel.textContent;
+    const email = document.getElementById('work-email')?.value?.trim();
+    const password = document.getElementById('password')?.value;
+
+    if (!email || !password) {
+      window.KinetiqAPI?.ui.showError('Please enter your email and password.');
+      return;
+    }
+
+    ctaLabel.textContent = 'Authenticating...';
+    btn.disabled = true;
+    btn.classList.add('opacity-80');
+
+    try {
+      if (currentTab === 'signin') {
+        const result = await window.KinetiqAPI.auth.login(email, password);
+        ctaLabel.textContent = 'Access Granted ✓';
+        window.KinetiqAPI.ui.showSuccess('Welcome back! Redirecting...');
+        // Route based on actual user role from API response
+        const userRole = result?.user?.role || 'student';
+        const dest = (userRole === 'admin' || userRole === 'instructor') ? 'admin-dashboard' : 'dashboard';
+        setTimeout(() => { window.location.href = window.KinetiqRouter.resolveUrl(dest); }, 600);
+      } else {
+        const fullName = document.getElementById('full-name')?.value?.trim() || 'User';
+        const nameParts = fullName.split(' ');
+        const firstName = nameParts[0] || 'User';
+        const lastName = nameParts.slice(1).join(' ') || '';
+        const registerRole = currentRole === 'admin' ? 'instructor' : 'student';
+        const result = await window.KinetiqAPI.auth.register(firstName, lastName, email, password, registerRole);
+        ctaLabel.textContent = 'Account Created ✓';
+        window.KinetiqAPI.ui.showSuccess('Account created! Redirecting to dashboard...');
+        const userRole = result?.user?.role || 'student';
+        const dest = (userRole === 'admin' || userRole === 'instructor') ? 'admin-dashboard' : 'onboarding';
+        setTimeout(() => { window.location.href = window.KinetiqRouter.resolveUrl(dest); }, 700);
+      }
+    } catch (err) {
+      ctaLabel.textContent = originalText;
+      btn.disabled = false;
+      btn.classList.remove('opacity-80');
+      window.KinetiqAPI?.ui.showError(err.message || 'Authentication failed. Please try again.');
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const tab = params.get('tab');
+    if (tab === 'signup' || window.location.pathname.includes('/signup') || window.location.pathname.includes('/register')) {
+      setAuthTab('signup');
+    } else {
+      setAuthTab('signin');
+    }
+  });
+</script></main><footer class="w-full py-space-lg flex flex-col sm:flex-row items-center justify-center gap-space-lg text-on-surface-variant font-label-md text-label-md"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-secondary inline-block animate-pulse"></span><span>Systems Operational</span></div><span class="hidden sm:inline text-outline-variant">•</span><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[16px]">lock</span><span>End-to-End Encrypted Auth</span></div><span class="hidden sm:inline text-outline-variant">•</span><div class="text-on-surface-variant">© 2025 Kinetiq Academy Inc.</div></footer>  <script src="../shared/api.js"></script><script src="../shared/router.js"></script>
+</body></html>

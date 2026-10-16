@@ -1,0 +1,112 @@
+{
+  "public": ".",
+  "cleanUrls": false,
+  "directoryListing": false,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/home",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/courses",
+      "destination": "/explore_courses_kinetiq_academy_1/index.html"
+    },
+    {
+      "source": "/courses/nextjs-distributed-systems",
+      "destination": "/course_details_fullstack_next.js_distributed_systems_1/index.html"
+    },
+    {
+      "source": "/course-details",
+      "destination": "/course_details_fullstack_next.js_distributed_systems_1/index.html"
+    },
+    {
+      "source": "/pricing",
+      "destination": "/pricing_plans_kinetiq_academy/index.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about_us_kinetiq_academy/index.html"
+    },
+    {
+      "source": "/resources",
+      "destination": "/resources_blog_kinetiq_academy/index.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/resources_blog_kinetiq_academy/index.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact_support_kinetiq_academy/index.html"
+    },
+    {
+      "source": "/ai-learning",
+      "destination": "/ai_learning_kinetiq_academy/index.html"
+    },
+    {
+      "source": "/ai",
+      "destination": "/ai_learning_kinetiq_academy/index.html"
+    },
+    {
+      "source": "/login",
+      "destination": "/sign_in_register_kinetiq_academy/index.html"
+    },
+    {
+      "source": "/signup",
+      "destination": "/sign_in_register_kinetiq_academy/index.html"
+    },
+    {
+      "source": "/register",
+      "destination": "/sign_in_register_kinetiq_academy/index.html"
+    },
+    {
+      "source": "/onboarding",
+      "destination": "/student_onboarding_personalize_your_curriculum/index.html"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/student_dashboard/index.html"
+    },
+    {
+      "source": "/my-learning",
+      "destination": "/student_portal_dashboard_kinetiq_academy/index.html"
+    },
+    {
+      "source": "/learn",
+      "destination": "/course_lms_player/index.html"
+    },
+    {
+      "source": "/practice",
+      "destination": "/practice_quiz_center/index.html"
+    },
+    {
+      "source": "/quiz",
+      "destination": "/practice_quiz_center/index.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin_instructor_dashboard/index.html"
+    },
+    {
+      "source": "/admin/dashboard",
+      "destination": "/admin_instructor_dashboard/index.html"
+    },
+    {
+      "source": "/admin/courses",
+      "destination": "/admin_instructor_dashboard/index.html"
+    },
+    {
+      "source": "/admin/content",
+      "destination": "/admin_instructor_dashboard/index.html"
+    },
+    {
+      "source": "/admin/students",
+      "destination": "/admin_instructor_dashboard/index.html"
+    }
+  ]
+}
