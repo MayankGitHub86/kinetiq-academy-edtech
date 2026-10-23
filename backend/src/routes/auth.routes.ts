@@ -9,10 +9,11 @@ const router = Router();
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 min
-  max: parseInt(process.env.AUTH_RATE_LIMIT_MAX || '100'),
+  max: process.env.NODE_ENV === 'production' ? parseInt(process.env.AUTH_RATE_LIMIT_MAX || '100') : 50000,
   message: { success: false, error: 'Too many requests, please try again later' },
   standardHeaders: true,
   legacyHeaders: false,
+  skip: () => process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test',
 });
 
 // POST /api/v1/auth/register

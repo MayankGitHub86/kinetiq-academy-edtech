@@ -161,10 +161,11 @@
         if (noVideoMsg) noVideoMsg.classList.remove('hidden');
       }
 
-      // Populate Overview / Content Tab
+      // Populate Overview / Content Tab — use shared markdown renderer if available
       const overviewContainer = document.getElementById('lesson-markdown-body');
       if (overviewContainer) {
-        overviewContainer.textContent = currentLesson.content || 'Comprehensive architectural explanation and diagrams for this lesson are loading...';
+        const renderFn = window.KinetiqMarkdown?.render || formatLessonMarkdown;
+        overviewContainer.innerHTML = renderFn(currentLesson.content || currentLesson.explanation || 'Lesson content is loading...');
       }
 
       // Populate Interactive Transcript Tab
@@ -599,6 +600,68 @@
 
     messages.insertAdjacentHTML('beforeend', bubble);
     messages.scrollTop = messages.scrollHeight;
+  }
+
+  function formatLessonMarkdown(md) {
+    if (!md) return '';
+
+    // Handle code blocks first to protect them from inner regexes
+    const codeBlocks = [];
+    let processed = md.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, (match, lang, code) => {
+      const idx = codeBlocks.length;
+      codeBlocks.push({ lang: lang || 'code', code });
+      return `@@CODE_BLOCK_${idx}@@`;
+    });
+
+    // Escape basic html in text
+    processed = processed
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+    // Headings
+    processed = processed
+      .replace(/^### (.*$)/gim, '<h3 class="text-base font-bold text-on-surface mt-6 mb-2 flex items-center gap-2"><span class="w-1.5 h-4 rounded-full bg-secondary"></span>$1</h3>')
+      .replace(/^## (.*$)/gim, '<h2 class="text-lg font-bold text-primary mt-8 mb-3 pb-1 border-b border-outline-variant/30 flex items-center gap-2"><span class="w-2 h-5 rounded-full bg-primary"></span>$1</h2>')
+      .replace(/^# (.*$)/gim, '<h1 class="text-2xl font-bold text-on-surface mt-8 mb-4 tracking-tight">$1</h1>');
+
+    // Bold & italic
+    processed = processed
+      .replace(/\*\*(.*?)\*\*/g, '<strong class="text-on-surface font-bold">$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em class="text-on-surface-variant italic">$1</em>');
+
+    // Inline code
+    processed = processed.replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 rounded bg-surface-container-high text-primary font-mono text-xs border border-outline-variant/30">$1</code>');
+
+    // Blockquotes
+    processed = processed.replace(/^\&gt;\s?(.*$)/gim, '<blockquote class="p-3 my-3 rounded-xl bg-surface-container border-l-4 border-secondary text-on-surface-variant italic">$1</blockquote>');
+
+    // Lists
+    processed = processed.replace(/^\s*[-*]\s+(.*$)/gim, '<li class="ml-4 list-disc text-on-surface-variant text-xs leading-relaxed my-1">$1</li>');
+    processed = processed.replace(/^\s*(\d+)\.\s+(.*$)/gim, '<li class="ml-4 list-decimal text-on-surface-variant text-xs leading-relaxed my-1"><strong class="text-on-surface">$1.</strong> $2</li>');
+
+    // Paragraph line breaks
+    processed = processed.replace(/\n\n/g, '<div class="my-3"></div>');
+
+    // Restore code blocks
+    codeBlocks.forEach((cb, idx) => {
+      const escapedCode = cb.code
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+      const htmlBlock = `
+        <div class="my-4 rounded-xl overflow-hidden border border-outline-variant/40 bg-surface-container-lowest shadow-lg">
+          <div class="px-4 py-2 bg-surface-container flex items-center justify-between border-b border-outline-variant/30 text-[11px] font-mono text-outline">
+            <span class="uppercase font-bold text-primary">${cb.lang}</span>
+            <span>Production Implementation</span>
+          </div>
+          <pre class="p-4 text-xs font-mono leading-relaxed text-secondary overflow-x-auto whitespace-pre"><code>${escapedCode}</code></pre>
+        </div>
+      `;
+      processed = processed.replace(`@@CODE_BLOCK_${idx}@@`, htmlBlock);
+    });
+
+    return processed;
   }
 
   window.askQuickPrompt = function (promptText) {

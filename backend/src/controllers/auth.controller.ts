@@ -12,7 +12,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     sameSite: 'lax',
     maxAge: 30 * 24 * 60 * 60 * 1000,
   });
-  sendCreated(res, { accessToken: tokens.accessToken, user: tokens.user }, 'Registration successful');
+  sendCreated(res, { accessToken: tokens.accessToken, refreshToken: tokens.refreshToken, user: tokens.user }, 'Registration successful');
 };
 
 export const login = async (req: Request, res: Response): Promise<void> => {
@@ -23,7 +23,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     sameSite: 'lax',
     maxAge: 30 * 24 * 60 * 60 * 1000,
   });
-  sendSuccess(res, { accessToken: tokens.accessToken, user: tokens.user }, 'Login successful');
+  sendSuccess(res, { accessToken: tokens.accessToken, refreshToken: tokens.refreshToken, user: tokens.user }, 'Login successful');
 };
 
 export const logout = async (req: AuthRequest, res: Response): Promise<void> => {
@@ -51,7 +51,7 @@ export const refreshToken = async (req: Request, res: Response): Promise<void> =
     sameSite: 'lax',
     maxAge: 30 * 24 * 60 * 60 * 1000,
   });
-  sendSuccess(res, { accessToken: tokens.accessToken, user: tokens.user });
+  sendSuccess(res, { accessToken: tokens.accessToken, refreshToken: tokens.refreshToken, user: tokens.user });
 };
 
 export const verifyEmail = async (req: Request, res: Response): Promise<void> => {

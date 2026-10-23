@@ -6,7 +6,7 @@ async function login(email: string, password = 'Password123!') {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password })
   });
-  const data = await res.json();
+  const data: any = await res.json();
   if (!res.ok) {
     throw new Error(`Login failed for ${email} (${res.status}): ${JSON.stringify(data)}`);
   }
@@ -19,7 +19,7 @@ async function test() {
   const s2Token = await login('student2@kinetiqacademy.com');
 
   // Get active published project
-  const list = await fetch(BASE + '/learning-projects', { headers: { Authorization: 'Bearer ' + adminToken } }).then(r => r.json());
+  const list: any = await fetch(BASE + '/learning-projects', { headers: { Authorization: 'Bearer ' + adminToken } }).then(r => r.json());
   const proj = list.data[0];
   console.log('Testing with Project:', proj.id, proj.title);
 
@@ -29,7 +29,7 @@ async function test() {
     headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + s1Token },
     body: JSON.stringify({ query: 'What is the quorum requirement in Raft consensus?' })
   });
-  const t1Data = await t1.json();
+  const t1Data: any = await t1.json();
   console.log('✅ AI Tutor (Student 1): Status', t1.status, 'Answer snippet:', (t1Data.data?.answer || '').slice(0, 100));
 
   // 2. AI Tutor for Unassigned Student 2 (Expected 403)

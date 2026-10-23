@@ -1,12 +1,18 @@
 import { v4 as uuidv4 } from 'uuid';
+import crypto from 'crypto';
 import { ContentSource, ContentAnalysis, AiContentJob, JobStatus } from '../models/AiLearning';
 import { GenerationStageRecord } from '../models/AiLearningPhase2';
+import { ResourceVersion, ResourceType, VersionStatus } from '../models/ResourceVersion';
 import { ContentIngestionService, ExtractedContent } from './contentIngestion.service';
 import { AiGeneratorService } from './aiGenerator.service';
 import { VideoPipelineService } from './videoPipeline.service';
 import { QualityValidationService } from './qualityValidation.service';
 import { CourseQualityService } from './courseQuality.service';
 import { logger } from '../utils/logger';
+
+function contentHash(obj: any): string {
+  return crypto.createHash('sha256').update(JSON.stringify(obj)).digest('hex').slice(0, 16);
+}
 
 export interface StartJobParams {
   userId: string;
@@ -341,7 +347,15 @@ export class AiOrchestratorService {
           type: contentSource.sourceType,
           url: contentSource.url,
           wordCount: extracted.wordCount,
+          sectionsCount: extracted.sections?.length || 0,
+          codeBlocksCount: extracted.codeBlocks?.length || 0,
+          tablesCount: extracted.tables?.length || 0,
+          crawledSubPagesCount: extracted.metadata?.crawledSubPagesCount || 0,
+          crawledSubUrls: extracted.metadata?.crawledSubUrls || [],
+          headings: (extracted.headings || []).map(h => h.text),
         },
+        sourceAnalysis: extracted.completenessReport,
+        aiProvider: validationReport.aiProviderUsed,
         analysis,
         modules: generatedModules,
         studyNotes,
@@ -459,4 +473,408 @@ export class AiOrchestratorService {
 
     return job;
   }
+
+  /**
+   * Updates an individual lesson in generatedData, re-evaluates quality, and tracks
+   * resource version history. Marks dependent study notes, questions, and video as STALE.
+   */
+  public static async updateLesson(
+    jobId: string,
+    moduleIndex: number,
+    lessonIndex: number,
+    updatedData: {
+      title?: string;
+      description?: string;
+      durationMinutes?: number;
+      explanation?: string;
+      objectives?: string[];
+    }
+  ): Promise<AiContentJob> {
+    const job = await AiContentJob.findByPk(jobId);
+    if (!job) throw new Error('Job not found.');
+
+    const genData = job.generatedData ? { ...job.generatedData } : {};
+    const modules = genData.modules ? [...genData.modules] : [];
+
+    if (!modules[moduleIndex] || !modules[moduleIndex].lessons?.[lessonIndex]) {
+      throw new Error(`Lesson at module ${moduleIndex}, index ${lessonIndex} not found.`);
+    }
+
+    const previousLesson = modules[moduleIndex].lessons[lessonIndex];
+    const modifiedLesson = {
+      ...previousLesson,
+      ...updatedData,
+      _editedAt: new Date().toISOString(),
+    };
+
+    // Detect material change — if explanation changed by more than 10%, mark deps stale
+    const prevText = previousLesson.explanation || previousLesson.content || '';
+    const newText = modifiedLesson.explanation || modifiedLesson.content || '';
+    const materialChange = prevText !== newText && Math.abs(prevText.length - newText.length) > Math.max(20, prevText.length * 0.1);
+
+    modules[moduleIndex].lessons[lessonIndex] = modifiedLesson;
+    genData.modules = modules;
+
+    // ── Resource Version Tracking ──────────────────────────────────────────────
+    const lessonKey = `module_${moduleIndex}_lesson_${lessonIndex}`;
+    const existingVersion = await ResourceVersion.findOne({
+      where: { jobId, resourceType: ResourceType.LESSON_CONTENT },
+    }).catch(() => null);
+
+    const newVersionNum = (existingVersion?.version || 0) + 1;
+    const newHash = contentHash(modifiedLesson);
+
+    if (existingVersion) {
+      await existingVersion.update({
+        version: newVersionNum,
+        contentHash: newHash,
+        status: VersionStatus.ACTIVE,
+        staleReason: undefined,
+        metadata: {
+          updatedBy: 'instructor',
+          changeSummary: `Lesson ${lessonKey} edited. Material change: ${materialChange}`,
+          affectedResources: materialChange ? ['study_notes', 'questions', 'video_asset'] : [],
+        },
+        contentSnapshot: { moduleIndex, lessonIndex, title: modifiedLesson.title },
+      });
+    } else {
+      await ResourceVersion.create({
+        jobId,
+        resourceType: ResourceType.LESSON_CONTENT,
+        version: newVersionNum,
+        contentHash: newHash,
+        status: VersionStatus.ACTIVE,
+        metadata: {
+          updatedBy: 'instructor',
+          changeSummary: `Lesson ${lessonKey} created/edited.`,
+          affectedResources: materialChange ? ['study_notes', 'questions', 'video_asset'] : [],
+        },
+        contentSnapshot: { moduleIndex, lessonIndex, title: modifiedLesson.title },
+      }).catch(e => logger.warn('ResourceVersion create failed:', e));
+    }
+
+    // ── Mark dependent resources as STALE if material change detected ──────────
+    if (materialChange) {
+      const staleTypes = [ResourceType.STUDY_NOTES, ResourceType.QUESTION_BANK, ResourceType.VIDEO_SCRIPT, ResourceType.VIDEO_ASSET];
+      await Promise.all(staleTypes.map(async (rType) => {
+        await ResourceVersion.upsert({
+          id: uuidv4(),
+          jobId,
+          resourceType: rType,
+          version: 1,
+          status: VersionStatus.STALE,
+          staleReason: `Lesson content at ${lessonKey} was materially changed on ${new Date().toISOString()}.`,
+          metadata: { triggeredBy: lessonKey, lessonVersionHash: newHash },
+        }).catch(() => {});
+      }));
+
+      // Surface stale warnings in generatedData for the UI
+      genData._staleResources = ['study_notes', 'question_bank', 'video_script', 'video_asset'];
+      genData._staleMap = genData._staleMap || {};
+      genData._staleMap[lessonKey] = {
+        lessonTitle: modifiedLesson.title,
+        editedAt: modifiedLesson._editedAt,
+        staleResources: ['study_notes', 'questions', 'video_asset'],
+      };
+
+      logger.info(`Lesson [${moduleIndex}][${lessonIndex}] material change detected — study notes, questions, video marked STALE.`);
+    }
+
+    // ── Re-run quality validation audit ───────────────────────────────────────
+    const newReport = QualityValidationService.validateLearningPackage({
+      courseTitle: genData.analysis?.topic || 'Updated Course',
+      description: genData.analysis?.suggestedOutline?.[0]?.description || '',
+      modules,
+      studyNotes: genData.studyNotes,
+      flashcards: genData.flashcards,
+      questions: genData.questions,
+      videoAsset: genData.videoAsset,
+      sourceText: genData.source?.cleanedText,
+    });
+
+    await job.update({
+      generatedData: genData,
+      validationReport: newReport,
+    });
+
+    if ((global as any).io) {
+      try {
+        (global as any).io.to(`job:${jobId}`).emit('job:updated', {
+          jobId,
+          generatedData: genData,
+          validationReport: newReport,
+          staleResources: genData._staleResources,
+        });
+      } catch {}
+    }
+
+    logger.info(`Updated lesson [${moduleIndex}][${lessonIndex}] in job ${jobId}. New quality score: ${newReport.score}/100.`);
+    return job;
+  }
+
+  /**
+   * Approves the curriculum after admin review, triggering full lesson/video/notes/question generation.
+   * This implements the staged generation pipeline (Enhancement B).
+   * Job must have generatedData with a curriculum outline and status=review_required
+   */
+  public static async approveCurriculumAndGenerate(jobId: string, approvedModules?: any[]): Promise<AiContentJob> {
+    const job = await AiContentJob.findByPk(jobId, { include: [ContentSource] });
+    if (!job) throw new Error('Job not found.');
+
+    const genData = job.generatedData ? { ...job.generatedData } : {};
+    const analysis = genData.analysis;
+
+    if (!analysis) {
+      throw new Error('Job has no analysis data. Cannot approve curriculum before source analysis is complete.');
+    }
+
+    // Use admin-provided module arrangement if passed, else keep what's in genData
+    const modulesToGenerate = approvedModules || genData.modules || analysis.suggestedOutline || [];
+
+    logger.info(`Curriculum approved for Job ${jobId}. Generating ${modulesToGenerate.length} modules full lesson content...`);
+
+    await job.update({
+      status: JobStatus.IN_PROGRESS,
+      stage: 'generating_lessons',
+      progress: 35,
+      stageDetails: {
+        ...(job.stageDetails || {}),
+        curriculum: 'approved',
+        lessons: 'in_progress',
+        notes: 'pending',
+        questions: 'pending',
+        video: 'pending',
+        validation: 'pending',
+      },
+    });
+
+    // Get source text for generation
+    const sourceText = genData.source?.cleanedText || job.source?.cleanedText || job.source?.rawText || '';
+    const extractedChunks = genData.source?.chunks || analysis.sourceChunks || [];
+
+    // Kick off async generation from lessons onward
+    setImmediate(async () => {
+      try {
+        const generatedModules: any[] = [];
+        const outline = modulesToGenerate;
+
+        for (let mIdx = 0; mIdx < outline.length; mIdx++) {
+          const mod = outline[mIdx];
+          const generatedLessons: any[] = [];
+
+          for (let lIdx = 0; lIdx < (mod.lessons || []).length; lIdx++) {
+            const lOutline = mod.lessons[lIdx];
+            const lessonContent = await AiGeneratorService.generateLessonContent(
+              lOutline.title,
+              lOutline.description,
+              analysis.topic,
+              extractedChunks,
+              analysis.targetLevel
+            );
+            generatedLessons.push(lessonContent);
+          }
+
+          generatedModules.push({
+            title: mod.title,
+            description: mod.description,
+            lessons: generatedLessons,
+          });
+
+          const progressPercent = Math.min(62, 35 + Math.round(((mIdx + 1) / outline.length) * 27));
+          await this.updateJobStage(jobId, 'generating_lessons', progressPercent);
+        }
+
+        await this.updateJobStage(jobId, 'generating_notes', 65, { lessons: 'completed', notes: 'in_progress' });
+
+        const allLessonTitles = generatedModules.flatMap(m => m.lessons.map((l: any) => l.title));
+        const studyNotes = await AiGeneratorService.generateStudyNotes(analysis.topic, allLessonTitles, sourceText);
+        const flashcards = await AiGeneratorService.generateFlashcards(
+          analysis.topic,
+          (analysis.keyConcepts || []).map((c: any) => ({ name: c.name, definition: c.definition }))
+        );
+
+        await this.updateJobStage(jobId, 'generating_questions', 75, { notes: 'completed', questions: 'in_progress' });
+
+        const questionCount = job.options?.questionCount || 8;
+        const questions = await AiGeneratorService.generateQuestionBank(
+          analysis.topic,
+          (analysis.keyConcepts || []).map((c: any) => ({ name: c.name, definition: c.definition })),
+          questionCount
+        );
+
+        await this.updateJobStage(jobId, 'generating_video', 82, { questions: 'completed', video: 'in_progress' });
+
+        const outputSelection = job.options?.outputSelection || ['curriculum', 'lessons', 'notes', 'flashcards', 'questions', 'video'];
+        let videoAssetData: any = null;
+
+        if (outputSelection.includes('video') && generatedModules[0]?.lessons[0]) {
+          const firstLesson = generatedModules[0].lessons[0];
+          const storyboard = await AiGeneratorService.generateVideoScript(
+            firstLesson.title,
+            firstLesson.explanation,
+            job.options?.videoStyle || 'technical_whiteboard'
+          );
+
+          const videoAssetId = uuidv4();
+          const renderedVideo = await VideoPipelineService.renderStoryboardToMp4(storyboard, videoAssetId);
+
+          videoAssetData = {
+            id: videoAssetId,
+            title: firstLesson.title,
+            videoUrl: renderedVideo.videoUrl,
+            thumbnailUrl: renderedVideo.thumbnailUrl,
+            captionsVttUrl: renderedVideo.captionsVttUrl,
+            durationSeconds: renderedVideo.durationSeconds,
+            transcript: renderedVideo.transcript,
+            captionsVtt: renderedVideo.captionsVtt,
+            storyboard: storyboard.scenes,
+          };
+        }
+
+        await this.updateJobStage(jobId, 'validating', 92, { video: 'completed', validation: 'in_progress' });
+
+        const validationReport = QualityValidationService.validateLearningPackage({
+          courseTitle: analysis.topic,
+          description: analysis.suggestedOutline?.[0]?.description || '',
+          modules: generatedModules,
+          studyNotes,
+          flashcards,
+          questions,
+          videoAsset: videoAssetData,
+          sourceText,
+        });
+
+        const updatedGenData = {
+          ...genData,
+          modules: generatedModules,
+          studyNotes,
+          flashcards,
+          questions,
+          videoAsset: videoAssetData,
+          _generatedAt: new Date().toISOString(),
+        };
+
+        const finalJob = await AiContentJob.findByPk(jobId);
+        if (finalJob) {
+          await finalJob.update({
+            stage: 'completed',
+            progress: 100,
+            status: JobStatus.REVIEW_REQUIRED,
+            generatedData: updatedGenData,
+            validationReport,
+            stageDetails: {
+              fetching: 'completed',
+              analyzing: 'completed',
+              curriculum: 'approved',
+              lessons: 'completed',
+              notes: 'completed',
+              questions: 'completed',
+              video: outputSelection.includes('video') ? 'completed' : 'skipped',
+              validation: 'completed',
+            },
+          });
+        }
+
+        if ((global as any).io) {
+          try {
+            (global as any).io.to(`job:${jobId}`).emit('job:completed', {
+              jobId,
+              status: JobStatus.REVIEW_REQUIRED,
+              validationReport,
+            });
+          } catch {}
+        }
+
+        logger.info(`🎉 Full generation after curriculum approval completed for Job ${jobId}! Score: ${validationReport.score}/100.`);
+      } catch (err: any) {
+        logger.error(`Post-approval generation failed for job ${jobId}:`, err);
+        const failedJob = await AiContentJob.findByPk(jobId);
+        if (failedJob) {
+          await failedJob.update({
+            status: JobStatus.FAILED,
+            stage: 'failed',
+            errorMessage: err.message || 'Generation failed after curriculum approval.',
+          });
+        }
+      }
+    });
+
+    return (await AiContentJob.findByPk(jobId))!;
+  }
+
+  /**
+   * Updates curriculum outline in generatedData
+   */
+  public static async updateCurriculum(jobId: string, updatedModules: any[]): Promise<AiContentJob> {
+    const job = await AiContentJob.findByPk(jobId);
+    if (!job) throw new Error('Job not found.');
+
+    const genData = job.generatedData ? { ...job.generatedData } : {};
+    genData.modules = updatedModules;
+
+    const newReport = QualityValidationService.validateLearningPackage({
+      courseTitle: genData.analysis?.topic || 'Updated Course',
+      description: genData.analysis?.suggestedOutline?.[0]?.description || '',
+      modules: updatedModules,
+      studyNotes: genData.studyNotes,
+      flashcards: genData.flashcards,
+      questions: genData.questions,
+      videoAsset: genData.videoAsset,
+      sourceText: genData.source?.cleanedText,
+    });
+
+    await job.update({
+      generatedData: genData,
+      validationReport: newReport,
+    });
+
+    return job;
+  }
+
+  /**
+   * Updates study notes in generatedData
+   */
+  public static async updateStudyNotes(jobId: string, updatedNotes: any): Promise<AiContentJob> {
+    const job = await AiContentJob.findByPk(jobId);
+    if (!job) throw new Error('Job not found.');
+
+    const genData = job.generatedData ? { ...job.generatedData } : {};
+    genData.studyNotes = {
+      ...(genData.studyNotes || {}),
+      ...updatedNotes,
+    };
+
+    await job.update({ generatedData: genData });
+    return job;
+  }
+
+  /**
+   * Updates questions in generatedData
+   */
+  public static async updateQuestions(jobId: string, updatedQuestions: any[]): Promise<AiContentJob> {
+    const job = await AiContentJob.findByPk(jobId);
+    if (!job) throw new Error('Job not found.');
+
+    const genData = job.generatedData ? { ...job.generatedData } : {};
+    genData.questions = updatedQuestions;
+
+    const newReport = QualityValidationService.validateLearningPackage({
+      courseTitle: genData.analysis?.topic || 'Updated Course',
+      description: genData.analysis?.suggestedOutline?.[0]?.description || '',
+      modules: genData.modules || [],
+      studyNotes: genData.studyNotes,
+      flashcards: genData.flashcards,
+      questions: updatedQuestions,
+      videoAsset: genData.videoAsset,
+      sourceText: genData.source?.cleanedText,
+    });
+
+    await job.update({
+      generatedData: genData,
+      validationReport: newReport,
+    });
+
+    return job;
+  }
 }
+

@@ -231,6 +231,15 @@
     </div>
   </div>
 
+  <!-- AI Provider Diagnostics Banner -->
+  <div id="ai-provider-banner" class="hidden p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/30 flex items-center justify-between text-xs">
+    <div class="flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+      <span id="ai-provider-label" class="text-on-surface-variant">Grounded Synthesis Engine — No API credits required</span>
+    </div>
+    <button id="ai-diag-btn" onclick="window.showAiDiagnostics()" class="px-2 py-0.5 rounded bg-surface-container text-primary text-[10px] font-bold hover:bg-surface-container-high transition-colors">Provider Diagnostics ›</button>
+  </div>
+
   <!-- Interactive Review & Approval Suite -->
   <div id="ai-review-suite" class="hidden space-y-5">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-surface-container-high rounded-xl border border-secondary/30">
@@ -242,6 +251,10 @@
         <p id="review-course-category" class="text-xs text-on-surface-variant mt-0.5">Distributed Systems • Intermediate</p>
       </div>
       <div class="flex items-center gap-2.5">
+        <button id="btn-version-history" onclick="window.showVersionHistoryModal()" type="button" class="px-3.5 py-2.5 bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all">
+          <span class="material-symbols-outlined text-[16px]">history</span>
+          <span>Versions</span>
+        </button>
         <button id="btn-publish-to-lms" type="button" class="px-5 py-2.5 bg-secondary text-on-secondary rounded-xl font-bold text-xs hover:opacity-95 shadow-md flex items-center gap-2 active:scale-95 transition-all">
           <span class="material-symbols-outlined text-[18px]">rocket_launch</span>
           <span>Approve & Publish to LMS</span>
@@ -251,30 +264,91 @@
 
     <!-- Review Suite Tabs -->
     <div class="flex items-center gap-2 border-b border-outline-variant/30 overflow-x-auto text-xs font-bold">
+      <button id="review-tab-btn-source" onclick="switchReviewTab('source')" type="button" class="py-2.5 px-4 text-on-surface-variant border-b-2 border-transparent hover:text-on-surface transition-all flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">travel_explore</span> Source Analysis</button>
       <button id="review-tab-btn-outline" onclick="switchReviewTab('outline')" type="button" class="py-2.5 px-4 text-primary border-b-2 border-primary transition-all">Curriculum Outline</button>
       <button id="review-tab-btn-lesson" onclick="switchReviewTab('lesson')" type="button" class="py-2.5 px-4 text-on-surface-variant border-b-2 border-transparent hover:text-on-surface transition-all">Lesson Content</button>
       <button id="review-tab-btn-video" onclick="switchReviewTab('video')" type="button" class="py-2.5 px-4 text-on-surface-variant border-b-2 border-transparent hover:text-on-surface transition-all">Video Preview</button>
       <button id="review-tab-btn-notes" onclick="switchReviewTab('notes')" type="button" class="py-2.5 px-4 text-on-surface-variant border-b-2 border-transparent hover:text-on-surface transition-all">Study Notes</button>
       <button id="review-tab-btn-questions" onclick="switchReviewTab('questions')" type="button" class="py-2.5 px-4 text-on-surface-variant border-b-2 border-transparent hover:text-on-surface transition-all">Assessment Bank</button>
-<button id="review-tab-btn-quality" onclick="switchReviewTab('quality')" type="button" class="py-2.5 px-4 text-on-surface-variant border-b-2 border-transparent hover:text-on-surface transition-all flex items-center gap-1.5">
-  <span class="material-symbols-outlined text-[16px] text-primary">verified</span>
-  Course Quality Score
-</button>
+      <button id="review-tab-btn-quality" onclick="switchReviewTab('quality')" type="button" class="py-2.5 px-4 text-on-surface-variant border-b-2 border-transparent hover:text-on-surface transition-all flex items-center gap-1.5">
+        <span class="material-symbols-outlined text-[16px] text-primary">verified</span>
+        Quality Score
+      </button>
     </div>
 
     <!-- Review Tab Panes -->
+
+    <!-- SOURCE ANALYSIS TAB -->
+    <div id="review-tab-source" class="hidden space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="md:col-span-2 p-4 bg-surface-container rounded-xl border border-outline-variant/30 space-y-3">
+          <span class="text-xs uppercase font-bold text-primary tracking-wider flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px]">travel_explore</span> Source Extraction Report
+          </span>
+          <div id="source-analysis-report" class="space-y-2 text-xs text-on-surface-variant">Loading source analysis...</div>
+        </div>
+        <div class="space-y-3">
+          <div class="p-4 bg-surface-container rounded-xl border border-outline-variant/30 space-y-2">
+            <span class="text-xs uppercase font-bold text-secondary tracking-wider">Coverage Metrics</span>
+            <div id="source-coverage-metrics" class="space-y-2"></div>
+          </div>
+          <div class="p-4 bg-surface-container rounded-xl border border-outline-variant/30 space-y-2">
+            <span class="text-xs uppercase font-bold text-outline tracking-wider">Extracted Terms</span>
+            <div id="source-key-terms" class="flex flex-wrap gap-1.5 pt-1"></div>
+          </div>
+        </div>
+      </div>
+      <div class="p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/30 space-y-2">
+        <span class="text-xs uppercase font-bold text-outline tracking-wider">Raw Source Preview (First 600 chars)</span>
+        <pre id="source-raw-preview" class="text-[11px] font-mono text-on-surface-variant whitespace-pre-wrap leading-relaxed max-h-32 overflow-y-auto"></pre>
+      </div>
+    </div>
+
+    <!-- CURRICULUM OUTLINE TAB -->
     <div id="review-tab-outline" class="space-y-3">
       <div id="review-outline-content" class="space-y-3"></div>
     </div>
-    <div id="review-tab-lesson" class="hidden p-4 bg-surface-container rounded-xl">
-      <div id="review-lesson-content"></div>
+
+    <!-- LESSON CONTENT TAB -->
+    <div id="review-tab-lesson" class="hidden">
+      <div class="flex gap-4">
+        <!-- Lesson Selector Sidebar -->
+        <div class="w-56 shrink-0 space-y-1" id="lesson-selector-sidebar">
+          <span class="text-[10px] uppercase font-bold text-outline tracking-wider px-2 block mb-2">Select Lesson</span>
+        </div>
+        <!-- Lesson Body -->
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 id="active-lesson-title" class="font-bold text-on-surface text-base"></h3>
+              <p id="active-lesson-desc" class="text-xs text-on-surface-variant mt-0.5"></p>
+            </div>
+            <button id="btn-edit-lesson" onclick="window.openEditLessonModal()" type="button" class="px-3 py-1.5 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-primary text-xs font-bold flex items-center gap-1 transition-colors">
+              <span class="material-symbols-outlined text-[14px]">edit</span> Edit Lesson
+            </button>
+          </div>
+          <div id="review-lesson-content" class="bg-surface-container rounded-xl p-5 max-h-[600px] overflow-y-auto"></div>
+        </div>
+      </div>
     </div>
+
+    <!-- VIDEO PREVIEW TAB -->
     <div id="review-tab-video" class="hidden p-4 bg-surface-container rounded-xl">
       <div id="review-video-player-container"></div>
     </div>
-    <div id="review-tab-notes" class="hidden p-4 bg-surface-container rounded-xl">
-      <div id="review-notes-content"></div>
+
+    <!-- STUDY NOTES TAB -->
+    <div id="review-tab-notes" class="hidden">
+      <!-- Notes Sub-tabs -->
+      <div class="flex items-center gap-1 mb-4 p-1 bg-surface-container-lowest rounded-xl max-w-lg">
+        <button onclick="switchNotesView('comprehensive')" id="notes-btn-comprehensive" type="button" class="flex-1 py-1.5 rounded-lg text-xs font-bold bg-primary text-on-primary transition-all">📖 Comprehensive</button>
+        <button onclick="switchNotesView('quick')" id="notes-btn-quick" type="button" class="flex-1 py-1.5 rounded-lg text-xs font-bold text-on-surface-variant hover:bg-surface-container-high transition-all">⚡ Quick Revision</button>
+        <button onclick="switchNotesView('exam')" id="notes-btn-exam" type="button" class="flex-1 py-1.5 rounded-lg text-xs font-bold text-on-surface-variant hover:bg-surface-container-high transition-all">🎯 Exam Prep</button>
+      </div>
+      <div id="review-notes-content" class="bg-surface-container rounded-xl p-5 max-h-[600px] overflow-y-auto"></div>
     </div>
+
+    <!-- ASSESSMENT BANK TAB -->
     <div id="review-tab-questions" class="hidden space-y-3">
       <div id="review-questions-content" class="space-y-3"></div>
     </div>
@@ -325,6 +399,63 @@
 <!-- ========================================================================= -->
 <!-- PHASE 2: EXAM PAPER BLUEPRINT GENERATOR SECTION                           -->
 <!-- ========================================================================= -->
+
+<!-- Edit Lesson Modal -->
+<div id="edit-lesson-modal" class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="w-full max-w-2xl bg-surface-container rounded-2xl border border-outline-variant/40 shadow-2xl overflow-hidden">
+    <div class="flex items-center justify-between p-5 border-b border-outline-variant/30">
+      <h3 class="font-bold text-on-surface">Edit Lesson Content</h3>
+      <button onclick="window.closeEditLessonModal()" type="button" class="p-1.5 rounded-lg hover:bg-surface-container-high text-on-surface-variant"><span class="material-symbols-outlined text-[20px]">close</span></button>
+    </div>
+    <div class="p-5 space-y-4">
+      <div>
+        <label class="block text-xs font-semibold text-on-surface mb-1">Lesson Title</label>
+        <input id="edit-lesson-title-input" type="text" class="w-full h-10 px-3 bg-surface-container-lowest border border-outline-variant/40 rounded-xl text-sm text-on-surface outline-none focus:border-primary" />
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-on-surface mb-1">Lesson Explanation (Markdown supported)</label>
+        <textarea id="edit-lesson-explanation-input" rows="10" class="w-full p-3 bg-surface-container-lowest border border-outline-variant/40 rounded-xl text-xs text-on-surface font-mono outline-none focus:border-primary resize-y"></textarea>
+      </div>
+    </div>
+    <div class="p-5 border-t border-outline-variant/30 flex items-center justify-end gap-2">
+      <button onclick="window.closeEditLessonModal()" type="button" class="px-4 py-2 rounded-xl bg-surface-container-high text-on-surface-variant text-xs font-bold hover:bg-surface-container-highest transition-colors">Cancel</button>
+      <button id="btn-save-lesson-edit" onclick="window.saveEditedLesson()" type="button" class="px-4 py-2 rounded-xl bg-primary text-on-primary text-xs font-bold flex items-center gap-1.5 hover:opacity-95">
+        <span class="material-symbols-outlined text-[16px]">save</span> Save Changes
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- AI Diagnostics Modal -->
+<div id="ai-diag-modal" class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="w-full max-w-xl bg-surface-container rounded-2xl border border-outline-variant/40 shadow-2xl overflow-hidden">
+    <div class="flex items-center justify-between p-5 border-b border-outline-variant/30">
+      <h3 class="font-bold text-on-surface flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">psychology</span> AI Provider Diagnostics</h3>
+      <button onclick="document.getElementById('ai-diag-modal').classList.add('hidden');document.getElementById('ai-diag-modal').classList.remove('flex')" type="button" class="p-1.5 rounded-lg hover:bg-surface-container-high text-on-surface-variant"><span class="material-symbols-outlined text-[20px]">close</span></button>
+    </div>
+    <div id="ai-diag-content" class="p-5 space-y-3 text-xs text-on-surface-variant">Loading provider diagnostics...</div>
+  </div>
+</div>
+
+<!-- Resource Version History Modal -->
+<div id="version-history-modal" class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+  <div class="w-full max-w-2xl bg-surface-container rounded-2xl border border-outline-variant/40 shadow-2xl overflow-hidden flex flex-col max-h-[85vh]">
+    <div class="flex items-center justify-between p-5 border-b border-outline-variant/30 shrink-0">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+          <span class="material-symbols-outlined text-[20px]">history</span>
+        </div>
+        <div>
+          <h3 class="font-bold text-on-surface">Resource Version History & Lineage</h3>
+          <p class="text-[11px] text-on-surface-variant">Track edits, stale states, content hashes, and dependency chains</p>
+        </div>
+      </div>
+      <button onclick="document.getElementById('version-history-modal').classList.add('hidden');document.getElementById('version-history-modal').classList.remove('flex')" type="button" class="p-1.5 rounded-lg hover:bg-surface-container-high text-on-surface-variant"><span class="material-symbols-outlined text-[20px]">close</span></button>
+    </div>
+    <div id="version-history-content" class="p-5 space-y-3 text-xs text-on-surface-variant overflow-y-auto">Loading version history...</div>
+  </div>
+</div>
+
 <div class="bg-surface-container rounded-2xl p-6 shadow-md border border-outline-variant/30 space-y-6" id="ai-blueprint-section">
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-outline-variant/30 pb-4">
     <div class="flex items-center gap-3">
@@ -1108,7 +1239,7 @@
 </div>
 </div>
 </div>
-</div></main></div>  <script src="../shared/api.js"></script><script src="../shared/router.js"></script><script src="ai_studio.js"></script>
+</div></main></div>  <script src="../shared/api.js"></script><script src="../shared/router.js"></script><script src="../shared/markdownRenderer.js"></script><script src="ai_studio.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
       if (!window.KinetiqAPI) return;

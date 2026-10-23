@@ -57,9 +57,26 @@ router.get('/admin/students', authenticate, requireInstructor, async (_req: Auth
  */
 router.post('/', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    const { title, description, subject, settings } = req.body;
+    const {
+      title,
+      description,
+      subject,
+      category,
+      targetLevel,
+      language,
+      difficulty,
+      learningObjectives,
+      prerequisites,
+      targetAudience,
+      estimatedDurationMinutes,
+      thumbnailUrl,
+      sourceUrl,
+      sourceText,
+      settings,
+    } = req.body;
+
     if (!title || !title.trim()) {
-      sendError(res, 'Project title is required.', 400);
+      sendError(res, 'Course title is required.', 400);
       return;
     }
 
@@ -67,10 +84,21 @@ router.post('/', authenticate, requireInstructor, async (req: AuthRequest, res: 
       title: title.trim(),
       description,
       subject,
+      category,
+      targetLevel,
+      language,
+      difficulty,
+      learningObjectives,
+      prerequisites,
+      targetAudience,
+      estimatedDurationMinutes: estimatedDurationMinutes ? Number(estimatedDurationMinutes) : undefined,
+      thumbnailUrl,
+      sourceUrl,
+      sourceText,
       settings,
     });
 
-    sendCreated(res, project, 'Learning project created successfully.');
+    sendCreated(res, project, 'AI Course project created successfully.');
   } catch (err: any) {
     logger.error('Failed to create learning project:', err);
     handleRouteError(res, err);
@@ -217,6 +245,86 @@ router.post('/:id/generate-pack', authenticate, requireInstructor, async (req: A
 });
 
 /**
+ * GET /api/v1/learning-projects/:id/syllabus
+ * Fetch proposed syllabus, concept coverage matrix, and source inventory
+ */
+router.get('/:id/syllabus', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const syllabus = await LearningProjectService.getSyllabus(req.userId!, req.params.id as string, req.userRole!);
+    sendSuccess(res, syllabus, 'Course syllabus retrieved successfully.');
+  } catch (err: any) {
+    logger.error(`Failed to get syllabus:`, err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * PUT /api/v1/learning-projects/:id/syllabus
+ * Review and edit syllabus outline before or after generation
+ */
+router.put('/:id/syllabus', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const updated = await LearningProjectService.updateSyllabus(
+      req.userId!,
+      req.params.id as string,
+      req.body,
+      req.userRole!
+    );
+    sendSuccess(res, updated, 'Course syllabus updated successfully.');
+  } catch (err: any) {
+    logger.error(`Failed to update syllabus:`, err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * GET /api/v1/learning-projects/:id/completeness
+ * Fetch Stage B source completeness report and concept dependencies
+ */
+router.get('/:id/completeness', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const report = await LearningProjectService.getCompletenessReport(req.userId!, req.params.id as string, req.userRole!);
+    sendSuccess(res, report, 'Source completeness analysis report retrieved.');
+  } catch (err: any) {
+    logger.error(`Failed to get completeness report:`, err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * GET /api/v1/learning-projects/:id/quality-report
+ * Fetch 12-dimension course quality audit report
+ */
+router.get('/:id/quality-report', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const report = await LearningProjectService.getQualityReport(req.userId!, req.params.id as string, req.userRole!);
+    sendSuccess(res, report, 'Course quality evaluation report retrieved.');
+  } catch (err: any) {
+    logger.error(`Failed to get quality report:`, err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * POST /api/v1/learning-projects/:id/practice-papers/generate
+ * Generate custom practice paper with educator blueprint
+ */
+router.post('/:id/practice-papers/generate', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const paper = await LearningProjectService.generateCustomPracticePaper(
+      req.userId!,
+      req.params.id as string,
+      req.body,
+      req.userRole!
+    );
+    sendCreated(res, paper, 'Custom practice paper generated successfully.');
+  } catch (err: any) {
+    logger.error(`Failed to generate custom practice paper:`, err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
  * POST /api/v1/learning-projects/:id/publish
  * Publish project and define student publication settings
  */
@@ -249,6 +357,347 @@ router.post('/:id/unpublish', authenticate, requireInstructor, async (req: AuthR
     sendSuccess(res, project, 'Learning project unpublished.');
   } catch (err: any) {
     logger.error(`Failed to unpublish project:`, err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * POST /api/v1/learning-projects/:id/approve
+ * Approve project after administrative review
+ */
+router.post('/:id/approve', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const project = await LearningProjectService.approveProject(req.userId!, req.params.id as string, req.userRole!);
+    sendSuccess(res, project, 'Course project approved.');
+  } catch (err: any) {
+    logger.error('Failed to approve project:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * POST /api/v1/learning-projects/:id/archive
+ * Archive project
+ */
+router.post('/:id/archive', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const project = await LearningProjectService.archiveProject(req.userId!, req.params.id as string, req.userRole!);
+    sendSuccess(res, project, 'Course project archived.');
+  } catch (err: any) {
+    logger.error('Failed to archive project:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * PATCH /api/v1/learning-projects/:id/status
+ * Explicitly update course status
+ */
+router.patch('/:id/status', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const { status } = req.body;
+    if (!status) {
+      sendError(res, 'Status is required.', 400);
+      return;
+    }
+    const project = await LearningProjectService.updateProjectStatus(req.userId!, req.params.id as string, req.userRole!, status);
+    sendSuccess(res, project, `Status updated to ${status}`);
+  } catch (err: any) {
+    logger.error('Failed to update project status:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * PUT /api/v1/learning-projects/:id/overview
+ * Update course overview metadata
+ */
+router.put('/:id/overview', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const project = await LearningProjectService.updateOverview(req.userId!, req.params.id as string, req.userRole!, req.body);
+    sendSuccess(res, project, 'Course overview updated.');
+  } catch (err: any) {
+    logger.error('Failed to update overview:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * GET /api/v1/learning-projects/:id/modules
+ * Get modules (sections) and lessons
+ */
+router.get('/:id/modules', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const modules = await LearningProjectService.getModulesAndLessons(req.userId!, req.params.id as string, req.userRole!);
+    sendSuccess(res, modules);
+  } catch (err: any) {
+    logger.error('Failed to get modules:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * POST /api/v1/learning-projects/:id/sections
+ * Add a new module / section
+ */
+router.post('/:id/sections', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const section = await LearningProjectService.createSection(req.userId!, req.params.id as string, req.userRole!, req.body);
+    sendCreated(res, section, 'Module created successfully.');
+  } catch (err: any) {
+    logger.error('Failed to create section:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * PUT /api/v1/learning-projects/:id/sections/:sectionId
+ * Update section
+ */
+router.put('/:id/sections/:sectionId', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const section = await LearningProjectService.updateSection(req.userId!, req.params.id as string, req.params.sectionId as string, req.userRole!, req.body);
+    sendSuccess(res, section, 'Module updated.');
+  } catch (err: any) {
+    logger.error('Failed to update section:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * DELETE /api/v1/learning-projects/:id/sections/:sectionId
+ * Delete section
+ */
+router.delete('/:id/sections/:sectionId', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    await LearningProjectService.deleteSection(req.userId!, req.params.id as string, req.params.sectionId as string, req.userRole!);
+    sendSuccess(res, { deleted: true }, 'Module deleted.');
+  } catch (err: any) {
+    logger.error('Failed to delete section:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * POST /api/v1/learning-projects/:id/lessons
+ * Add a new lesson
+ */
+router.post('/:id/lessons', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const lesson = await LearningProjectService.createLesson(req.userId!, req.params.id as string, req.userRole!, req.body);
+    sendCreated(res, lesson, 'Lesson created successfully.');
+  } catch (err: any) {
+    logger.error('Failed to create lesson:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * PUT /api/v1/learning-projects/:id/lessons/:lessonId
+ * Update a lesson
+ */
+router.put('/:id/lessons/:lessonId', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const lesson = await LearningProjectService.updateLesson(req.userId!, req.params.id as string, req.params.lessonId as string, req.userRole!, req.body);
+    sendSuccess(res, lesson, 'Lesson updated.');
+  } catch (err: any) {
+    logger.error('Failed to update lesson:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * DELETE /api/v1/learning-projects/:id/lessons/:lessonId
+ * Delete a lesson
+ */
+router.delete('/:id/lessons/:lessonId', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    await LearningProjectService.deleteLesson(req.userId!, req.params.id as string, req.params.lessonId as string, req.userRole!);
+    sendSuccess(res, { deleted: true }, 'Lesson deleted.');
+  } catch (err: any) {
+    logger.error('Failed to delete lesson:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * POST /api/v1/learning-projects/:id/lessons/:lessonId/regenerate
+ * Regenerate an individual lesson
+ */
+router.post('/:id/lessons/:lessonId/regenerate', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const lesson = await LearningProjectService.regenerateLesson(req.userId!, req.params.id as string, req.params.lessonId as string, req.userRole!);
+    sendSuccess(res, lesson, 'Lesson regenerated successfully.');
+  } catch (err: any) {
+    logger.error('Failed to regenerate lesson:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * POST /api/v1/learning-projects/:id/reorder
+ * Reorder sections and lessons
+ */
+router.post('/:id/reorder', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const result = await LearningProjectService.reorderModulesAndLessons(req.userId!, req.params.id as string, req.userRole!, req.body);
+    sendSuccess(res, result, 'Modules and lessons reordered successfully.');
+  } catch (err: any) {
+    logger.error('Failed to reorder:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * PUT /api/v1/learning-projects/:id/study-notes/:noteId
+ * Update study note content
+ */
+router.put('/:id/study-notes/:noteId', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const note = await LearningProjectService.updateStudyNote(req.userId!, req.params.id as string, req.params.noteId as string, req.userRole!, req.body);
+    sendSuccess(res, note, 'Study note updated.');
+  } catch (err: any) {
+    logger.error('Failed to update study note:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * POST /api/v1/learning-projects/:id/flashcards
+ * Add flashcard
+ */
+router.post('/:id/flashcards', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const card = await LearningProjectService.addFlashcard(req.userId!, req.params.id as string, req.userRole!, req.body);
+    sendCreated(res, card, 'Flashcard added.');
+  } catch (err: any) {
+    logger.error('Failed to add flashcard:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * PUT /api/v1/learning-projects/:id/flashcards/:flashcardId
+ * Update flashcard
+ */
+router.put('/:id/flashcards/:flashcardId', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const card = await LearningProjectService.updateFlashcard(req.userId!, req.params.id as string, req.params.flashcardId as string, req.userRole!, req.body);
+    sendSuccess(res, card, 'Flashcard updated.');
+  } catch (err: any) {
+    logger.error('Failed to update flashcard:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * DELETE /api/v1/learning-projects/:id/flashcards/:flashcardId
+ * Delete flashcard
+ */
+router.delete('/:id/flashcards/:flashcardId', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    await LearningProjectService.deleteFlashcard(req.userId!, req.params.id as string, req.params.flashcardId as string, req.userRole!);
+    sendSuccess(res, { deleted: true }, 'Flashcard deleted.');
+  } catch (err: any) {
+    logger.error('Failed to delete flashcard:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * POST /api/v1/learning-projects/:id/questions
+ * Add question
+ */
+router.post('/:id/questions', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const question = await LearningProjectService.addQuestion(req.userId!, req.params.id as string, req.userRole!, req.body);
+    sendCreated(res, question, 'Question added to bank.');
+  } catch (err: any) {
+    logger.error('Failed to add question:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * PUT /api/v1/learning-projects/:id/questions/:questionId
+ * Update question
+ */
+router.put('/:id/questions/:questionId', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const question = await LearningProjectService.updateQuestion(req.userId!, req.params.id as string, req.params.questionId as string, req.userRole!, req.body);
+    sendSuccess(res, question, 'Question updated.');
+  } catch (err: any) {
+    logger.error('Failed to update question:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * DELETE /api/v1/learning-projects/:id/questions/:questionId
+ * Delete question
+ */
+router.delete('/:id/questions/:questionId', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    await LearningProjectService.deleteQuestion(req.userId!, req.params.id as string, req.params.questionId as string, req.userRole!);
+    sendSuccess(res, { deleted: true }, 'Question deleted.');
+  } catch (err: any) {
+    logger.error('Failed to delete question:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * PUT /api/v1/learning-projects/:id/video-script/:videoAssetId
+ * Update video script and chapters
+ */
+router.put('/:id/video-script/:videoAssetId', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const video = await LearningProjectService.updateVideoScript(req.userId!, req.params.id as string, req.params.videoAssetId as string, req.userRole!, req.body);
+    sendSuccess(res, video, 'Video script updated.');
+  } catch (err: any) {
+    logger.error('Failed to update video script:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * POST /api/v1/learning-projects/:id/video-regenerate/:videoAssetId
+ * Regenerate video lesson
+ */
+router.post('/:id/video-regenerate/:videoAssetId', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const video = await LearningProjectService.regenerateVideo(req.userId!, req.params.id as string, req.params.videoAssetId as string, req.userRole!);
+    sendSuccess(res, video, 'Video regenerated successfully.');
+  } catch (err: any) {
+    logger.error('Failed to regenerate video:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * GET /api/v1/learning-projects/:id/preview-student
+ * Preview course as student (answers hidden)
+ */
+router.get('/:id/preview-student', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const preview = await LearningProjectService.getPreviewAsStudent(req.userId!, req.params.id as string, req.userRole!);
+    sendSuccess(res, preview);
+  } catch (err: any) {
+    logger.error('Failed to generate student preview:', err);
+    handleRouteError(res, err);
+  }
+});
+
+/**
+ * GET /api/v1/learning-projects/:id/generation-status
+ * Get real generation stages and progress
+ */
+router.get('/:id/generation-status', authenticate, async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const status = await LearningProjectService.getGenerationStatus(req.userId!, req.params.id as string, req.userRole!);
+    sendSuccess(res, status);
+  } catch (err: any) {
+    logger.error('Failed to get generation status:', err);
     handleRouteError(res, err);
   }
 });

@@ -270,6 +270,9 @@ export class Flashcard extends Model {
   @Column(DataType.TEXT)
   declare explanation?: string;
 
+  @Column(DataType.STRING)
+  declare topic?: string;
+
   @Default('medium')
   @Column(DataType.STRING)
   declare difficulty: string;
@@ -320,7 +323,7 @@ export class QuestionBankItem extends Model {
   declare question: string;
 
   @Column(DataType.JSONB)
-  declare options?: Array<{ id: string; text: string }>;
+  declare options?: any[];
 
   @Column(DataType.JSONB)
   declare correctAnswer?: any;

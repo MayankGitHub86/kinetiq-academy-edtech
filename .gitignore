@@ -41,3 +41,5 @@ Thumbs.db
 # Uploaded media and temporary files
 backend/public/uploads/*
 !backend/public/uploads/.gitkeep
+scratch/
+backend/scratch/

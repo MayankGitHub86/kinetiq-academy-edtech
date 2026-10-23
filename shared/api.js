@@ -16,13 +16,27 @@
     getAccess: () => localStorage.getItem('ka_access_token'),
     getRefresh: () => localStorage.getItem('ka_refresh_token'),
     setTokens: (access, refresh) => {
-      localStorage.setItem('ka_access_token', access);
+      if (access) localStorage.setItem('ka_access_token', access);
       if (refresh) localStorage.setItem('ka_refresh_token', refresh);
     },
     clear: () => {
       localStorage.removeItem('ka_access_token');
       localStorage.removeItem('ka_refresh_token');
       localStorage.removeItem('ka_user');
+    },
+    isExpired: () => {
+      const token = localStorage.getItem('ka_access_token');
+      if (!token) return true;
+      try {
+        const parts = token.split('.');
+        if (parts.length !== 3) return true;
+        const payload = JSON.parse(atob(parts[1]));
+        if (!payload.exp) return false;
+        // Buffer by 10 seconds before actual expiry
+        return Date.now() >= (payload.exp * 1000 - 10000);
+      } catch {
+        return true;
+      }
     },
   };
 
@@ -32,7 +46,7 @@
     },
     set: (user) => localStorage.setItem('ka_user', JSON.stringify(user)),
     clear: () => localStorage.removeItem('ka_user'),
-    isLoggedIn: () => !!TokenStore.getAccess(),
+    isLoggedIn: () => !!TokenStore.getAccess() && !TokenStore.isExpired(),
     isAdmin: () => { const u = UserStore.get(); return u?.role === 'admin'; },
     isInstructor: () => { const u = UserStore.get(); return u?.role === 'instructor' || u?.role === 'admin'; },
   };
@@ -42,35 +56,52 @@
   let _refreshPromise = null;
 
   async function request(method, path, body = null, opts = {}) {
+    // If access token is expired but refresh token exists, refresh upfront
+    if (TokenStore.isExpired() && TokenStore.getRefresh() && !path.includes('/auth/')) {
+      try {
+        if (!_refreshPromise) {
+          _refreshPromise = refreshAccessToken().finally(() => { _refreshPromise = null; });
+        }
+        await _refreshPromise;
+      } catch {
+        TokenStore.clear();
+      }
+    }
+
     const url = path.startsWith('http') ? path : `${BASE_URL}${path}`;
     const headers = { 'Content-Type': 'application/json', ...opts.headers };
 
     const token = TokenStore.getAccess();
     if (token) headers['Authorization'] = `Bearer ${token}`;
 
-    const fetchOpts = { method, headers };
+    const fetchOpts = { method, headers, credentials: 'include' };
     if (body && method !== 'GET') fetchOpts.body = JSON.stringify(body);
 
     let res = await fetch(url, fetchOpts);
 
     // Auto-refresh token on 401
-    if (res.status === 401 && TokenStore.getRefresh() && !opts._retry) {
-      if (!_refreshPromise) {
-        _refreshPromise = refreshAccessToken().finally(() => { _refreshPromise = null; });
-      }
-      try {
-        await _refreshPromise;
-        return request(method, path, body, { ...opts, _retry: true });
-      } catch {
+    if (res.status === 401 && !opts._retry && !path.includes('/auth/login') && !path.includes('/auth/register')) {
+      if (TokenStore.getRefresh()) {
+        if (!_refreshPromise) {
+          _refreshPromise = refreshAccessToken().finally(() => { _refreshPromise = null; });
+        }
+        try {
+          await _refreshPromise;
+          return request(method, path, body, { ...opts, _retry: true });
+        } catch {
+          TokenStore.clear();
+        }
+      } else {
         TokenStore.clear();
-        window.location.href = KinetiqRouter?.resolveUrl('login') || '/sign_in_register_kinetiq_academy/code.html';
-        return;
       }
     }
 
     const data = await res.json().catch(() => ({}));
 
     if (!res.ok) {
+      if (res.status === 401) {
+        TokenStore.clear();
+      }
       const err = new Error(data.message || data.error || `HTTP ${res.status}`);
       err.status = res.status;
       err.data = data;
@@ -85,6 +116,7 @@
     const res = await fetch(`${BASE_URL}/auth/refresh`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify({ refreshToken }),
     });
     if (!res.ok) throw new Error('Refresh failed');
@@ -289,6 +321,42 @@
 
     async getCoursePackage(courseId) {
       return api.get(`/ai/courses/${courseId}/package`);
+    },
+
+    async getDiagnostics() {
+      return api.get('/ai/diagnostics');
+    },
+
+    async updateLesson(jobId, moduleIndex, lessonIndex, data) {
+      const payload = (typeof moduleIndex === 'object' && moduleIndex !== null)
+        ? moduleIndex
+        : { moduleIndex, lessonIndex, ...(data || {}) };
+      return api.put(`/ai/content-jobs/${jobId}/lesson`, payload);
+    },
+
+    async updateCurriculum(jobId, modules) {
+      return api.put(`/ai/content-jobs/${jobId}/curriculum`, { modules });
+    },
+
+    async updateStudyNotes(jobId, studyNotes) {
+      return api.put(`/ai/content-jobs/${jobId}/study-notes`, { studyNotes });
+    },
+
+    async updateQuestions(jobId, questions) {
+      return api.put(`/ai/content-jobs/${jobId}/questions`, { questions });
+    },
+
+    async approveCurriculum(jobId, approvedModules = null) {
+      const body = approvedModules ? { approvedModules } : {};
+      return api.post(`/ai/content-jobs/${jobId}/approve-curriculum`, body);
+    },
+
+    async retryJob(jobId) {
+      return api.post(`/ai/content-jobs/${jobId}/retry`);
+    },
+
+    async getJobVersions(jobId) {
+      return api.get(`/ai/content-jobs/${jobId}/versions`);
     },
 
     // ─── Phase 2: Course Quality Score ─────────────────────────────────────────
@@ -714,6 +782,93 @@
     },
     getExportUrl(id) {
       return `${BASE_URL}/learning-projects/${id}/export`;
+    },
+    updateOverview(id, data) {
+      return api.put(`/learning-projects/${id}/overview`, data);
+    },
+    getModules(id) {
+      return api.get(`/learning-projects/${id}/modules`);
+    },
+    createSection(id, data) {
+      return api.post(`/learning-projects/${id}/sections`, data);
+    },
+    updateSection(id, sectionId, data) {
+      return api.put(`/learning-projects/${id}/sections/${sectionId}`, data);
+    },
+    deleteSection(id, sectionId) {
+      return api.delete(`/learning-projects/${id}/sections/${sectionId}`);
+    },
+    createLesson(id, data) {
+      return api.post(`/learning-projects/${id}/lessons`, data);
+    },
+    updateLesson(id, lessonId, data) {
+      return api.put(`/learning-projects/${id}/lessons/${lessonId}`, data);
+    },
+    deleteLesson(id, lessonId) {
+      return api.delete(`/learning-projects/${id}/lessons/${lessonId}`);
+    },
+    regenerateLesson(id, lessonId) {
+      return api.post(`/learning-projects/${id}/lessons/${lessonId}/regenerate`);
+    },
+    reorder(id, data) {
+      return api.post(`/learning-projects/${id}/reorder`, data);
+    },
+    updateStudyNote(id, noteId, data) {
+      return api.put(`/learning-projects/${id}/study-notes/${noteId}`, data);
+    },
+    addFlashcard(id, data) {
+      return api.post(`/learning-projects/${id}/flashcards`, data);
+    },
+    updateFlashcard(id, flashcardId, data) {
+      return api.put(`/learning-projects/${id}/flashcards/${flashcardId}`, data);
+    },
+    deleteFlashcard(id, flashcardId) {
+      return api.delete(`/learning-projects/${id}/flashcards/${flashcardId}`);
+    },
+    addQuestion(id, data) {
+      return api.post(`/learning-projects/${id}/questions`, data);
+    },
+    updateQuestion(id, questionId, data) {
+      return api.put(`/learning-projects/${id}/questions/${questionId}`, data);
+    },
+    deleteQuestion(id, questionId) {
+      return api.delete(`/learning-projects/${id}/questions/${questionId}`);
+    },
+    updateVideoScript(id, videoAssetId, data) {
+      return api.put(`/learning-projects/${id}/video-script/${videoAssetId}`, data);
+    },
+    regenerateVideo(id, videoAssetId) {
+      return api.post(`/learning-projects/${id}/video-regenerate/${videoAssetId}`);
+    },
+    approve(id) {
+      return api.post(`/learning-projects/${id}/approve`);
+    },
+    archive(id) {
+      return api.post(`/learning-projects/${id}/archive`);
+    },
+    updateStatus(id, status) {
+      return api.patch(`/learning-projects/${id}/status`, { status });
+    },
+    previewStudent(id) {
+      return api.get(`/learning-projects/${id}/preview-student`);
+    },
+    getGenerationStatus(id) {
+      return api.get(`/learning-projects/${id}/generation-status`);
+    },
+    getSyllabus(id) {
+      return api.get(`/learning-projects/${id}/syllabus`);
+    },
+    updateSyllabus(id, data) {
+      return api.put(`/learning-projects/${id}/syllabus`, data);
+    },
+    getCompleteness(id) {
+      return api.get(`/learning-projects/${id}/completeness`);
+    },
+    getQualityReport(id) {
+      return api.get(`/learning-projects/${id}/quality-report`);
+    },
+    generatePracticePaper(id, config) {
+      return api.post(`/learning-projects/${id}/practice-papers/generate`, config);
     },
   };
 

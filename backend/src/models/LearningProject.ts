@@ -7,11 +7,16 @@ import { Course } from './Course';
 
 export enum ProjectStatus {
   DRAFT = 'draft',
+  PROCESSING = 'processing',
   ANALYZING = 'analyzing',
   READY = 'ready',
   GENERATING = 'generating',
-  COMPLETED = 'completed',
+  REVIEW_REQUIRED = 'review_required',
+  APPROVED = 'approved',
+  PUBLISHED = 'published',
   FAILED = 'failed',
+  ARCHIVED = 'archived',
+  COMPLETED = 'completed',
 }
 
 export enum LearningSourceType {
@@ -46,9 +51,36 @@ export class LearningProject extends Model {
   @Column(DataType.STRING)
   declare subject: string;
 
+  @Column(DataType.STRING)
+  declare category?: string;
+
   @Default(ProjectStatus.DRAFT)
   @Column(DataType.ENUM(...Object.values(ProjectStatus)))
   declare status: ProjectStatus;
+
+  @Column(DataType.STRING)
+  declare targetLevel?: string;
+
+  @Column(DataType.STRING)
+  declare language?: string;
+
+  @Column(DataType.STRING)
+  declare difficulty?: string;
+
+  @Column(DataType.JSONB)
+  declare learningObjectives?: string[];
+
+  @Column(DataType.JSONB)
+  declare prerequisites?: string[];
+
+  @Column(DataType.JSONB)
+  declare targetAudience?: string[];
+
+  @Column(DataType.INTEGER)
+  declare estimatedDurationMinutes?: number;
+
+  @Column(DataType.STRING)
+  declare thumbnailUrl?: string;
 
   @ForeignKey(() => Course)
   @Column(DataType.UUID)
@@ -72,24 +104,10 @@ export class LearningProject extends Model {
   };
 
   @Column(DataType.JSONB)
-  declare knowledgeMap?: {
-    subject: string;
-    targetLevel: string;
-    topics: string[];
-    chapters: Array<{
-      title: string;
-      description: string;
-      lessons: Array<{ title: string; description: string; durationMinutes: number }>;
-    }>;
-    keyConcepts: Array<{ name: string; definition: string; importance: string }>;
-    learningObjectives: string[];
-    prerequisites: string[];
-    glossary: Array<{ term: string; definition: string; example: string }>;
-    recommendedSequence: string[];
-    difficultyEstimate: string;
-    qualityScore?: number;
-    analyzedAt: string;
-  };
+  declare knowledgeMap?: any;
+
+  @Column(DataType.JSONB)
+  declare metadata?: any;
 
   @Default({
     sourceCount: 0,

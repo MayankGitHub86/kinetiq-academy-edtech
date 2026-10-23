@@ -20,6 +20,7 @@ import {
 import {
   LearningProject, LearningSource, ProjectStatus, LearningSourceType, ProjectStudentAccess
 } from './LearningProject';
+import { ResourceVersion, ResourceType, VersionStatus } from './ResourceVersion';
 
 export const models = [
   User, Profile, Onboarding,
@@ -31,6 +32,7 @@ export const models = [
   VideoChapter, VideoCheckpoint, VideoCheckpointAttempt, VideoNote, VideoBookmark,
   ExamBlueprint, GenerationStageRecord,
   LearningProject, LearningSource, ProjectStudentAccess,
+  ResourceVersion,
 ];
 
 export {
@@ -43,5 +45,6 @@ export {
   VideoChapter, VideoCheckpoint, VideoCheckpointAttempt, VideoNote, VideoBookmark,
   ExamBlueprint, GenerationStageRecord,
   LearningProject, LearningSource, ProjectStatus, LearningSourceType, ProjectStudentAccess,
+  ResourceVersion, ResourceType, VersionStatus,
 };
 

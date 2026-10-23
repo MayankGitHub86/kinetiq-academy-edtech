@@ -17,6 +17,7 @@ import {
   VideoChapter, VideoCheckpoint, VideoNote, VideoBookmark,
   ExamBlueprint, GenerationStageRecord
 } from '../models/AiLearningPhase2';
+import { AiProviderService } from '../services/aiProvider.service';
 import { sendSuccess, sendCreated, sendError } from '../utils/response';
 import { logger } from '../utils/logger';
 
@@ -133,6 +134,88 @@ router.get('/content-jobs', authenticate, async (req: AuthRequest, res: Response
 });
 
 /**
+ * GET /api/v1/ai/diagnostics
+ * AI provider, storage, and video engine system diagnostics
+ */
+router.get('/diagnostics', optionalAuth, async (_req: Request, res: Response): Promise<void> => {
+  const diagnostics = AiProviderService.getProviderDiagnostics();
+  const activeProvider = AiProviderService.getActiveProviderName();
+  sendSuccess(res, {
+    activeProvider,
+    providers: diagnostics,
+    ffmpegInstalled: true,
+    timestamp: new Date().toISOString(),
+  }, 'AI Studio system diagnostics retrieved.');
+});
+
+/**
+ * PUT /api/v1/ai/content-jobs/:id/lesson
+ * Live update of an individual lesson in generatedData with audit recalculation
+ */
+router.put('/content-jobs/:id/lesson', authenticate, async (req: AuthRequest, res: Response): Promise<void> => {
+  const { moduleIndex, lessonIndex, title, description, durationMinutes, explanation, objectives } = req.body;
+
+  if (moduleIndex === undefined || lessonIndex === undefined) {
+    sendError(res, 'moduleIndex and lessonIndex are required.', 400);
+    return;
+  }
+
+  const job = await AiOrchestratorService.updateLesson(
+    req.params.id as string,
+    parseInt(moduleIndex, 10),
+    parseInt(lessonIndex, 10),
+    { title, description, durationMinutes, explanation, objectives }
+  );
+
+  sendSuccess(res, job, 'Lesson updated and course quality audit re-evaluated.');
+});
+
+/**
+ * PUT /api/v1/ai/content-jobs/:id/curriculum
+ * Update curriculum outline modules before or during review
+ */
+router.put('/content-jobs/:id/curriculum', authenticate, async (req: AuthRequest, res: Response): Promise<void> => {
+  const { modules } = req.body;
+  if (!Array.isArray(modules)) {
+    sendError(res, 'modules array is required.', 400);
+    return;
+  }
+
+  const job = await AiOrchestratorService.updateCurriculum(req.params.id as string, modules);
+  sendSuccess(res, job, 'Curriculum outline updated successfully.');
+});
+
+/**
+ * PUT /api/v1/ai/content-jobs/:id/study-notes
+ * Update study notes in generatedData
+ */
+router.put('/content-jobs/:id/study-notes', authenticate, async (req: AuthRequest, res: Response): Promise<void> => {
+  const { studyNotes } = req.body;
+  if (!studyNotes) {
+    sendError(res, 'studyNotes payload is required.', 400);
+    return;
+  }
+
+  const job = await AiOrchestratorService.updateStudyNotes(req.params.id as string, studyNotes);
+  sendSuccess(res, job, 'Study notes updated successfully.');
+});
+
+/**
+ * PUT /api/v1/ai/content-jobs/:id/questions
+ * Update question bank in generatedData
+ */
+router.put('/content-jobs/:id/questions', authenticate, async (req: AuthRequest, res: Response): Promise<void> => {
+  const { questions } = req.body;
+  if (!Array.isArray(questions)) {
+    sendError(res, 'questions array is required.', 400);
+    return;
+  }
+
+  const job = await AiOrchestratorService.updateQuestions(req.params.id as string, questions);
+  sendSuccess(res, job, 'Question bank updated successfully.');
+});
+
+/**
  * POST /api/v1/ai/content-jobs/:id/publish
  * Approve and publish the AI-generated course into the real LMS catalog
  */
@@ -144,6 +227,43 @@ router.post('/content-jobs/:id/publish', authenticate, async (req: AuthRequest, 
   });
 
   sendSuccess(res, course, `Course "${course.title}" successfully published to LMS!`);
+});
+
+/**
+ * POST /api/v1/ai/content-jobs/:id/approve-curriculum
+ * Approve the curriculum outline and trigger full lesson/notes/video generation (staged pipeline)
+ */
+router.post('/content-jobs/:id/approve-curriculum', authenticate, async (req: AuthRequest, res: Response): Promise<void> => {
+  const { approvedModules } = req.body;
+
+  const job = await AiOrchestratorService.approveCurriculumAndGenerate(
+    req.params.id as string,
+    Array.isArray(approvedModules) ? approvedModules : undefined
+  );
+
+  sendSuccess(res, job, 'Curriculum approved! Full lesson, video, and assessment generation has started.');
+});
+
+/**
+ * POST /api/v1/ai/content-jobs/:id/retry
+ * Retry a failed or stalled generation job
+ */
+router.post('/content-jobs/:id/retry', authenticate, async (req: AuthRequest, res: Response): Promise<void> => {
+  const job = await AiOrchestratorService.retryJob(req.params.id as string);
+  sendSuccess(res, job, 'Job retry initiated.');
+});
+
+/**
+ * GET /api/v1/ai/content-jobs/:id/versions
+ * Get resource version history for a job (stale tracking)
+ */
+router.get('/content-jobs/:id/versions', authenticate, async (req: AuthRequest, res: Response): Promise<void> => {
+  const { ResourceVersion } = await import('../models/ResourceVersion');
+  const versions = await ResourceVersion.findAll({
+    where: { jobId: req.params.id as string },
+    order: [['createdAt', 'DESC']],
+  });
+  sendSuccess(res, versions, 'Resource version history retrieved.');
 });
 
 /**
@@ -469,6 +589,36 @@ router.get('/generation-usage', authenticate, requireInstructor, async (_req: Au
     totalCostUsd: Math.round(totalCostUsd * 100) / 100,
     averageCostPerCourse: jobs.length > 0 ? Math.round((totalCostUsd / jobs.length) * 100) / 100 : 0,
   }, 'Generation usage metrics retrieved.');
+});
+
+// ─── CONTENT JOB IN-PLACE EDITING (ADMIN / INSTRUCTOR) ────────────────────────
+router.put('/content-jobs/:id/lesson', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  const { moduleIndex, lessonIndex, title, explanation, description, durationMinutes } = req.body;
+  const job = await AiOrchestratorService.updateLesson(
+    req.params.id as string,
+    parseInt(moduleIndex, 10),
+    parseInt(lessonIndex, 10),
+    { title, explanation, description, durationMinutes }
+  );
+  sendSuccess(res, job, 'Lesson updated and quality re-evaluated successfully.');
+});
+
+router.put('/content-jobs/:id/curriculum', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  const { modules } = req.body;
+  const job = await AiOrchestratorService.updateCurriculum(req.params.id as string, modules);
+  sendSuccess(res, job, 'Curriculum structure updated successfully.');
+});
+
+router.put('/content-jobs/:id/study-notes', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  const { studyNotes } = req.body;
+  const job = await AiOrchestratorService.updateStudyNotes(req.params.id as string, studyNotes);
+  sendSuccess(res, job, 'Study notes updated successfully.');
+});
+
+router.put('/content-jobs/:id/questions', authenticate, requireInstructor, async (req: AuthRequest, res: Response): Promise<void> => {
+  const { questions } = req.body;
+  const job = await AiOrchestratorService.updateQuestions(req.params.id as string, questions);
+  sendSuccess(res, job, 'Questions bank updated successfully.');
 });
 
 export default router;

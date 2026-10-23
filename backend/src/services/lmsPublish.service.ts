@@ -28,11 +28,11 @@ export class LmsPublishService {
     const { analysis, modules, studyNotes, flashcards, questions, videoAsset } = data;
     const courseTitle = analysis.topic || job.source?.title || 'Advanced Systems Architecture';
     
-    // Generate unique slug
-    let baseSlug = slugify(courseTitle, { lower: true, strict: true });
+    // Generate unique slug (checking both active and soft-deleted courses)
+    let baseSlug = slugify(courseTitle, { lower: true, strict: true }) || 'course';
     let slug = baseSlug;
     let counter = 1;
-    while (await Course.findOne({ where: { slug } })) {
+    while (await Course.findOne({ where: { slug }, paranoid: false })) {
       slug = `${baseSlug}-${counter++}`;
     }
 
@@ -46,6 +46,10 @@ export class LmsPublishService {
     });
 
     const courseStatus = params.publishImmediately !== false ? CourseStatus.PUBLISHED : CourseStatus.DRAFT;
+    const levelKey = (analysis.targetLevel || '').toLowerCase();
+    const courseLevel = Object.values(CourseLevel).includes(levelKey as CourseLevel)
+      ? (levelKey as CourseLevel)
+      : CourseLevel.INTERMEDIATE;
 
     logger.info(`Publishing AI-generated course "${courseTitle}" (${slug}) to LMS...`);
 
@@ -58,7 +62,7 @@ export class LmsPublishService {
       description: analysis.suggestedOutline?.[0]?.description || `Deep dive into ${courseTitle}. Master core mental models, performance tradeoffs, and fault tolerance.`,
       instructorId: params.instructorId,
       status: courseStatus,
-      level: (analysis.targetLevel?.toLowerCase() as CourseLevel) || CourseLevel.INTERMEDIATE,
+      level: courseLevel,
       category: analysis.category || 'Architecture & Systems',
       tags: [analysis.topic, 'AI Generated', 'Architecture', 'Engineering'],
       price: 0,
@@ -121,7 +125,7 @@ export class LmsPublishService {
 
         // Link video asset record to lesson
         if (hasVideo) {
-          await VideoAsset.create({
+          await VideoAsset.upsert({
             id: videoAsset.id || uuidv4(),
             lessonId: lesson.id,
             courseId: course.id,

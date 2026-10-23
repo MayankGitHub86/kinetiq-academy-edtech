@@ -10,7 +10,7 @@ async function request(path: string, options: any = {}) {
   const url = `${BASE_URL}${path}`;
   const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
   const res = await fetch(url, { ...options, headers });
-  const data = await res.json().catch(() => ({}));
+  const data: any = await res.json().catch(() => ({}));
   return { status: res.status, ok: res.ok, data };
 }
 
