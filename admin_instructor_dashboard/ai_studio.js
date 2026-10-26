@@ -561,7 +561,7 @@
           </div>
           ${videoStatus === 'VIDEO_READY' ? `
           <div class="aspect-video bg-black rounded-xl overflow-hidden shadow-2xl relative">
-            <video id="review-video-el" class="w-full h-full object-contain" controls playsinline src="${fullVideoUrl}"
+            <video id="review-video-el" crossorigin="anonymous" class="w-full h-full object-contain" controls playsinline src="${fullVideoUrl}"
               poster="${v.thumbnailUrl ? 'http://localhost:4000' + v.thumbnailUrl : ''}">
               ${v.captionsVttUrl ? `<track kind="subtitles" src="http://localhost:4000${v.captionsVttUrl}" srclang="en" label="English" default>` : ''}
             </video>
@@ -765,6 +765,12 @@
     });
     if (tabId === 'quality') renderQualityScorePanel();
     if (tabId === 'lesson') buildLessonSidebar(activeJobData);
+    if (tabId === 'video') {
+      const vid = document.getElementById('review-video-el');
+      if (vid && vid.src) {
+        vid.play().catch(() => { vid.muted = true; vid.play().catch(() => {}); });
+      }
+    }
   };
 
   // ─── QUALITY SCORE PANEL ─────────────────────────────────────────────────────
@@ -1270,7 +1276,7 @@
       window.KinetiqAPI?.ui.showSuccess(`🎉 Course "${course.title}" is now LIVE in the LMS!`);
       localStorage.removeItem('ka_active_ai_job');
       setTimeout(() => {
-        window.location.href = `http://localhost:5500/learn?slug=${course.slug}&courseId=${course.id}`;
+        window.location.href = `http://localhost:5500/learn?slug=${course.slug}&courseId=${course.id}&autoplay=true`;
       }, 1200);
     } catch (err) {
       window.KinetiqAPI?.ui.showError(err.message || 'Failed to publish course.');

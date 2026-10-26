@@ -15,11 +15,11 @@
 <nav class="flex items-center gap-1.5 font-label-xs text-label-xs text-on-surface-variant flex-wrap">
 <a class="hover:text-primary transition-colors" href="#">Courses</a>
 <span class="text-outline">/</span>
-<a class="hover:text-primary transition-colors" href="#">Fullstack Next.js & Systems</a>
+<a id="course-breadcrumb-course" class="hover:text-primary transition-colors font-medium text-on-surface" href="#">Course</a>
 <span class="text-outline">/</span>
-<span class="text-outline">Module 3: App Router</span>
+<span id="course-breadcrumb-module" class="text-outline">Module 1</span>
 <span class="text-outline">/</span>
-<span id="course-breadcrumb-title" class="text-on-surface font-semibold truncate">Lesson 4: Server Components vs Client Components</span>
+<span id="course-breadcrumb-title" class="text-on-surface font-semibold truncate">Loading Lesson...</span>
 </nav>
 <div class="flex items-center gap-space-md mt-1">
 <h1 id="current-lesson-title" class="font-headline-md text-headline-md font-bold text-on-surface tracking-tight">Server Components vs Client Components</h1><p id="current-lesson-desc" class="text-xs text-on-surface-variant mt-0.5"></p>
@@ -62,96 +62,107 @@
 <!-- Left / Center Main Stage (Col 1 to 8 or 9) -->
 <div class="xl:col-span-8 2xl:col-span-9 flex flex-col p-space-md lg:p-space-lg space-y-space-md min-w-0">
 <!-- Video Player Frame -->
-<div class="relative w-full aspect-video rounded-xl bg-surface-container-lowest overflow-hidden shadow-xl select-none" id="video-player-wrapper">
-<video id="main-video-player" class="w-full h-full object-contain bg-black" playsinline controls controlsList="nodownload">
-  <track kind="subtitles" srclang="en" label="English" default>
-</video>
-<div id="no-video-placeholder" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-surface-container-lowest text-center p-6 z-10">
-  <span class="material-symbols-outlined text-4xl text-primary mb-2">article</span>
-  <p class="text-sm font-bold text-on-surface">Interactive Reading Lesson</p>
-  <p class="text-xs text-on-surface-variant max-w-sm mt-1">This module is focused on deep architectural concepts and code examples below.</p>
-</div>
-<!-- Watermark -->
-<div class="absolute top-4 right-4 flex items-center gap-2 px-2.5 py-1 rounded bg-surface-container-lowest/80 backdrop-blur-md pointer-events-none">
-<span class="w-2 h-2 rounded-full bg-secondary"></span>
-<span class="font-label-xs text-label-xs font-bold uppercase tracking-wider text-on-surface">Kinetiq Pro Engine</span>
-</div>
-<!-- Video Play State Indicator in Center (Overlay) -->
-<div class="absolute inset-0 flex items-center justify-center pointer-events-none group-hover:opacity-100 transition-opacity">
-<div class="w-16 h-16 rounded-full bg-primary/90 text-on-primary flex items-center justify-center shadow-xl transform group-hover:scale-105 transition-all">
-<span class="material-symbols-outlined text-[36px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
-</div>
-</div>
-<!-- Subtle Gradient Vignette for Scrubber -->
-<div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/70 to-transparent pointer-events-none"></div>
-<!-- Custom Player Controls Bar -->
-<div class="absolute inset-x-0 bottom-0 p-space-md flex flex-col gap-2 z-20">
-<!-- Timeline Scrubber with Chapters -->
-<div class="relative w-full h-3 flex items-center cursor-pointer group/scrub">
-<!-- Background Bar -->
-<div class="w-full h-1.5 bg-surface-container-highest/80 rounded-full overflow-hidden relative">
-<!-- Buffer Bar -->
-<div class="absolute top-0 bottom-0 left-0 bg-outline/40 w-3/4 rounded-full"></div>
-<!-- Play Progress Bar (60%) -->
-<div class="absolute top-0 bottom-0 left-0 bg-primary w-[60%] rounded-full shadow-[0_0_8px_rgba(192,193,255,0.7)]"></div>
-</div>
-<!-- Interactive Chapter Markers -->
-<div class="absolute left-[15%] w-1 h-3 bg-surface rounded-full pointer-events-none" title="Intro: The Hydration Cost"></div>
-<div class="absolute left-[40%] w-1 h-3 bg-surface rounded-full pointer-events-none" title="Architecture Shift"></div>
-<div class="absolute left-[65%] w-1 h-3 bg-surface rounded-full pointer-events-none" title="The 'use client' Directive"></div>
-<div class="absolute left-[85%] w-1 h-3 bg-surface rounded-full pointer-events-none" title="Benchmarking Bundle Sizes"></div>
-<!-- Scrubber Thumb -->
-<div class="absolute left-[60%] -translate-x-1/2 w-3.5 h-3.5 bg-primary-fixed rounded-full shadow-md transform scale-0 group-hover/scrub:scale-100 transition-transform"></div>
-</div>
-<!-- Lower Controls Strip -->
-<div class="flex items-center justify-between font-label-md text-label-md text-on-surface pt-1">
-<div class="flex items-center gap-space-sm">
-<!-- Play/Pause -->
-<button class="p-1 rounded hover:bg-surface-container text-on-surface hover:text-primary transition-colors" title="Play / Pause">
-<span class="material-symbols-outlined text-[24px]">pause</span>
-</button>
-<!-- Skip 10s -->
-<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Rewind 10s">
-<span class="material-symbols-outlined text-[20px]">replay_10</span>
-</button>
-<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Forward 10s">
-<span class="material-symbols-outlined text-[20px]">forward_10</span>
-</button>
-<!-- Audio Controller -->
-<div class="flex items-center gap-1 group/vol ml-2">
-<button class="p-1 text-on-surface-variant hover:text-on-surface">
-<span class="material-symbols-outlined text-[20px]">volume_up</span>
-</button>
-<div class="w-16 h-1.5 bg-surface-container-highest rounded-full overflow-hidden cursor-pointer">
-<div class="bg-on-surface w-4/5 h-full rounded-full"></div>
-</div>
-</div>
-<!-- Timestamps -->
-<div class="font-body-sm text-body-sm text-on-surface-variant ml-3 tabular-nums">
-<span class="text-on-surface font-semibold">14:32</span> / 24:18
-                </div>
-</div>
-<!-- Right Tools -->
-<div class="flex items-center gap-space-sm">
-<!-- Caption Pill -->
-<button class="px-2 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-primary font-label-xs text-label-xs font-bold transition-colors">
-                  CC • EN
-                </button>
-<!-- Speed Selector -->
-<div class="relative">
-<button class="px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-xs text-label-xs font-semibold flex items-center gap-1" id="speedMenuBtn">
-                    1.25x <span class="material-symbols-outlined text-[14px]">expand_less</span>
-</button>
-</div>
-<!-- Quality Indicator -->
-<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs font-mono">1080p60</span>
-<!-- Fullscreen -->
-<button class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Toggle Fullscreen">
-<span class="material-symbols-outlined text-[20px]">fullscreen</span>
-</button>
-</div>
-</div>
-</div>
+<div class="relative w-full aspect-video rounded-xl bg-surface-container-lowest overflow-hidden shadow-2xl select-none group" id="video-player-wrapper">
+  <video id="main-video-player" class="w-full h-full object-contain bg-black cursor-pointer" playsinline preload="auto" crossorigin="anonymous">
+    <track id="main-video-track" kind="subtitles" srclang="en" label="English" default>
+  </video>
+  
+  <div id="no-video-placeholder" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-surface-container-lowest text-center p-6 z-10">
+    <span class="material-symbols-outlined text-4xl text-primary mb-2">article</span>
+    <p class="text-sm font-bold text-on-surface">Interactive Reading Lesson</p>
+    <p class="text-xs text-on-surface-variant max-w-sm mt-1">This module is focused on deep architectural concepts and code examples below.</p>
+  </div>
+
+  <!-- Watermark -->
+  <div class="absolute top-4 right-4 flex items-center gap-2 px-2.5 py-1 rounded bg-surface-container-lowest/80 backdrop-blur-md pointer-events-none z-10">
+    <span class="w-2 h-2 rounded-full bg-secondary"></span>
+    <span class="font-label-xs text-label-xs font-bold uppercase tracking-wider text-on-surface">Kinetiq Pro Engine</span>
+  </div>
+
+  <!-- Center Play / Pause Indicator Overlay -->
+  <div id="center-play-overlay" class="absolute inset-0 flex items-center justify-center cursor-pointer transition-opacity duration-200 z-10 bg-black/20 hover:bg-black/10">
+    <div id="center-play-btn-box" class="w-16 h-16 rounded-full bg-primary/90 text-on-primary flex items-center justify-center shadow-xl transform hover:scale-110 transition-transform">
+      <span id="center-play-icon" class="material-symbols-outlined text-[36px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+    </div>
+  </div>
+
+  <!-- Loading Buffering Spinner -->
+  <div id="video-loading-spinner" class="hidden absolute inset-0 flex items-center justify-center bg-black/40 pointer-events-none z-15">
+    <div class="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary animate-spin"></div>
+  </div>
+
+  <!-- Error Recovery Overlay -->
+  <div id="video-error-overlay" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-surface-container-lowest/95 text-center p-6 z-25">
+    <span class="material-symbols-outlined text-4xl text-error mb-2">error_outline</span>
+    <p class="text-sm font-bold text-on-surface" id="video-error-msg">Video playback failed to load</p>
+    <p class="text-xs text-on-surface-variant max-w-sm mt-1" id="video-error-desc">Could not decode media or the stream timed out.</p>
+    <button id="video-btn-retry" class="mt-4 px-4 py-2 rounded-lg bg-primary text-on-primary font-bold text-xs hover:bg-primary-fixed transition-all flex items-center gap-1.5">
+      <span class="material-symbols-outlined text-[16px]">refresh</span> Retry Playback
+    </button>
+  </div>
+
+  <!-- Interactive Player Controls Bar -->
+  <div id="custom-video-controls" class="absolute inset-x-0 bottom-0 p-space-md flex flex-col gap-2 z-20 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/80 to-transparent transition-opacity duration-300">
+    <!-- Timeline Scrubber with Progress & Buffered Bars -->
+    <div id="video-scrubber-container" class="relative w-full h-3 flex items-center cursor-pointer group/scrub" title="Seek video position">
+      <div class="w-full h-1.5 bg-surface-container-highest/80 rounded-full overflow-hidden relative pointer-events-none">
+        <div id="video-buffer-bar" class="absolute top-0 bottom-0 left-0 bg-outline/40 w-0 rounded-full transition-all"></div>
+        <div id="video-progress-bar" class="absolute top-0 bottom-0 left-0 bg-primary w-0 rounded-full shadow-[0_0_8px_rgba(192,193,255,0.7)]"></div>
+      </div>
+      <div id="video-scrubber-thumb" class="absolute left-0 -translate-x-1/2 w-3.5 h-3.5 bg-primary-fixed rounded-full shadow-md transform scale-0 group-hover/scrub:scale-100 transition-transform pointer-events-none"></div>
+    </div>
+
+    <!-- Controls Strip -->
+    <div class="flex items-center justify-between font-label-md text-label-md text-on-surface pt-1">
+      <div class="flex items-center gap-space-sm">
+        <!-- Play / Pause -->
+        <button id="video-btn-play" class="p-1 rounded hover:bg-surface-container text-on-surface hover:text-primary transition-colors" title="Play / Pause">
+          <span id="video-icon-play" class="material-symbols-outlined text-[24px]">play_arrow</span>
+        </button>
+        <!-- Rewind 10s -->
+        <button id="video-btn-rewind" class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Rewind 10s">
+          <span class="material-symbols-outlined text-[20px]">replay_10</span>
+        </button>
+        <!-- Forward 10s -->
+        <button id="video-btn-forward" class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Forward 10s">
+          <span class="material-symbols-outlined text-[20px]">forward_10</span>
+        </button>
+        <!-- Audio Controller -->
+        <div class="flex items-center gap-1 group/vol ml-2">
+          <button id="video-btn-volume" class="p-1 text-on-surface-variant hover:text-on-surface" title="Mute / Unmute">
+            <span id="video-icon-volume" class="material-symbols-outlined text-[20px]">volume_up</span>
+          </button>
+          <div id="video-volume-track" class="w-16 h-1.5 bg-surface-container-highest rounded-full overflow-hidden cursor-pointer" title="Volume Slider">
+            <div id="video-volume-bar" class="bg-primary w-full h-full rounded-full pointer-events-none"></div>
+          </div>
+        </div>
+        <!-- Timestamps -->
+        <div class="font-body-sm text-body-sm text-on-surface-variant ml-3 tabular-nums">
+          <span id="video-time-current" class="text-on-surface font-semibold font-mono">00:00</span> / <span id="video-time-duration" class="font-mono">00:00</span>
+        </div>
+      </div>
+
+      <!-- Right Tools -->
+      <div class="flex items-center gap-space-sm">
+        <!-- Caption Pill -->
+        <button id="video-btn-captions" class="px-2 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-primary font-label-xs text-label-xs font-bold transition-colors" title="Toggle Captions">
+          CC • EN
+        </button>
+        <!-- Speed Selector -->
+        <div class="relative">
+          <button id="video-btn-speed" class="px-2 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-xs text-label-xs font-semibold flex items-center gap-1" title="Playback Speed">
+            <span id="video-speed-label">1.0x</span> <span class="material-symbols-outlined text-[14px]">expand_less</span>
+          </button>
+        </div>
+        <!-- Quality Indicator -->
+        <span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs font-mono">1080p</span>
+        <!-- Fullscreen -->
+        <button id="video-btn-fullscreen" class="p-1 rounded hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Toggle Fullscreen">
+          <span id="video-icon-fullscreen" class="material-symbols-outlined text-[20px]">fullscreen</span>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- Interactive Workspace Tabs System -->
 <div class="bg-surface-container-low rounded-xl shadow-sm overflow-hidden flex flex-col flex-1">
@@ -484,118 +495,6 @@
 </button>
 </div>
 <div id="curriculum-sections-container" class="space-y-3 pt-2"></div>
-<!-- Module Accordion 1 (Completed) -->
-<div class="rounded-xl bg-surface-container-low overflow-hidden shadow-sm">
-<div class="p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-container transition-colors" onclick="toggleModule('mod1-content')">
-<div class="flex items-center gap-2.5">
-<span class="material-symbols-outlined text-secondary text-[20px]">check_circle</span>
-<div>
-<h3 class="font-title-md text-title-md font-semibold text-on-surface">Module 1: Core Fundamentals</h3>
-<span class="font-label-xs text-label-xs text-on-surface-variant">3/3 Lessons • 1h 24m</span>
-</div>
-</div>
-<span class="material-symbols-outlined text-on-surface-variant text-[20px]">expand_more</span>
-</div>
-<div class="hidden px-space-md pb-space-sm space-y-1 bg-surface-container-lowest/50" id="mod1-content">
-<div class="flex items-center justify-between py-2 text-on-surface-variant font-body-sm text-body-sm">
-<span class="flex items-center gap-2 line-through text-outline"><span class="material-symbols-outlined text-[16px]">play_circle</span> 1. Next.js 14 Philosophy</span>
-<span class="font-label-xs text-label-xs font-mono">18:20</span>
-</div>
-<div class="flex items-center justify-between py-2 text-on-surface-variant font-body-sm text-body-sm">
-<span class="flex items-center gap-2 line-through text-outline"><span class="material-symbols-outlined text-[16px]">terminal</span> 2. Dev Environment Rig</span>
-<span class="font-label-xs text-label-xs font-mono">22:05</span>
-</div>
-<div class="flex items-center justify-between py-2 text-on-surface-variant font-body-sm text-body-sm">
-<span class="flex items-center gap-2 line-through text-outline"><span class="material-symbols-outlined text-[16px]">quiz</span> 3. Module Assessment</span>
-<span class="font-label-xs text-label-xs font-mono">10 Qs</span>
-</div>
-</div>
-</div>
-<!-- Module Accordion 2 (Completed) -->
-<div class="rounded-xl bg-surface-container-low overflow-hidden shadow-sm">
-<div class="p-3.5 flex items-center justify-between cursor-pointer hover:bg-surface-container transition-colors" onclick="toggleModule('mod2-content')">
-<div class="flex items-center gap-2.5">
-<span class="material-symbols-outlined text-secondary text-[20px]">check_circle</span>
-<div>
-<h3 class="font-title-md text-title-md font-semibold text-on-surface">Module 2: Server Rendering</h3>
-<span class="font-label-xs text-label-xs text-on-surface-variant">4/4 Lessons • 2h 10m</span>
-</div>
-</div>
-<span class="material-symbols-outlined text-on-surface-variant text-[20px]">expand_more</span>
-</div>
-<div class="hidden px-space-md pb-space-sm space-y-1 bg-surface-container-lowest/50" id="mod2-content">
-<div class="flex items-center justify-between py-2 text-on-surface-variant font-body-sm text-body-sm line-through text-outline">
-<span class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">play_circle</span> 1. Static vs Dynamic SSR</span>
-<span class="font-label-xs text-label-xs font-mono">31:10</span>
-</div>
-</div>
-</div>
-<!-- Module Accordion 3 (ACTIVE MODULE) -->
-<div class="rounded-xl bg-surface-container overflow-hidden shadow-md">
-<div class="p-3.5 flex items-center justify-between cursor-pointer bg-surface-container-high/80" onclick="toggleModule('mod3-content')">
-<div class="flex items-center gap-2.5">
-<span class="w-5 h-5 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-xs">3</span>
-<div>
-<h3 class="font-title-md text-title-md font-bold text-on-surface">Module 3: App Router Architecture</h3>
-<span class="font-label-xs text-label-xs text-primary font-medium">In Progress • Lesson 4 of 6</span>
-</div>
-</div>
-<span class="material-symbols-outlined text-primary text-[20px]">expand_less</span>
-</div>
-<div class="p-2 space-y-1 bg-surface-container" id="mod3-content">
-<!-- Completed lesson in active module -->
-<a class="flex items-center justify-between p-2.5 rounded-lg hover:bg-surface-container-high transition-colors group" href="#">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">1. Nested Layouts & Templates</span>
-</div>
-<span class="font-label-xs text-label-xs font-mono text-outline">19:45</span>
-</a>
-<!-- Completed lesson in active module -->
-<a class="flex items-center justify-between p-2.5 rounded-lg hover:bg-surface-container-high transition-colors group" href="#">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">2. Parallel & Intercepting Routes</span>
-</div>
-<span class="font-label-xs text-label-xs font-mono text-outline">28:12</span>
-</a>
-<!-- Completed lesson in active module -->
-<a class="flex items-center justify-between p-2.5 rounded-lg hover:bg-surface-container-high transition-colors group" href="#">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
-<span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-surface">3. Streaming with Suspense Boundaries</span>
-</div>
-<span class="font-label-xs text-label-xs font-mono text-outline">22:04</span>
-</a>
-<!-- CURRENT ACTIVE LESSON -->
-<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-highest shadow-sm">
-<div class="flex items-center gap-3 min-w-0">
-<span class="material-symbols-outlined text-primary text-[20px] animate-pulse">play_circle</span>
-<div class="truncate">
-<span class="font-body-sm text-body-sm font-bold text-primary block truncate">4. Server vs Client Components</span>
-<span class="font-label-xs text-label-xs text-on-surface-variant">Playing now • 14:32</span>
-</div>
-</div>
-<span class="px-1.5 py-0.5 rounded bg-primary/20 text-primary font-label-xs text-label-xs font-semibold uppercase">Current</span>
-</div>
-<!-- Locked lesson -->
-<div class="flex items-center justify-between p-2.5 rounded-lg text-outline select-none">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-[18px]">lock</span>
-<span class="font-body-sm text-body-sm">5. Cache-Control & Data Cache ISR</span>
-</div>
-<span class="font-label-xs text-label-xs font-mono">34:10</span>
-</div>
-<!-- Locked Quiz -->
-<div class="flex items-center justify-between p-2.5 rounded-lg text-outline select-none">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-[18px]">lock</span>
-<span class="font-body-sm text-body-sm">6. Module 3 Architecture Exam</span>
-</div>
-<span class="font-label-xs text-label-xs font-mono">15 Qs</span>
-</div>
-</div>
-</div>
 <!-- Instructor Bio Snippet Card in Sidebar -->
 <div class="p-space-md rounded-xl bg-surface-container-low shadow-sm mt-auto space-y-2">
 <div class="flex items-center gap-3">

@@ -10,6 +10,8 @@ import { AiGeneratorService } from './aiGenerator.service';
 import { SSRFProtection } from './ssrf.service';
 import { AdaptiveLearningService } from './adaptiveLearning.service';
 import { CourseQualityService } from './courseQuality.service';
+import { VideoPipelineService } from './videoPipeline.service';
+import { v4 as uuidv4 } from 'uuid';
 import { logger } from '../utils/logger';
 
 export class ForbiddenError extends Error {
@@ -1196,24 +1198,32 @@ export class LearningProjectService {
     if (!videoAsset && (options.packType === 'full_video' || options.packType === 'complete') && lesson1) {
       const storyboard = await AiGeneratorService.generateVideoScript(
         lesson1.title,
-        lesson1.content ? lesson1.content.slice(0, 1500) : (lesson1.description || '')
+        lesson1.content ? lesson1.content.slice(0, 1500) : (lesson1.description || ''),
+        'technical_whiteboard'
       );
 
-      const transcript = storyboard.scenes.map((s, idx) => ({
-        start: idx * 25,
-        end: (idx + 1) * 25,
-        text: s.narration,
-      }));
+      const videoAssetId = uuidv4();
+      const rendered = await VideoPipelineService.renderStoryboardToMp4(storyboard, videoAssetId);
 
       videoAsset = await VideoAsset.create({
+        id: videoAssetId,
         courseId,
         lessonId: lesson1.id,
         title: `Video Lecture: Masterclass in ${lesson1.title}`,
-        videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-        durationSeconds: storyboard.scenes.length * 25,
+        videoUrl: rendered.videoUrl,
+        thumbnailUrl: rendered.thumbnailUrl,
+        captionsVttUrl: rendered.captionsVttUrl,
+        durationSeconds: rendered.durationSeconds,
         status: 'ready',
-        transcript,
+        transcript: rendered.transcript,
+        captionsVtt: rendered.captionsVtt,
+        storyboard: storyboard.scenes,
       });
+
+      // Directly associate video with lesson for student LMS player
+      lesson1.videoUrl = rendered.videoUrl;
+      lesson1.type = LessonType.VIDEO;
+      await lesson1.save();
 
       // Add Video Chapters from storyboard scenes
       const chapterData = storyboard.scenes.map((s, idx) => ({
@@ -2133,14 +2143,34 @@ ${pack.questions.map((q: any, idx: number) => `**Q${idx + 1}. [${q.difficulty?.t
     const video = await VideoAsset.findOne({ where: { id: videoAssetId, courseId: project.courseId } });
     if (!video) throw new Error('Video asset not found');
 
+    const lesson = video.lessonId ? await Lesson.findByPk(video.lessonId) : null;
+    const lessonTitle = lesson?.title || project.title;
+    const lessonContent = lesson?.content || lesson?.description || project.title;
+
+    const storyboard = await AiGeneratorService.generateVideoScript(
+      lessonTitle,
+      lessonContent.slice(0, 1500),
+      'technical_whiteboard'
+    );
+
+    const rendered = await VideoPipelineService.renderStoryboardToMp4(storyboard, videoAssetId);
+
     video.status = 'ready';
-    video.title = `Regenerated Masterclass: ${project.title}`;
-    video.transcript = [
-      { start: 0, end: 20, text: `Welcome to the upgraded masterclass lecture for ${project.title}.` },
-      { start: 20, end: 55, text: `In this revised session, we analyze state machine invariants, monotonic log indices, and quorum commit boundaries.` },
-      { start: 55, end: 120, text: `Notice how heartbeat synchronization prevents spurious election cycles across the cluster.` },
-    ];
+    video.title = `Masterclass: ${lessonTitle}`;
+    video.videoUrl = rendered.videoUrl;
+    video.thumbnailUrl = rendered.thumbnailUrl;
+    video.captionsVttUrl = rendered.captionsVttUrl;
+    video.durationSeconds = rendered.durationSeconds;
+    video.transcript = rendered.transcript;
+    video.captionsVtt = rendered.captionsVtt;
+    video.storyboard = storyboard.scenes;
     await video.save();
+
+    if (lesson) {
+      lesson.videoUrl = rendered.videoUrl;
+      lesson.type = LessonType.VIDEO;
+      await lesson.save();
+    }
 
     return video;
   }

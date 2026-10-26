@@ -38,6 +38,9 @@ export const connectDB = async (): Promise<void> => {
   try {
     await sequelize.authenticate();
     logger.info('✅ PostgreSQL connected successfully');
+    await sequelize.query('ALTER TABLE video_assets ADD COLUMN IF NOT EXISTS captions_vtt_url VARCHAR(255);').catch(err => {
+      logger.warn('Could not add captions_vtt_url column:', err.message);
+    });
     await sequelize.sync({ alter: false }); // Never auto-alter - manage schema via migrations/scripts
     logger.info('✅ Database models synchronized');
   } catch (error) {

@@ -25,7 +25,7 @@ export class LmsPublishService {
       throw new Error('AI Content Job does not contain complete generated curriculum data.');
     }
 
-    const { analysis, modules, studyNotes, flashcards, questions, videoAsset } = data;
+    const { analysis, modules, studyNotes, flashcards, questions, practicePaper, videoAsset } = data;
     const courseTitle = analysis.topic || job.source?.title || 'Advanced Systems Architecture';
     
     // Generate unique slug (checking both active and soft-deleted courses)
@@ -94,7 +94,8 @@ export class LmsPublishService {
       const lessonsList = mod.lessons || [];
       for (let lIdx = 0; lIdx < lessonsList.length; lIdx++) {
         const les = lessonsList[lIdx];
-        const hasVideo = isFirstLesson && videoAsset?.videoUrl;
+        const resolvedVideoUrl = les.videoUrl || videoAsset?.videoUrl;
+        const hasVideo = Boolean(resolvedVideoUrl);
 
         const lesson = await Lesson.create({
           id: uuidv4(),
@@ -104,7 +105,7 @@ export class LmsPublishService {
           description: les.description || '',
           type: hasVideo ? LessonType.VIDEO : LessonType.ARTICLE,
           content: les.explanation || '',
-          videoUrl: hasVideo ? videoAsset.videoUrl : undefined,
+          videoUrl: hasVideo ? resolvedVideoUrl : undefined,
           durationMinutes: les.durationMinutes || 15,
           orderIndex: lIdx,
           isFree: mIdx === 0 && lIdx === 0, // First lesson free preview
@@ -124,20 +125,21 @@ export class LmsPublishService {
         });
 
         // Link video asset record to lesson
-        if (hasVideo) {
-          await VideoAsset.upsert({
-            id: videoAsset.id || uuidv4(),
+        if (hasVideo && resolvedVideoUrl) {
+          await VideoAsset.create({
+            id: uuidv4(),
             lessonId: lesson.id,
             courseId: course.id,
-            title: les.title,
-            videoUrl: videoAsset.videoUrl,
-            thumbnailUrl: videoAsset.thumbnailUrl,
-            durationSeconds: videoAsset.durationSeconds || 30,
-            videoStyle: videoAsset.videoStyle || 'technical_whiteboard',
-            script: videoAsset.script || '',
-            storyboard: videoAsset.storyboard || [],
-            captionsVtt: videoAsset.captionsVtt || '',
-            transcript: videoAsset.transcript || [],
+            title: les.title || lesson.title,
+            videoUrl: resolvedVideoUrl,
+            thumbnailUrl: videoAsset?.thumbnailUrl,
+            durationSeconds: videoAsset?.durationSeconds || 44,
+            videoStyle: videoAsset?.videoStyle || 'technical_whiteboard',
+            script: videoAsset?.script || '',
+            storyboard: videoAsset?.storyboard || [],
+            captionsVtt: videoAsset?.captionsVtt || '',
+            captionsVttUrl: videoAsset?.captionsVttUrl || (resolvedVideoUrl ? resolvedVideoUrl.replace(/\.mp4$/i, '.vtt') : undefined),
+            transcript: videoAsset?.transcript || [],
             provider: 'scene_renderer',
             status: 'ready',
           });
@@ -200,15 +202,26 @@ export class LmsPublishService {
       }
 
       // Create Practice Paper
+      const paperTitle = practicePaper?.title || `${courseTitle} — Comprehensive Practice Assessment`;
+      const paperInstructions = (practicePaper?.instructions && practicePaper.instructions.length > 0)
+        ? practicePaper.instructions.join('\n')
+        : `This timed examination evaluates your mastery of ${courseTitle}. Answer all questions within the allocated duration.`;
+
       await PracticePaper.create({
         courseId: course.id,
-        title: `${courseTitle} — Comprehensive Practice Assessment`,
-        instructions: `This timed examination evaluates your mastery of ${courseTitle}. Answer all questions within the allocated duration.`,
-        timeLimitMinutes: 30,
-        totalMarks: 100,
-        passingScore: 70,
+        title: paperTitle,
+        instructions: paperInstructions,
+        timeLimitMinutes: practicePaper?.durationMinutes || 60,
+        totalMarks: practicePaper?.totalMarks || 100,
+        passingScore: practicePaper?.passingScore || 70,
         negativeMarkingPercent: 0,
         questionIds: createdQuestionIds,
+        markingScheme: practicePaper ? {
+          sections: practicePaper.sections,
+          instructions: practicePaper.instructions,
+          passingScore: practicePaper.passingScore,
+          evaluationRubric: 'Standardized grading rubric: Section A (MCQs: 30 Marks), Section B (Logic & Code: 35 Marks), Section C (Case Studies: 35 Marks).',
+        } : undefined,
         isPublished: true,
       });
     }

@@ -156,6 +156,7 @@ export class ContentIngestionService {
         scrapedAt: new Date().toISOString(),
         crawledSubPagesCount: subPages.length,
         crawledSubUrls: subPages.map(s => s.url),
+        tocChapters: primaryPage.tocChapters,
       },
     };
   }
@@ -166,6 +167,7 @@ export class ContentIngestionService {
   private static async fetchAndParsePage(validatedUrl: URL): Promise<{
     extracted: ExtractedContent;
     internalLinks: string[];
+    tocChapters?: Array<{ title: string; url: string }>;
   }> {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 20000);
@@ -196,16 +198,21 @@ export class ContentIngestionService {
 
     const $ = cheerio.load(html);
 
-    // Extract potential course internal links before removing nav elements
+    // Extract potential course internal links and chapter TOC items before removing nav elements
     const internalLinks: string[] = [];
-    $('nav a, .toc a, .sidebar a, .table-of-contents a, .menu a, a.next, a.chapter-link').each((_, el) => {
+    const tocChapters: Array<{ title: string; url: string }> = [];
+    $('nav a, .toc a, .sidebar a, .table-of-contents a, .menu a, a.next, a.chapter-link, ul.chapters a, .al-panel a, .articles-layout-row a').each((_, el) => {
       const href = $(el).attr('href');
+      const linkText = $(el).text().trim();
       if (href && !href.startsWith('#') && !href.startsWith('javascript:') && !href.startsWith('mailto:')) {
         try {
           const resolved = new URL(href, validatedUrl.href);
           if (resolved.hostname === validatedUrl.hostname && resolved.href !== validatedUrl.href) {
             if (!internalLinks.includes(resolved.href)) {
               internalLinks.push(resolved.href);
+              if (linkText && linkText.length > 2 && linkText.length < 100) {
+                tocChapters.push({ title: linkText, url: resolved.href });
+              }
             }
           }
         } catch {}
@@ -335,9 +342,11 @@ export class ContentIngestionService {
           domain: validatedUrl.hostname,
           description,
           scrapedAt: new Date().toISOString(),
+          tocChapters,
         },
       },
       internalLinks,
+      tocChapters,
     };
   }
 

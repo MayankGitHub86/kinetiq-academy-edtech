@@ -17,6 +17,7 @@ export const s3Client = new S3Client({
     secretAccessKey: S3_SECRET_KEY,
   },
   forcePathStyle: S3_FORCE_PATH_STYLE === 'true',
+  maxAttempts: 1,
 });
 
 const BUCKETS = [

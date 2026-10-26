@@ -1801,7 +1801,10 @@
       return;
     }
 
-    const streamUrl = video?.videoUrl || video?.playbackUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+    let streamUrl = video?.videoUrl || video?.playbackUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+    if (streamUrl && !streamUrl.startsWith('http')) {
+      streamUrl = `http://localhost:4000${streamUrl}`;
+    }
     const chapters = video?.chapters || [
       { title: '1. Introduction & Context', startTime: 0, concepts: ['Motivation'] },
       { title: '2. Core Invariants & State Transitions', startTime: 60, concepts: ['Safety'] },
@@ -2083,7 +2086,10 @@
       return;
     }
 
-    const streamUrl = video.videoUrl || video.playbackUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+    let streamUrl = video.videoUrl || video.playbackUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+    if (streamUrl && !streamUrl.startsWith('http')) {
+      streamUrl = `http://localhost:4000${streamUrl}`;
+    }
     const storyboard = video.storyboard || [
       { sceneNumber: 1, title: 'Concept Introduction', visual: 'High-contrast blueprint diagrams with animated node topology', narration: 'Welcome to this masterclass. In this lesson, we break down core consensus properties.' },
       { sceneNumber: 2, title: 'State Transitions & Invariants', visual: 'Quorum intersection theorem proof with step-by-step mathematical highlights', narration: 'Every quorum overlaps by at least one server, ensuring monotonic state guarantees.' },

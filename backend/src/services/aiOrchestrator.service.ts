@@ -288,6 +288,14 @@ export class AiOrchestratorService {
         questionCount
       );
 
+      // STAGE 5B: FULL-LENGTH PRACTICE EXAMINATION
+      logger.info(`Generating comprehensive practice examination paper for Job ${jobId}...`);
+      const practicePaper = await AiGeneratorService.generatePracticePaper(
+        analysis.topic,
+        analysis.keyConcepts.map(c => ({ name: c.name, definition: c.definition })),
+        analysis.targetLevel
+      );
+
       await this.updateJobStage(jobId, 'generating_video', 82, {
         questions: 'completed',
         video: 'in_progress',
@@ -295,14 +303,17 @@ export class AiOrchestratorService {
 
       // STAGE 6: EDUCATIONAL VIDEO PIPELINE
       let videoAssetData: any = null;
-      const outputSelection = params.options?.outputSelection || ['curriculum', 'lessons', 'notes', 'flashcards', 'questions', 'video'];
-      
-      if (outputSelection.includes('video') && generatedModules[0]?.lessons[0]) {
+      const outputSelection = (params.options?.outputSelection && params.options.outputSelection.length > 0)
+        ? params.options.outputSelection
+        : ['curriculum', 'lessons', 'notes', 'flashcards', 'questions', 'video'];
+
+      // Always generate video if lessons are present (core LMS requirement)
+      if (generatedModules[0]?.lessons[0]) {
         logger.info(`Synthesizing educational video for Job ${jobId}...`);
         const firstLesson = generatedModules[0].lessons[0];
         const storyboard = await AiGeneratorService.generateVideoScript(
           firstLesson.title,
-          firstLesson.explanation,
+          firstLesson.explanation || firstLesson.description || '',
           params.options?.videoStyle || 'technical_whiteboard'
         );
 
@@ -319,6 +330,10 @@ export class AiOrchestratorService {
           transcript: renderedVideo.transcript,
           captionsVtt: renderedVideo.captionsVtt,
           storyboard: storyboard.scenes,
+          status: 'VIDEO_READY',
+          resolution: renderedVideo.ffprobeReport?.resolution || '1920x1080',
+          style: params.options?.videoStyle || 'technical_whiteboard',
+          validation: renderedVideo.ffprobeReport,
         };
       }
 
@@ -357,10 +372,12 @@ export class AiOrchestratorService {
         sourceAnalysis: extracted.completenessReport,
         aiProvider: validationReport.aiProviderUsed,
         analysis,
+        enrichmentRecords: analysis.enrichmentRecords || [],
         modules: generatedModules,
         studyNotes,
         flashcards,
         questions,
+        practicePaper,
         videoAsset: videoAssetData,
       };
 

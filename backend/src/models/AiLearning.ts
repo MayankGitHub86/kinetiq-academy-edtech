@@ -509,6 +509,9 @@ export class VideoAsset extends Model {
   @Column(DataType.TEXT)
   declare captionsVtt?: string;
 
+  @Column(DataType.STRING)
+  declare captionsVttUrl?: string;
+
   @Column(DataType.JSONB)
   declare transcript?: Array<{
     start: number;

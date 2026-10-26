@@ -33,6 +33,7 @@ export const createApp = (): Application => {
   app.use(helmet({
     crossOriginEmbedderPolicy: false,
     contentSecurityPolicy: false,
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
   }));
 
   // ─── CORS ──────────────────────────────────────────────────
@@ -130,7 +131,14 @@ export const createApp = (): Application => {
   app.use(`${API_PREFIX}/onboarding`, onboardingRoutes);
   app.use(`${API_PREFIX}/payments`, paymentRoutes);
   // Static files for educational media, videos, and thumbnails
-  app.use('/uploads', express.static(path.join(process.cwd(), 'public', 'uploads')));
+  app.use('/uploads', express.static(path.join(process.cwd(), 'public', 'uploads'), {
+    setHeaders: (res) => {
+      res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS');
+      res.setHeader('Accept-Ranges', 'bytes');
+    },
+  }));
 
   app.use(`${API_PREFIX}/quiz`, quizRoutes);
   app.use(`${API_PREFIX}/ai`, aiContentRoutes);

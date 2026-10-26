@@ -621,5 +621,117 @@ router.put('/content-jobs/:id/questions', authenticate, requireInstructor, async
   sendSuccess(res, job, 'Questions bank updated successfully.');
 });
 
+/**
+ * GET /api/v1/ai/content-jobs/:id/validate-video
+ * Run ffprobe validation on the generated video for a job
+ */
+router.get('/content-jobs/:id/validate-video', authenticate, async (req: AuthRequest, res: Response): Promise<void> => {
+  const job = await AiContentJob.findByPk(req.params.id as string);
+  if (!job) {
+    sendError(res, 'Job not found.', 404);
+    return;
+  }
+
+  const videoAsset = job.generatedData?.videoAsset;
+  if (!videoAsset?.videoUrl) {
+    sendError(res, 'No video asset found for this job. Run video generation first.', 404);
+    return;
+  }
+
+  const { VideoPipelineService } = await import('../services/videoPipeline.service');
+  const absolutePath = require('path').join(process.cwd(), 'public', videoAsset.videoUrl);
+  const report = await VideoPipelineService.validateVideo(absolutePath);
+
+  sendSuccess(res, {
+    videoUrl: videoAsset.videoUrl,
+    absolutePath,
+    validation: report,
+  }, report.passed ? 'Video validation PASSED.' : 'Video validation detected issues.');
+});
+
+/**
+ * POST /api/v1/ai/content-jobs/:id/regenerate-video
+ * Regenerate only the video component for an existing completed job without re-running the entire pipeline
+ */
+router.post('/content-jobs/:id/regenerate-video', authenticate, async (req: AuthRequest, res: Response): Promise<void> => {
+  const job = await AiContentJob.findByPk(req.params.id as string);
+  if (!job) {
+    sendError(res, 'Job not found.', 404);
+    return;
+  }
+
+  const data = job.generatedData;
+  if (!data?.modules?.[0]?.lessons?.[0]) {
+    sendError(res, 'No lesson content available to generate video from.', 400);
+    return;
+  }
+
+  // Kick off async video regeneration
+  const { AiGeneratorService } = await import('../services/aiGenerator.service');
+  const { VideoPipelineService } = await import('../services/videoPipeline.service');
+  const { v4: uuidv4 } = await import('uuid');
+
+  const firstLesson = data.modules[0].lessons[0];
+  const videoStyle = req.body.videoStyle || job.options?.videoStyle || 'technical_whiteboard';
+
+  // Update status to in-progress
+  await job.update({ stage: 'generating_video', progress: 80 });
+  if ((global as any).io) {
+    (global as any).io.to(`job:${job.id}`).emit('job:progress', { jobId: job.id, stage: 'generating_video', progress: 80 });
+  }
+
+  setImmediate(async () => {
+    try {
+      const storyboard = await AiGeneratorService.generateVideoScript(
+        firstLesson.title,
+        firstLesson.explanation || firstLesson.description || '',
+        videoStyle
+      );
+
+      const videoAssetId = uuidv4();
+      const rendered = await VideoPipelineService.renderStoryboardToMp4(storyboard, videoAssetId);
+
+      const videoAssetData = {
+        id: videoAssetId,
+        title: firstLesson.title,
+        videoUrl: rendered.videoUrl,
+        thumbnailUrl: rendered.thumbnailUrl,
+        captionsVttUrl: rendered.captionsVttUrl,
+        durationSeconds: rendered.durationSeconds,
+        transcript: rendered.transcript,
+        captionsVtt: rendered.captionsVtt,
+        storyboard: storyboard.scenes,
+        validation: rendered.ffprobeReport,
+      };
+
+      const newGeneratedData = { ...data, videoAsset: videoAssetData };
+      await job.update({
+        generatedData: newGeneratedData,
+        stage: 'completed',
+        progress: 100,
+        stageDetails: { ...(job.stageDetails || {}), video: 'completed' },
+      });
+
+      if ((global as any).io) {
+        (global as any).io.to(`job:${job.id}`).emit('job:video-ready', {
+          jobId: job.id,
+          videoUrl: rendered.videoUrl,
+          durationSeconds: rendered.durationSeconds,
+          validation: rendered.ffprobeReport,
+        });
+      }
+      logger.info(`✅ Video regenerated for job ${job.id}: ${rendered.videoUrl}`);
+    } catch (err: any) {
+      logger.error(`Video regeneration failed for job ${req.params.id}:`, err);
+      await job.update({ stage: 'failed', errorMessage: `Video regeneration failed: ${err.message}` });
+      if ((global as any).io) {
+        (global as any).io.to(`job:${job.id}`).emit('job:failed', { jobId: job.id, error: err.message });
+      }
+    }
+  });
+
+  sendSuccess(res, { jobId: job.id, status: 'regenerating' }, 'Video regeneration started. Monitor job progress via WebSocket or job polling.');
+});
+
 export default router;
 
